@@ -15,26 +15,26 @@ export default function Contact() {
       label: "이메일",
       value: "ybg6152@naver.com",
       href: "mailto:ybg6152@naver.com",
-      color: "from-blue-500 to-blue-600"
+      color: "from-red-600 to-red-500"
     },
     {
       icon: MapPin,
       label: "위치",
       value: "서울 서대문구",
       href: null,
-      color: "from-green-500 to-green-600"
+      color: "from-red-500 to-red-600"
     },
     {
       icon: Github,
       label: "GitHub",
       value: "github.com/WhyBusyy",
       href: "https://github.com/WhyBusyy",
-      color: "from-purple-500 to-purple-600"
+      color: "from-red-600 to-red-500"
     }
   ]
 
   return (
-    <section ref={ref} id="contact" className="py-20 section-padding bg-slate-50 dark:bg-slate-800">
+    <section ref={ref} id="contact" className="py-20 section-padding bg-white dark:bg-dark-bg">
       <div className="container-max-width">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -64,7 +64,7 @@ export default function Contact() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.8, delay: 0.4 + (index * 0.2) }}
-                className="bg-white dark:bg-slate-900 rounded-2xl p-6 card-hover"
+                className="bg-white dark:bg-shadow-grey/80 rounded-2xl p-6 border border-slate-200 dark:border-transparent card-hover"
               >
                 <div className={`w-12 h-12 mx-auto mb-4 rounded-xl bg-gradient-to-r ${contact.color} flex items-center justify-center`}>
                   <contact.icon className="w-6 h-6 text-white" />
@@ -79,7 +79,7 @@ export default function Contact() {
                     href={contact.href}
                     target={contact.href.startsWith('http') ? '_blank' : undefined}
                     rel={contact.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    className="text-slate-600 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-500 transition-colors"
                   >
                     {contact.value}
                   </a>
@@ -99,7 +99,7 @@ export default function Contact() {
             className="border-t border-slate-200 dark:border-slate-700 pt-8"
           >
             <div className="flex items-center justify-center gap-2 text-slate-500 dark:text-slate-400">
-              <Heart className="w-4 h-4 text-red-500" />
+              <Heart className="w-4 h-4 text-red-600 dark:text-red-500" />
               <span>Copyright. WhyBusyy all rights reserved.</span>
             </div>
           </motion.div>

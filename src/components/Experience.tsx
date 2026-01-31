@@ -14,30 +14,30 @@ export default function Experience() {
       icon: Trophy,
       title: "스포츠 애호가",
       description: "축구, 헬스를 비롯한 다양한 스포츠를 좋아합니다.",
-      color: "from-green-500 to-green-600"
+      color: "from-red-600 to-red-500"
     },
     {
       icon: ShoppingCart,
       title: "개인 쇼핑몰 운영",
       description: "개인 쇼핑몰 운영을 통해 월매출 1,000만원 이상 달성한 경험이 있습니다.",
-      color: "from-blue-500 to-blue-600"
+      color: "from-red-600 to-red-500"
     },
     {
       icon: Users,
       title: "SNS 마케팅",
       description: "SNS 계정 팔로워 10,000명 이상 달성한 경험이 있습니다.",
-      color: "from-purple-500 to-purple-600"
+      color: "from-red-600 to-red-500"
     },
     {
       icon: Heart,
       title: "다양한 업계 경험",
       description: "제약, 금융 회사 근무 경험이 있습니다.",
-      color: "from-pink-500 to-pink-600"
+      color: "from-red-500 to-red-600"
     }
   ]
 
   return (
-    <section ref={ref} id="experience" className="py-20 section-padding bg-slate-50 dark:bg-slate-800">
+    <section ref={ref} id="experience" className="py-20 section-padding bg-white dark:bg-dark-bg">
       <div className="container-max-width">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -53,7 +53,7 @@ export default function Experience() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
-                className="bg-white dark:bg-slate-900 rounded-2xl p-6 card-hover text-center"
+                className="bg-white dark:bg-shadow-grey/80 rounded-2xl p-6 border border-slate-200 dark:border-transparent card-hover text-center"
               >
                 <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-r ${experience.color} flex items-center justify-center`}>
                   <experience.icon className="w-8 h-8 text-white" />

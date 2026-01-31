@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
-import Profile from "@/components/Profile";
+import Work from "@/components/Work";
 import Skills from "@/components/Skills";
 import Experience from "@/components/Experience";
 import HowIWork from "@/components/HowIWork";
@@ -34,10 +34,10 @@ export default function Home() {
   return (
     <>
       <Navigation />
-      <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+      <main className="min-h-screen bg-white dark:bg-dark-bg">
         <Hero />
         <About />
-        <Profile />
+        <Work />
         <Skills />
         <Experience />
         <HowIWork />

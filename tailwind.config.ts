@@ -9,9 +9,18 @@ const config: Config = {
   darkMode: 'class',
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto', 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'sans-serif'],
+      },
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
+        'shadow-grey': '#211A1D',
+        'electric-indigo': '#6320EE',
+        'medium-slate-blue': '#8075FF',
+        'lavender-mist': '#F8F0FB',
+        'ash-grey': '#CAD5CA',
+        'dark-bg': '#121212',
       },
       animation: {
         'fade-in': 'fadeIn 0.8s ease-in-out',

@@ -1,7 +1,6 @@
-'use client'
+"use client";
 
-import { motion } from 'framer-motion'
-import { MapPin, Mail, Github } from 'lucide-react'
+import { motion } from "framer-motion";
 
 export default function Hero() {
   return (
@@ -13,22 +12,6 @@ export default function Hero() {
           transition={{ duration: 0.8 }}
           className="space-y-8"
         >
-          {/* 프로필 이미지 */}
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative mx-auto w-32 h-32 sm:w-40 sm:h-40"
-          >
-            <div className="w-full h-full rounded-full bg-gradient-to-r from-blue-500 to-purple-600 p-1">
-              <div className="w-full h-full rounded-full bg-white dark:bg-slate-800 flex items-center justify-center">
-                <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 flex items-center justify-center">
-                  <span className="text-2xl sm:text-3xl font-bold gradient-text">YBG</span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
           {/* 메인 타이틀 */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -40,57 +23,48 @@ export default function Hero() {
               <span className="gradient-text">WhyBusyy</span>
             </h1>
             <p className="text-xl sm:text-2xl text-slate-600 dark:text-slate-400">
-              프론트엔드 개발자
+              웹 개발자 / 프론트엔드 개발자
             </p>
           </motion.div>
 
-          {/* 연락처 정보 */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-wrap justify-center gap-6 text-slate-600 dark:text-slate-400"
-          >
-            <div className="flex items-center gap-2">
-              <MapPin className="w-5 h-5" />
-              <span>서울 서대문구</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Mail className="w-5 h-5" />
-              <a 
-                href="mailto:ybg6152@naver.com" 
-                className="hover:text-blue-600 transition-colors"
-              >
-                ybg6152@naver.com
-              </a>
-            </div>
-            <div className="flex items-center gap-2">
-              <Github className="w-5 h-5" />
-              <a 
-                href="https://github.com/WhyBusyy" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="hover:text-blue-600 transition-colors"
-              >
-                github.com/WhyBusyy
-              </a>
-            </div>
-          </motion.div>
 
-          {/* 소개 문구 */}
+          {/* 자기소개 멘트 */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="max-w-3xl mx-auto"
+            className="max-w-4xl mx-auto"
           >
-            <p className="text-lg sm:text-xl text-slate-700 dark:text-slate-300 leading-relaxed text-balance">
-              Next.js, TypeScript, React 기반으로 웹 서비스를 개발해 온 프론트엔드 개발자입니다.
-              <br />
-              사용자 경험 중심의 UI 설계와 성능 최적화에 강점을 가지고 있으며,
-              <br />
-              필요에 따라 Nest.js와 Express.js를 활용한 백엔드 개발에도 참여한 경험이 있습니다.
-            </p>
+            <div className="space-y-6 text-lg sm:text-xl text-slate-700 dark:text-slate-300 leading-relaxed">
+              <p className="text-balance">
+                <span className="font-semibold gradient-text">
+                  Next.js·TypeScript·React 기반
+                </span>
+                의 웹 서비스를 개발해 온 프론트엔드 개발자입니다.
+              </p>
+
+              <p className="text-balance">
+                <span className="font-semibold gradient-text">
+                  Node.js 백엔드 개발 경험
+                </span>
+                을 바탕으로 프론트엔드와 서버 간의 구조를 이해하며, API
+                설계부터 UI 구현까지 유기적인 개발을 수행해 왔습니다.
+              </p>
+
+              <p className="text-balance">
+                직무를 가리지 않는{" "}
+                <span className="font-semibold gradient-text">
+                  원활한 커뮤니케이션
+                </span>
+                을 통해 협업 시 시너지를 창출합니다.
+              </p>
+              <p className="text-balance">
+                <span className="font-semibold gradient-text">
+                  사용자 경험 중심의 UI 설계와 성능 최적화
+                </span>
+                에 강점을 보유하고 있습니다.
+              </p>
+            </div>
           </motion.div>
 
           {/* 스크롤 인디케이터 */}
@@ -115,5 +89,5 @@ export default function Hero() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }
