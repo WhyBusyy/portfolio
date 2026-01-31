@@ -77,7 +77,7 @@ export default function Skills() {
   ]
 
   return (
-    <section ref={ref} id="skills" className="py-20 section-padding bg-white dark:bg-dark-bg">
+    <section ref={ref} id="skills" className="py-20 section-padding">
       <div className="container-max-width">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -93,7 +93,7 @@ export default function Skills() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.8, delay: categoryIndex * 0.1 }}
-                className="bg-white dark:bg-shadow-grey/80 rounded-xl p-6 border border-slate-200 dark:border-transparent card-hover"
+                className="bg-white/50 dark:bg-shadow-grey/30 backdrop-blur-sm rounded-xl p-6 border border-slate-200 dark:border-transparent card-hover"
               >
                 <div className="flex items-center gap-3 mb-4">
                   <div className={`p-2 rounded-lg bg-gradient-to-r ${category.color}`}>

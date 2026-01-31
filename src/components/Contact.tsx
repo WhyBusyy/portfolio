@@ -34,7 +34,7 @@ export default function Contact() {
   ]
 
   return (
-    <section ref={ref} id="contact" className="py-20 section-padding bg-white dark:bg-dark-bg">
+    <section ref={ref} id="contact" className="py-20 section-padding">
       <div className="container-max-width">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -64,7 +64,7 @@ export default function Contact() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.8, delay: 0.4 + (index * 0.2) }}
-                className="bg-white dark:bg-shadow-grey/80 rounded-2xl p-6 border border-slate-200 dark:border-transparent card-hover"
+                className="bg-white/50 dark:bg-shadow-grey/30 backdrop-blur-sm rounded-2xl p-6 border border-slate-200 dark:border-transparent card-hover"
               >
                 <div className={`w-12 h-12 mx-auto mb-4 rounded-xl bg-gradient-to-r ${contact.color} flex items-center justify-center`}>
                   <contact.icon className="w-6 h-6 text-white" />

@@ -37,7 +37,7 @@ export default function Experience() {
   ]
 
   return (
-    <section ref={ref} id="experience" className="py-20 section-padding bg-white dark:bg-dark-bg">
+    <section ref={ref} id="experience" className="py-20 section-padding">
       <div className="container-max-width">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -53,7 +53,7 @@ export default function Experience() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
-                className="bg-white dark:bg-shadow-grey/80 rounded-2xl p-6 border border-slate-200 dark:border-transparent card-hover text-center"
+                className="bg-white/50 dark:bg-shadow-grey/30 backdrop-blur-sm rounded-2xl p-6 border border-slate-200 dark:border-transparent card-hover text-center"
               >
                 <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-r ${experience.color} flex items-center justify-center`}>
                   <experience.icon className="w-8 h-8 text-white" />

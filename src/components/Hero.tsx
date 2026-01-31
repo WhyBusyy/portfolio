@@ -1,11 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
+import BackgroundLogos from "./BackgroundLogos";
 
 export default function Hero() {
   return (
-    <section className="min-h-screen flex items-center justify-center section-padding">
-      <div className="container-max-width text-center">
+    <section
+      id="hero"
+      className="min-h-screen flex items-center justify-center section-padding relative overflow-hidden"
+    >
+      <BackgroundLogos />
+      <div className="container-max-width text-center relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -27,7 +32,6 @@ export default function Hero() {
             </p>
           </motion.div>
 
-
           {/* 자기소개 멘트 */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -47,8 +51,8 @@ export default function Hero() {
                 <span className="font-semibold gradient-text">
                   Node.js 백엔드 개발 경험
                 </span>
-                을 바탕으로 프론트엔드와 서버 간의 구조를 이해하며, API
-                설계부터 UI 구현까지 유기적인 개발을 수행해 왔습니다.
+                을 바탕으로 프론트엔드와 서버 간의 구조를 이해하며, API 설계부터
+                UI 구현까지 유기적인 개발을 수행해 왔습니다.
               </p>
 
               <p className="text-balance">
@@ -66,28 +70,28 @@ export default function Hero() {
               </p>
             </div>
           </motion.div>
-
-          {/* 스크롤 인디케이터 */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          >
-            <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="w-6 h-10 border-2 border-slate-400 dark:border-slate-500 rounded-full flex justify-center"
-            >
-              <motion.div
-                animate={{ y: [0, 12, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="w-1 h-3 bg-slate-400 dark:bg-slate-500 rounded-full mt-2"
-              />
-            </motion.div>
-          </motion.div>
         </motion.div>
       </div>
+
+      {/* 스크롤 인디케이터 */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 1.2 }}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
+      >
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="w-6 h-10 border-2 border-slate-400 dark:border-slate-500 rounded-full flex justify-center"
+        >
+          <motion.div
+            animate={{ y: [0, 12, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="w-1 h-3 bg-slate-400 dark:bg-slate-500 rounded-full mt-2"
+          />
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

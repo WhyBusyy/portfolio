@@ -45,11 +45,23 @@ export default function Navigation() {
   ];
 
   const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    // 모바일 메뉴를 먼저 닫기
     setIsOpen(false);
+    
+    // 모바일 메뉴 애니메이션이 완료된 후 스크롤
+    setTimeout(() => {
+      const element = document.querySelector(href);
+      if (element) {
+        const navHeight = 64; // 네비게이션 바 높이 (h-16 = 4rem = 64px)
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - navHeight;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
+    }, 100);
   };
 
   return (
@@ -57,14 +69,15 @@ export default function Navigation() {
       <div className="container-max-width section-padding">
         <div className="flex items-center justify-between h-16">
           {/* 로고 */}
-          <motion.div
+          <motion.button
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="font-bold text-xl gradient-text"
+            className="font-bold text-xl gradient-text cursor-pointer hover:opacity-80 transition-opacity"
+            onClick={() => scrollToSection("#hero")}
           >
             WhyBusyy's Portfolio
-          </motion.div>
+          </motion.button>
 
           {/* 데스크톱 네비게이션 */}
           <div className="hidden md:flex items-center gap-8">
@@ -75,7 +88,7 @@ export default function Navigation() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 onClick={() => scrollToSection(item.href)}
-                className="text-slate-600 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-500 transition-colors font-medium"
+                className="text-slate-600 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-500 transition-colors font-medium cursor-pointer"
               >
                 {item.name}
               </motion.button>
@@ -87,7 +100,7 @@ export default function Navigation() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.6 }}
               onClick={toggleDarkMode}
-              className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+              className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer"
             >
               {isDark ? (
                 <Sun className="w-5 h-5 text-red-600 dark:text-red-500" />
@@ -104,7 +117,7 @@ export default function Navigation() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.4 }}
               onClick={toggleDarkMode}
-              className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+              className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer"
             >
               {isDark ? (
                 <Sun className="w-5 h-5 text-red-600 dark:text-red-500" />
@@ -118,7 +131,7 @@ export default function Navigation() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.5 }}
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+              className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer"
             >
               {isOpen ? (
                 <X className="w-5 h-5 text-slate-600 dark:text-slate-400" />
@@ -148,7 +161,7 @@ export default function Navigation() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
                   onClick={() => scrollToSection(item.href)}
-                  className="block w-full text-left py-3 px-4 text-slate-600 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-500 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors"
+                  className="block w-full text-left py-3 px-4 text-slate-600 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-500 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors cursor-pointer"
                 >
                   {item.name}
                 </motion.button>
