@@ -34,7 +34,7 @@ const sideProjects: SideProject[] = [
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
     github: "https://github.com/WhyBusyy/portfolio",
     demo: null,
-    screenshot: null,
+    screenshot: "/portfolio.png",
     category: "Frontend",
     icon: Globe,
     gradient:
@@ -126,7 +126,7 @@ export default function SideProjects() {
                   </div>
 
                   {/* Card body */}
-                  <div className="p-6">
+                  <div className="p-6 border-t border-slate-100 dark:border-white/[0.04]">
                     <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-2">
                       {project.title}
                     </h3>

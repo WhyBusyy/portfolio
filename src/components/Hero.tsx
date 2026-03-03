@@ -41,7 +41,7 @@ export default function Hero() {
             className="max-w-2xl mx-auto space-y-4"
           >
             <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 leading-relaxed text-balance">
-              Next.js, TypeScript, React 기반의 웹 서비스를 개발하는
+              Next.js, TypeScript, React, Node.js 기반의 웹 서비스를 개발하는
               <br className="hidden sm:block" />
               프론트엔드 개발자입니다.
             </p>
