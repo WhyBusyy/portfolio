@@ -15,17 +15,13 @@ const config: Config = {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
-        'shadow-grey': '#211A1D',
-        'electric-indigo': '#6320EE',
-        'medium-slate-blue': '#8075FF',
-        'lavender-mist': '#F8F0FB',
-        'ash-grey': '#CAD5CA',
-        'dark-bg': '#121212',
+        'dark-bg': '#0a0a0a',
+        'dark-card': '#141414',
+        'dark-border': '#1f1f1f',
       },
       animation: {
-        'fade-in': 'fadeIn 0.8s ease-in-out',
+        'fade-in': 'fadeIn 0.8s ease-out',
         'slide-up': 'slideUp 0.8s ease-out',
-        'bounce-slow': 'bounce 2s infinite',
       },
       keyframes: {
         fadeIn: {
@@ -33,7 +29,7 @@ const config: Config = {
           '100%': { opacity: '1' },
         },
         slideUp: {
-          '0%': { transform: 'translateY(20px)', opacity: '0' },
+          '0%': { transform: 'translateY(30px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
       },

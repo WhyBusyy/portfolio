@@ -52,20 +52,19 @@ export default function Work() {
   ];
 
   return (
-    <section
-      ref={ref}
-      id="work"
-      className="py-20 section-padding"
-    >
+    <section ref={ref} id="work" className="py-32 lg:py-40 section-padding">
       <div className="container-max-width">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
         >
           <h2 className="section-title">Work</h2>
+          <p className="section-subtitle">
+            실무에서 수행한 프로젝트와 기여 내용입니다.
+          </p>
 
-          <div className="max-w-5xl mx-auto space-y-12">
+          <div className="max-w-4xl mx-auto space-y-16">
             {careerData.map((career, index) => (
               <motion.div
                 key={index}
@@ -73,14 +72,12 @@ export default function Work() {
                 animate={
                   isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
                 }
-                transition={{ duration: 0.8, delay: 0.3 + index * 0.1 }}
-                className="bg-white/50 dark:bg-shadow-grey/30 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-transparent space-y-6 card-hover"
+                transition={{ duration: 0.8, delay: 0.2 }}
               >
-                {/* 회사 정보 */}
-                <div className="flex flex-col md:flex-row gap-6 items-start">
-                  {/* 로고 영역 (원형) */}
+                {/* Company Header */}
+                <div className="flex flex-col sm:flex-row gap-6 items-start mb-10">
                   <div className="flex-shrink-0">
-                    <div className="w-20 h-20 rounded-full bg-white dark:bg-white border-2 border-slate-200 dark:border-slate-700 flex items-center justify-center p-3">
+                    <div className="w-16 h-16 rounded-2xl bg-white dark:bg-white border border-slate-200 dark:border-white/10 flex items-center justify-center p-2.5">
                       {career.logo ? (
                         <img
                           src={career.logo}
@@ -88,34 +85,32 @@ export default function Work() {
                           className="w-full h-full object-contain"
                         />
                       ) : (
-                        <span className="text-2xl font-bold text-slate-600 dark:text-slate-400">
+                        <span className="text-xl font-bold text-slate-600">
                           {career.company.charAt(0)}
                         </span>
                       )}
                     </div>
                   </div>
 
-                  {/* 회사 정보 */}
                   <div className="flex-1 space-y-3">
                     <div>
-                      <h3 className="text-2xl sm:text-3xl font-bold text-slate-800 dark:text-slate-200">
+                      <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
                         {career.company}
                       </h3>
-                      <p className="text-lg text-slate-600 dark:text-slate-400 mt-1">
+                      <p className="text-sm text-slate-400 dark:text-slate-500 mt-1">
                         {career.period}
                       </p>
                     </div>
 
-                    <p className="text-slate-600 dark:text-slate-400 italic">
-                      "{career.motto}"
+                    <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                      {career.motto}
                     </p>
 
-                    {/* 역할 태그 */}
                     <div className="flex flex-wrap gap-2">
                       {career.roles.map((role, idx) => (
                         <span
                           key={idx}
-                          className="px-4 py-1.5 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-md text-sm font-medium"
+                          className="px-3 py-1 bg-slate-100 dark:bg-white/[0.06] text-slate-600 dark:text-slate-400 rounded-full text-xs font-medium"
                         >
                           {role}
                         </span>
@@ -124,33 +119,40 @@ export default function Work() {
                   </div>
                 </div>
 
-                {/* 프로젝트 목록 */}
-                <div className="space-y-4 md:ml-28 ml-0">
+                {/* Projects */}
+                <div className="space-y-0">
                   {career.projects.map((project, idx) => (
                     <motion.div
                       key={idx}
-                      initial={{ opacity: 0, x: -20 }}
+                      initial={{ opacity: 0, y: 15 }}
                       animate={
-                        isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
+                        isInView
+                          ? { opacity: 1, y: 0 }
+                          : { opacity: 0, y: 15 }
                       }
                       transition={{
                         duration: 0.6,
-                        delay: 0.4 + index * 0.1 + idx * 0.1,
+                        delay: 0.3 + idx * 0.1,
                       }}
-                      className="flex gap-4"
+                      className="flex gap-6 group"
                     >
-                      {/* 세로 바 */}
-                      <div className="flex-shrink-0 w-1 bg-slate-800 dark:bg-slate-200 rounded-full"></div>
+                      {/* Timeline */}
+                      <div className="flex flex-col items-center flex-shrink-0">
+                        <div className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400 mt-2" />
+                        {idx < career.projects.length - 1 && (
+                          <div className="w-px flex-1 bg-slate-200 dark:bg-white/[0.06]" />
+                        )}
+                      </div>
 
-                      {/* 프로젝트 정보 */}
-                      <div className="flex-1 space-y-1">
-                        <h4 className="text-lg font-bold text-slate-800 dark:text-slate-200">
-                          {project.title}
-                        </h4>
-                        <p className="text-sm text-slate-500 dark:text-slate-400">
+                      {/* Content */}
+                      <div className="flex-1 pb-10">
+                        <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">
                           {project.period}
                         </p>
-                        <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                        <h4 className="text-base font-semibold text-slate-900 dark:text-white mb-2">
+                          {project.title}
+                        </h4>
+                        <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
                           {project.description}
                         </p>
                       </div>

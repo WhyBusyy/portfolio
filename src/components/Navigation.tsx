@@ -6,10 +6,10 @@ import { Menu, X, Sun, Moon } from "lucide-react";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isDark, setIsDark] = useState(true); // 다크모드를 기본값으로
+  const [isDark, setIsDark] = useState(true);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    // 다크 모드 상태 초기화 (로컬스토리지에 저장된 값이 없으면 기본값 true)
     const savedDarkMode = localStorage.getItem("darkMode");
     const darkMode = savedDarkMode !== null ? savedDarkMode === "true" : true;
     setTimeout(() => {
@@ -21,6 +21,12 @@ export default function Navigation() {
     } else {
       document.documentElement.classList.remove("dark");
     }
+
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const toggleDarkMode = () => {
@@ -45,15 +51,14 @@ export default function Navigation() {
   ];
 
   const scrollToSection = (href: string) => {
-    // 모바일 메뉴를 먼저 닫기
     setIsOpen(false);
-    
-    // 모바일 메뉴 애니메이션이 완료된 후 스크롤
+
     setTimeout(() => {
       const element = document.querySelector(href);
       if (element) {
-        const navHeight = 64; // 네비게이션 바 높이 (h-16 = 4rem = 64px)
-        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+        const navHeight = 48;
+        const elementPosition =
+          element.getBoundingClientRect().top + window.pageYOffset;
         const offsetPosition = elementPosition - navHeight;
 
         window.scrollTo({
@@ -65,103 +70,111 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-dark-bg/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-700">
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-white/90 dark:bg-dark-bg/90 backdrop-blur-xl shadow-sm dark:shadow-none"
+          : "bg-transparent"
+      }`}
+    >
       <div className="container-max-width section-padding">
-        <div className="flex items-center justify-between h-16">
-          {/* 로고 */}
+        <div className="flex items-center justify-between h-12">
           <motion.button
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
-            className="font-bold text-xl gradient-text cursor-pointer hover:opacity-80 transition-opacity"
+            className="flex items-center gap-2 cursor-pointer hover:opacity-60 transition-opacity"
             onClick={() => scrollToSection("#hero")}
           >
-            WhyBusyy's Portfolio
+            <img
+              src="/logo.png"
+              alt="WhyBusyy"
+              className="w-7 h-7 rounded-full dark:invert"
+            />
+            <span className="font-semibold text-sm tracking-tight text-slate-900 dark:text-white">
+              WhyBusyy
+            </span>
           </motion.button>
 
-          {/* 데스크톱 네비게이션 */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-7">
             {navItems.map((item, index) => (
               <motion.button
                 key={item.name}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: index * 0.05 }}
                 onClick={() => scrollToSection(item.href)}
-                className="text-slate-600 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-500 transition-colors font-medium cursor-pointer"
+                className="text-xs text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
               >
                 {item.name}
               </motion.button>
             ))}
 
-            {/* 다크 모드 토글 */}
             <motion.button
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
               onClick={toggleDarkMode}
-              className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer"
+              className="p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer"
             >
               {isDark ? (
-                <Sun className="w-5 h-5 text-red-600 dark:text-red-500" />
+                <Sun className="w-4 h-4 text-slate-400 hover:text-white transition-colors" />
               ) : (
-                <Moon className="w-5 h-5 text-slate-600" />
+                <Moon className="w-4 h-4 text-slate-500 hover:text-slate-900 transition-colors" />
               )}
             </motion.button>
           </div>
 
-          {/* 모바일 메뉴 버튼 */}
-          <div className="md:hidden flex items-center gap-4">
+          <div className="md:hidden flex items-center gap-2">
             <motion.button
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
               onClick={toggleDarkMode}
-              className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer"
+              className="p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer"
             >
               {isDark ? (
-                <Sun className="w-5 h-5 text-red-600 dark:text-red-500" />
+                <Sun className="w-4 h-4 text-slate-400" />
               ) : (
-                <Moon className="w-5 h-5 text-slate-600" />
+                <Moon className="w-4 h-4 text-slate-500" />
               )}
             </motion.button>
 
             <motion.button
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer"
+              className="p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer"
             >
               {isOpen ? (
-                <X className="w-5 h-5 text-slate-600 dark:text-slate-400" />
+                <X className="w-4 h-4 text-slate-600 dark:text-slate-400" />
               ) : (
-                <Menu className="w-5 h-5 text-slate-600 dark:text-slate-400" />
+                <Menu className="w-4 h-4 text-slate-600 dark:text-slate-400" />
               )}
             </motion.button>
           </div>
         </div>
       </div>
 
-      {/* 모바일 메뉴 */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden bg-white dark:bg-dark-bg border-t border-slate-200 dark:border-slate-700"
+            transition={{ duration: 0.2 }}
+            className="md:hidden bg-white/95 dark:bg-dark-bg/95 backdrop-blur-xl"
           >
-            <div className="section-padding py-4 space-y-2">
+            <div className="section-padding py-4 space-y-1">
               {navItems.map((item, index) => (
                 <motion.button
                   key={item.name}
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  transition={{ duration: 0.2, delay: index * 0.05 }}
                   onClick={() => scrollToSection(item.href)}
-                  className="block w-full text-left py-3 px-4 text-slate-600 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-500 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors cursor-pointer"
+                  className="block w-full text-left py-2.5 px-3 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg transition-colors cursor-pointer"
                 >
                   {item.name}
                 </motion.button>
