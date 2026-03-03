@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "WhyBusyy | 프론트엔드 개발자",
+  metadataBase: new URL("https://whybusyy.dev"),
+  title: {
+    default: "WhyBusyy | 프론트엔드 개발자",
+    template: "%s | WhyBusyy",
+  },
   description:
     "Next.js, TypeScript, React 기반으로 웹 서비스를 개발해 온 프론트엔드 개발자입니다.",
 };
