@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Code, Server, Cloud, Users } from "lucide-react";
+import { Code, Server, Cloud, Users, Smartphone } from "lucide-react";
 
 type SkillLevel = "core" | "proficient" | "familiar";
 
@@ -42,6 +42,7 @@ export default function Skills() {
         { name: "JavaScript", level: "core" },
         { name: "HTML", level: "proficient" },
         { name: "CSS", level: "proficient" },
+        { name: "Dart", level: "familiar" },
         { name: "SQL", level: "familiar" },
       ],
     },
@@ -58,6 +59,14 @@ export default function Skills() {
         { name: "MUI", level: "proficient" },
         { name: "Webpack", level: "familiar" },
         { name: "Framer Motion", level: "familiar" },
+      ],
+    },
+    {
+      title: "Mobile",
+      icon: Smartphone,
+      skills: [
+        { name: "Flutter", level: "familiar" },
+        { name: "Dart", level: "familiar" },
       ],
     },
     {
@@ -86,7 +95,7 @@ export default function Skills() {
       title: "Collaboration",
       icon: Users,
       skills: [
-        { name: "Figma", level: "proficient" },
+        { name: "Figma", level: "core" },
         { name: "Notion", level: "proficient" },
         { name: "Jira", level: "proficient" },
         { name: "Slack", level: "proficient" },

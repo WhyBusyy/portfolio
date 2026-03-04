@@ -7,8 +7,7 @@ import {
   Github,
   ExternalLink,
   Globe,
-  Database,
-  ShoppingCart,
+  Smartphone,
   Terminal,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -42,13 +41,27 @@ const sideProjects: SideProject[] = [
     accentColor: "text-blue-600 dark:text-blue-400",
   },
   {
+    title: "Re:Gym",
+    description:
+      "Flutter 기반 크로스플랫폼 앱 프로젝트. 현재 개발 진행 중입니다.",
+    techStack: ["Flutter", "Dart"],
+    github: null,
+    demo: null,
+    screenshot: "/re-gym.png",
+    category: "Mobile",
+    icon: Smartphone,
+    gradient:
+      "from-emerald-500/20 to-teal-500/20 dark:from-emerald-500/10 dark:to-teal-500/10",
+    accentColor: "text-emerald-600 dark:text-emerald-400",
+  },
+  {
     title: "서버 헬스체크 모니터링",
     description:
       "API 엔드포인트를 주기적으로 모니터링하고 장애 시 TTS 음성 알림을 제공하는 크로스 플랫폼 CLI 도구",
     techStack: ["Python", "CLI", "Cross-Platform", "DevOps"],
     github: "https://github.com/WhyBusyy/health-check",
     demo: null,
-    screenshot: null,
+    screenshot: "/health-check.png",
     category: "DevOps",
     icon: Terminal,
     gradient:
