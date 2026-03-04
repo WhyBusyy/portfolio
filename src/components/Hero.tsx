@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Download } from "lucide-react";
 
 export default function Hero() {
   return (
@@ -69,16 +68,6 @@ export default function Hero() {
               className="text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
             >
               연락하기
-            </a>
-            <a
-              href="/resume.pdf"
-              download
-              className="flex items-center gap-1.5 text-sm font-medium
-                         text-slate-500 dark:text-slate-400
-                         hover:text-slate-900 dark:hover:text-white transition-colors"
-            >
-              <Download className="w-3.5 h-3.5" />
-              이력서
             </a>
           </motion.div>
         </motion.div>

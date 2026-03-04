@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Mail, MapPin, Github, Download } from "lucide-react";
+import { Mail, MapPin, Github } from "lucide-react";
 
 export default function Contact() {
   const ref = useRef(null);
@@ -87,30 +87,6 @@ export default function Contact() {
               </motion.div>
             ))}
           </div>
-
-          {/* Resume download button */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={
-              isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }
-            }
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="mb-20"
-          >
-            <a
-              href="/resume.pdf"
-              download
-              className="inline-flex items-center gap-2 px-6 py-3
-                         bg-slate-900 dark:bg-white
-                         text-white dark:text-slate-900
-                         text-sm font-medium rounded-full
-                         hover:bg-slate-800 dark:hover:bg-slate-100
-                         transition-colors"
-            >
-              <Download className="w-4 h-4" />
-              이력서 다운로드
-            </a>
-          </motion.div>
 
           <motion.div
             initial={{ opacity: 0 }}

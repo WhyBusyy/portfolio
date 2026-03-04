@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Sun, Moon, Download } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 import Image from "next/image";
 
 export default function Navigation() {
@@ -113,24 +113,6 @@ export default function Navigation() {
               </motion.button>
             ))}
 
-            {/* Resume download button */}
-            <motion.a
-              href="/resume.pdf"
-              download
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.35 }}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium
-                         text-slate-500 dark:text-slate-400
-                         hover:text-slate-900 dark:hover:text-white
-                         rounded-full border border-slate-200 dark:border-white/[0.08]
-                         hover:border-slate-300 dark:hover:border-white/[0.15]
-                         transition-all cursor-pointer"
-            >
-              <Download className="w-3.5 h-3.5" />
-              Resume
-            </motion.a>
-
             <motion.button
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -204,19 +186,6 @@ export default function Navigation() {
                 </motion.button>
               ))}
 
-              {/* Mobile resume download */}
-              <motion.a
-                href="/resume.pdf"
-                download
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.2, delay: navItems.length * 0.05 }}
-                className="flex items-center gap-2 w-full py-2.5 px-3 text-sm
-                           text-blue-600 dark:text-blue-400 rounded-lg transition-colors"
-              >
-                <Download className="w-4 h-4" />
-                이력서 다운로드
-              </motion.a>
             </div>
           </motion.div>
         )}
