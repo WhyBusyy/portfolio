@@ -214,31 +214,6 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
         </section>
       )}
 
-      {/* Tech Stack */}
-      <section className="py-20 section-padding">
-        <AnimatedSection className="max-w-4xl mx-auto">
-          <p className="text-sm font-semibold text-slate-400 dark:text-slate-500 tracking-widest uppercase mb-10">
-            Tech Stack
-          </p>
-
-          <div className="flex flex-wrap gap-2">
-            {project.techStack.map((tech, index) => (
-              <motion.span
-                key={tech}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.03 }}
-                className="px-3 py-1.5 bg-slate-50 dark:bg-white/[0.04] text-slate-600
-                           dark:text-slate-400 rounded-lg text-xs font-medium"
-              >
-                {tech}
-              </motion.span>
-            ))}
-          </div>
-        </AnimatedSection>
-      </section>
-
       {/* Bottom Navigation */}
       <section className="py-20 section-padding border-t border-slate-100 dark:border-white/[0.04]">
         <div className="max-w-4xl mx-auto">
