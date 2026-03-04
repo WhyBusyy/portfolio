@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/constants/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://whybusyy.dev"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "WhyBusyy | 프론트엔드 개발자",
     template: "%s | WhyBusyy",
