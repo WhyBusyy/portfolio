@@ -54,6 +54,20 @@ export default function Work() {
             "백엔드 리소스가 제한된 환경에서 Node.js 기반 API 개발·수정 작업을 병행하며 서비스 개발 및 운영 효율성 확보 (Backend)",
           slug: null as string | null,
         },
+        {
+          title: "웨비나 라이브 스트리밍 페이지 구현",
+          period: "2026년 2월",
+          description:
+            "Naver Cloud Player 기반 라이브 스트리밍 웨비나 페이지를 구현하고, 사전예약 및 실시간 현황 확인 기능을 개발 (Frontend)",
+          slug: null as string | null,
+        },
+        {
+          title: "WYSIWYG 에디터 마이그레이션",
+          period: "2026년 3월",
+          description:
+            "CKEditor에서 Tiptap 에디터로 마이그레이션하여 패키지 크기 2.5GB → 3MB, 운영 배포 시간 약 50% 단축 (12분 → 6분) (Frontend)",
+          slug: "editor-migration" as string | null,
+        },
       ],
     },
   ];

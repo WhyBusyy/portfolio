@@ -157,6 +157,62 @@ export const projects: ProjectData[] = [
       { value: "10+", change: null, label: "벤더사 대응 가능한 구조" },
     ],
   },
+  {
+    slug: "editor-migration",
+    title: "WYSIWYG 에디터 마이그레이션",
+    company: "주식회사 루멘테라",
+    period: "2026년 3월",
+    role: "Frontend Developer",
+    techStack: [
+      "Tiptap",
+      "ProseMirror",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+    ],
+    overview: {
+      lead: "CKEditor에서 Tiptap으로 WYSIWYG 에디터를 마이그레이션하여 패키지 크기를 2.5GB에서 3MB로 줄이고, 운영 배포 시간을 약 50% 단축했습니다.",
+      detail:
+        "기존 CKEditor는 node_modules 기준 약 2.5GB에 달하는 거대한 의존성을 가지고 있어 CI/CD 파이프라인의 병목이 되고 있었습니다. Tiptap(ProseMirror 기반)으로 전환하면서 동일한 편집 기능을 유지하되, 커스텀 툴바와 이미지 업로드 핸들러를 직접 구현하여 프로젝트 요구사항에 최적화된 에디터를 구축했습니다. 이후 에디터를 독립 npm 패키지(tiptap-editor-kit)로 분리하여 오픈소스로 배포했습니다.",
+    },
+    screenshots: [],
+    challenges: [
+      {
+        title: "거대한 CKEditor 의존성",
+        before:
+          "CKEditor 관련 패키지가 node_modules 기준 약 2.5GB를 차지하여 설치 및 빌드 시간 증가",
+        after:
+          "Tiptap 기반으로 전환하여 에디터 관련 패키지를 약 3MB로 축소, 운영 배포 시간 12분 → 6분으로 약 50% 단축",
+      },
+      {
+        title: "커스텀 툴바 구현",
+        before:
+          "CKEditor의 내장 툴바에 의존하여 UI 커스터마이징에 제약이 있었음",
+        after:
+          "SVG 아이콘 기반의 커스텀 툴바를 직접 구현하여 프로젝트 디자인 시스템에 완전히 통합",
+      },
+      {
+        title: "재사용 가능한 패키지 설계",
+        before:
+          "프로젝트에 종속된 에디터 코드로, 다른 프로젝트에서 재사용이 불가능한 구조",
+        after:
+          "프로젝트 의존성을 props 주입 방식으로 분리하고, React와 Vanilla JS 두 가지 entry point를 제공하는 독립 npm 패키지(tiptap-editor-kit)로 오픈소스 배포",
+      },
+    ],
+    metrics: [
+      {
+        value: "99.8%",
+        change: "2.5GB → 3MB",
+        label: "패키지 크기 감소",
+      },
+      {
+        value: "50%",
+        change: "12분 → 6분",
+        label: "운영 배포 시간 단축",
+      },
+      { value: "npm", change: null, label: "오픈소스 패키지 배포 (tiptap-editor-kit)" },
+    ],
+  },
 ];
 
 export function getProjectBySlug(slug: string): ProjectData | undefined {

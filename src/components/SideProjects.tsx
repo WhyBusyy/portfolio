@@ -9,8 +9,10 @@ import {
   Globe,
   Smartphone,
   Terminal,
+  Package,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import Link from "next/link";
 
 interface SideProject {
   title: string;
@@ -18,6 +20,7 @@ interface SideProject {
   techStack: string[];
   github: string | null;
   demo: string | null;
+  npm?: string | null;
   screenshot: string | null;
   category: string;
   icon: LucideIcon;
@@ -67,6 +70,21 @@ const sideProjects: SideProject[] = [
     gradient:
       "from-amber-500/20 to-orange-500/20 dark:from-amber-500/10 dark:to-orange-500/10",
     accentColor: "text-amber-600 dark:text-amber-400",
+  },
+  {
+    title: "tiptap-editor-kit",
+    description:
+      "Tiptap 기반 WYSIWYG 에디터 npm 패키지. React와 Vanilla JS 두 가지 entry point를 제공하며, 풀 툴바와 이미지 업로드를 지원합니다.",
+    techStack: ["Tiptap", "ProseMirror", "TypeScript", "React", "tsup"],
+    github: "https://github.com/WhyBusyy/tiptap-editor-kit",
+    demo: "/demo/tiptap-editor-kit",
+    npm: "https://www.npmjs.com/package/tiptap-editor-kit",
+    screenshot: "/tiptap-editor-kit-demo.png",
+    category: "npm Package",
+    icon: Package,
+    gradient:
+      "from-violet-500/20 to-purple-500/20 dark:from-violet-500/10 dark:to-purple-500/10",
+    accentColor: "text-violet-600 dark:text-violet-400",
   },
 ];
 
@@ -162,7 +180,7 @@ export default function SideProjects() {
                     )}
 
                     {/* Links */}
-                    {(project.github || project.demo) && (
+                    {(project.github || project.demo || project.npm) && (
                       <div className="flex gap-3 mt-4 pt-4 border-t border-slate-100 dark:border-white/[0.04]">
                         {project.github && (
                           <a
@@ -176,18 +194,40 @@ export default function SideProjects() {
                             GitHub
                           </a>
                         )}
-                        {project.demo && (
+                        {project.npm && (
                           <a
-                            href={project.demo}
+                            href={project.npm}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400
                                        hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                           >
-                            <ExternalLink className="w-3.5 h-3.5" />
-                            Demo
+                            <Package className="w-3.5 h-3.5" />
+                            npm
                           </a>
                         )}
+                        {project.demo &&
+                          (project.demo.startsWith("/") ? (
+                            <Link
+                              href={`${project.demo}?from=portfolio`}
+                              className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400
+                                         hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                            >
+                              <ExternalLink className="w-3.5 h-3.5" />
+                              Demo
+                            </Link>
+                          ) : (
+                            <a
+                              href={project.demo}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400
+                                         hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                            >
+                              <ExternalLink className="w-3.5 h-3.5" />
+                              Demo
+                            </a>
+                          ))}
                       </div>
                     )}
                   </div>
