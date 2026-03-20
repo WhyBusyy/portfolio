@@ -24,24 +24,20 @@ export const projects: ProjectData[] = [
     challenges: [
       {
         title: "거대한 초기 번들",
-        before:
-          "모든 페이지가 단일 번들로 로드되어 초기 로딩 8초 이상",
+        before: "모든 페이지가 단일 번들로 로드되어 초기 로딩 8초 이상",
         after:
           "라우트 기반 코드 스플리팅과 dynamic import로 초기 번들 60% 이상 감소",
       },
       {
         title: "불필요한 리렌더링",
-        before:
-          "상태 변경 시 무관한 컴포넌트까지 리렌더링되어 인터랙션 지연",
+        before: "상태 변경 시 무관한 컴포넌트까지 리렌더링되어 인터랙션 지연",
         after:
           "React.memo, useMemo, useCallback 적용 및 상태 구조 재설계로 렌더링 횟수 대폭 감소",
       },
       {
         title: "최적화되지 않은 이미지",
-        before:
-          "원본 사이즈 이미지가 그대로 로드되어 LCP 점수 저하",
-        after:
-          "Next.js Image + WebP 변환 + lazy loading 적용으로 LCP 개선",
+        before: "원본 사이즈 이미지가 그대로 로드되어 LCP 점수 저하",
+        after: "Next.js Image + WebP 변환 + lazy loading 적용으로 LCP 개선",
       },
     ],
     metrics: [
@@ -152,18 +148,89 @@ export const projects: ProjectData[] = [
     ],
   },
   {
+    slug: "vendor-matching",
+    title: "영업 담당자 자동매칭 시스템 구축 및 DB 마이그레이션",
+    company: "주식회사 루멘테라",
+    period: "2025년 8월 ~ 2026년 3월",
+    role: "Fullstack Developer",
+    techStack: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "NestJS",
+      "Node.js",
+      "PostgreSQL",
+      "Python",
+      "Claude Code",
+    ],
+    overview: {
+      lead: "주요 벤더사의 비정형 지역 데이터를 표준화하고, 약국 주소 기반 담당자 자동매칭 시스템을 구축하여 수동 매칭으로 인한 거래 지연 문제를 해결했습니다.",
+      detail:
+        "벤더사마다 완전히 다른 지역 구분 체계를 통일된 데이터로 정규화한 뒤, 행정안전부 도로명주소 API를 활용한 자동매칭 시스템을 구축했습니다. 이후 정적 JSON 158,000줄을 DB로 마이그레이션하고 매칭 로직을 서버로 전면 이관하여, 벤더사 관리자가 직접 데이터를 관리할 수 있는 환경까지 완성했습니다.",
+    },
+    screenshots: [],
+    challenges: [
+      {
+        title: "비정형 벤더 데이터 → 통일된 JSON 데이터로 변환",
+        before: [
+          "벤더사마다 완전히 다른 지역 구분 체계",
+          "A 벤더는 전국 2,000여 개 세분화, B 벤더는 20여 개로 구분",
+          "\"부산,대구 = 영업사원1\" 수준의 비정형 데이터 존재",
+        ],
+        after: [
+          "가장 세분화된 벤더 데이터 기준으로 타 벤더사 대조, 전국 2,705개 지역 마스터 데이터(Brick Form) 설계",
+          "Python 매핑 도구로 주소 파싱 → 정확 매칭 → 유사도 매칭 3단계 정규화",
+          "벤더별 비정형 데이터를 통일된 JSON 구조로 변환",
+        ],
+      },
+      {
+        title: "수동 매칭 → 자동매칭 시스템 구축",
+        before: [
+          "벤더사 관리자가 거래신청 건마다 담당 영업사원을 직접 확인·수동 매칭하는 구조",
+          "입점 초기 하루 수백 건 이상의 거래신청을 벤더 측에서 일일이 처리",
+          "승인 지연으로 거래 미성사 및 약국의 거래신청 취소 발생",
+          "플랫폼 거래 수수료 손실 및 벤더·약국 양측의 신뢰도 하락",
+        ],
+        after: [
+          "정규화된 JSON + 행정안전부 도로명주소 API 활용, 약국 주소 기반 담당자 자동매칭 시스템 구축",
+          "자동 매칭 성공률 80% 이상 달성",
+          "예외 케이스 점진적 처리로 90% 이상까지 개선",
+        ],
+      },
+      {
+        title: "JSON 하드코딩 → DB + 서버 전면 이관",
+        before: [
+          "영업사원 인사이동·담당지역 변경 시 개발자가 JSON 직접 수정 후 배포 필요",
+          "반영까지 수일 소요, 잘못된 담당자 배정 또는 미배정으로 거래 승인 지연",
+          "변경 이력 추적 불가",
+          "프론트엔드에 매칭 로직 산재",
+          "동일 JSON이 두 프로젝트에 복제, 한쪽만 수정될 리스크",
+        ],
+        after: [
+          "DB 4개 테이블 설계 + 데이터 마이그레이션",
+          "매칭 로직 서버 전면 이관 (프론트 코드 ~700줄 삭제, JSON 158,000줄 제거)",
+          "벤더사 관리자가 개별 CRUD + 엑셀 업로드 → diff 확인 → 승인 워크플로우로 직접 관리",
+          "표준화된 데이터 구조 + 검증된 매칭 로직 기반, Claude Code 활용 고도화로 DB 설계~QA 1주일 내 완료",
+        ],
+      },
+    ],
+    metrics: [
+      { value: "90%+", change: null, label: "담당자 자동매칭 성공률" },
+      {
+        value: "0",
+        change: "158,000줄 → 0",
+        label: "정적 JSON 완전 제거",
+      },
+      { value: "1주일", change: null, label: "DB 마이그레이션 ~ QA" },
+    ],
+  },
+  {
     slug: "editor-migration",
     title: "WYSIWYG 에디터 마이그레이션",
     company: "주식회사 루멘테라",
     period: "2026년 3월",
     role: "Frontend Developer",
-    techStack: [
-      "Tiptap",
-      "ProseMirror",
-      "React",
-      "TypeScript",
-      "Tailwind CSS",
-    ],
+    techStack: ["Tiptap", "ProseMirror", "React", "TypeScript", "Tailwind CSS"],
     overview: {
       lead: "CKEditor에서 Tiptap으로 WYSIWYG 에디터를 마이그레이션하여 패키지 크기를 2.5GB에서 3MB로 줄이고, 운영 배포 시간을 약 50% 단축했습니다.",
       detail:
@@ -204,7 +271,11 @@ export const projects: ProjectData[] = [
         change: "12분 → 6분",
         label: "운영 배포 시간 단축",
       },
-      { value: "npm", change: null, label: "오픈소스 패키지 배포 (tiptap-editor-kit)" },
+      {
+        value: "npm",
+        change: null,
+        label: "오픈소스 패키지 배포 (tiptap-editor-kit)",
+      },
     ],
   },
 ];

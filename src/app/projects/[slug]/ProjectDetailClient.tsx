@@ -149,12 +149,20 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
                             Before
                           </span>
                         </div>
-                        <p
+                        <div
                           className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed pl-4
                                      border-l-2 border-slate-200 dark:border-white/[0.06]"
                         >
-                          {challenge.before}
-                        </p>
+                          {Array.isArray(challenge.before) ? (
+                            <ul className="space-y-2">
+                              {challenge.before.map((item, i) => (
+                                <li key={i}>{item}</li>
+                              ))}
+                            </ul>
+                          ) : (
+                            <p>{challenge.before}</p>
+                          )}
+                        </div>
                       </div>
 
                       {/* After */}
@@ -165,12 +173,20 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
                             After
                           </span>
                         </div>
-                        <p
+                        <div
                           className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed pl-4
                                      border-l-2 border-blue-600 dark:border-blue-400"
                         >
-                          {challenge.after}
-                        </p>
+                          {Array.isArray(challenge.after) ? (
+                            <ul className="space-y-2">
+                              {challenge.after.map((item, i) => (
+                                <li key={i}>{item}</li>
+                              ))}
+                            </ul>
+                          ) : (
+                            <p>{challenge.after}</p>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>

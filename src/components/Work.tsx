@@ -20,6 +20,13 @@ export default function Work() {
       roles: ["Frontend 개발", "Backend 개발"],
       projects: [
         {
+          title: "영업 담당자 자동매칭 시스템 구축 및 DB 마이그레이션",
+          period: "2025년 8월 ~ 2026년 3월",
+          description:
+            "비정형 벤더 데이터 표준화 → 주소 기반 자동매칭 구축(성공률 90%+) → JSON 158,000줄 DB 마이그레이션 + 서버 이관까지 완성 (Fullstack)",
+          slug: "vendor-matching" as string | null,
+        },
+        {
           title: "WYSIWYG 에디터 마이그레이션",
           period: "2026년 3월",
           description:
@@ -37,7 +44,7 @@ export default function Work() {
           title: "자체 CMS 구축",
           period: "2026년 1월",
           description:
-            "프론트엔드와 백엔드 전 과정을 1개월 만에 단독 개발한 자체 CMS 구축을 통한 운영 효율 및 개발 생산성 개선 (Frontend, Backend)",
+            "프론트엔드와 백엔드 전 과정을 1개월 만에 단독 개발한 자체 CMS 구축을 통한 운영 효율 및 개발 생산성 개선 (Fullstack)",
           slug: "cms-development" as string | null,
         },
         {

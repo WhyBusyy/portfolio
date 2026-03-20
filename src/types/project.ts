@@ -1,7 +1,7 @@
 export interface ProjectChallenge {
   title: string;
-  before: string;
-  after: string;
+  before: string | string[];
+  after: string | string[];
 }
 
 export interface ProjectMetric {
