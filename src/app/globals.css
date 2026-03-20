@@ -11,6 +11,8 @@
     @apply text-slate-800 dark:text-slate-200;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
 }
 

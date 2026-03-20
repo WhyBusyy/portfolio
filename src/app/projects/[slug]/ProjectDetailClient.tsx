@@ -233,15 +233,15 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
       {/* Bottom Navigation */}
       <section className="py-20 section-padding border-t border-slate-100 dark:border-white/[0.04]">
         <div className="max-w-4xl mx-auto">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-8 sm:gap-12">
             {prev ? (
               <Link
                 href={`/projects/${prev.slug}`}
                 className="group flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400
-                           hover:text-slate-900 dark:hover:text-white transition-colors"
+                           hover:text-slate-900 dark:hover:text-white transition-colors min-w-0"
               >
-                <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-                <div>
+                <ArrowLeft className="w-4 h-4 flex-shrink-0 transition-transform group-hover:-translate-x-1" />
+                <div className="min-w-0">
                   <p className="text-xs text-slate-400 dark:text-slate-500">
                     이전
                   </p>
@@ -255,7 +255,7 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
             <Link
               href="/#work"
               className="text-sm text-slate-400 dark:text-slate-500
-                         hover:text-blue-600 dark:hover:text-blue-400 transition-colors hidden sm:block"
+                         hover:text-blue-600 dark:hover:text-blue-400 transition-colors hidden sm:block flex-shrink-0"
             >
               모든 프로젝트
             </Link>
@@ -264,15 +264,15 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
               <Link
                 href={`/projects/${next.slug}`}
                 className="group flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400
-                           hover:text-slate-900 dark:hover:text-white transition-colors text-right"
+                           hover:text-slate-900 dark:hover:text-white transition-colors text-right min-w-0"
               >
-                <div>
+                <div className="min-w-0">
                   <p className="text-xs text-slate-400 dark:text-slate-500">
                     다음
                   </p>
                   <p className="font-medium">{next.title}</p>
                 </div>
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="w-4 h-4 flex-shrink-0 transition-transform group-hover:translate-x-1" />
               </Link>
             ) : (
               <div />
