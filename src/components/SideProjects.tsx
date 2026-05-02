@@ -25,6 +25,7 @@ interface SideProject {
   demoLabel?: string;
   npm?: string | null;
   screenshot: string | null;
+  imageFit?: "cover" | "contain";
   category: string;
   icon: LucideIcon;
   gradient: string;
@@ -49,6 +50,7 @@ const sideProjects: SideProject[] = [
     demo: "https://apps.apple.com/kr/app/%EB%A3%A8%ED%8B%B4-%EC%B2%B4%ED%81%AC-%EB%A7%A4%EC%9D%BC-%EC%8A%B5%EA%B4%80-%ED%8A%B8%EB%9E%98%EC%BB%A4/id6762101450",
     demoLabel: "App Store",
     screenshot: "/routine-check.webp",
+    imageFit: "contain",
     category: "Mobile",
     icon: Smartphone,
     gradient:
@@ -284,7 +286,11 @@ export default function SideProjects() {
                           src={project.screenshot}
                           alt={project.title}
                           draggable={false}
-                          className="w-full h-full object-cover transition-transform duration-500 pointer-events-none"
+                          className={`w-full h-full transition-transform duration-500 pointer-events-none ${
+                            project.imageFit === "contain"
+                              ? "object-contain"
+                              : "object-cover"
+                          }`}
                         />
                       ) : (
                         <div
