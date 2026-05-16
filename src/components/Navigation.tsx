@@ -72,6 +72,7 @@ export default function Navigation() {
 
   return (
     <nav
+      aria-label="주요 내비게이션"
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? "bg-white/90 dark:bg-dark-bg/90 backdrop-blur-xl shadow-sm dark:shadow-none"
@@ -84,15 +85,17 @@ export default function Navigation() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
-            className="flex items-center gap-2 cursor-pointer hover:opacity-60 transition-opacity"
+            className="flex items-center gap-2 cursor-pointer hover:opacity-60 transition-opacity rounded-md"
             onClick={() => scrollToSection("#hero")}
+            aria-label="홈으로 이동"
           >
             <Image
               src="/logo.png"
-              alt="WhyBusyy"
+              alt=""
               width={28}
               height={28}
               className="rounded-full dark:invert"
+              aria-hidden="true"
             />
             <span className="font-semibold text-sm tracking-tight text-slate-900 dark:text-white">
               WhyBusyy
@@ -122,9 +125,9 @@ export default function Navigation() {
               className="p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer"
             >
               {isDark ? (
-                <Sun className="w-4 h-4 text-slate-400 hover:text-white transition-colors" />
+                <Sun className="w-4 h-4 text-slate-400 hover:text-white transition-colors" aria-hidden="true" />
               ) : (
-                <Moon className="w-4 h-4 text-slate-500 hover:text-slate-900 transition-colors" />
+                <Moon className="w-4 h-4 text-slate-500 hover:text-slate-900 transition-colors" aria-hidden="true" />
               )}
             </motion.button>
           </div>
@@ -139,9 +142,9 @@ export default function Navigation() {
               className="p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer"
             >
               {isDark ? (
-                <Sun className="w-4 h-4 text-slate-400" />
+                <Sun className="w-4 h-4 text-slate-400" aria-hidden="true" />
               ) : (
-                <Moon className="w-4 h-4 text-slate-500" />
+                <Moon className="w-4 h-4 text-slate-500" aria-hidden="true" />
               )}
             </motion.button>
 
@@ -151,12 +154,14 @@ export default function Navigation() {
               transition={{ duration: 0.6, delay: 0.4 }}
               onClick={() => setIsOpen(!isOpen)}
               aria-label={isOpen ? "메뉴 닫기" : "메뉴 열기"}
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
               className="p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer"
             >
               {isOpen ? (
-                <X className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+                <X className="w-4 h-4 text-slate-600 dark:text-slate-400" aria-hidden="true" />
               ) : (
-                <Menu className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+                <Menu className="w-4 h-4 text-slate-600 dark:text-slate-400" aria-hidden="true" />
               )}
             </motion.button>
           </div>
@@ -166,6 +171,7 @@ export default function Navigation() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id="mobile-menu"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}

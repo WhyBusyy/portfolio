@@ -1,9 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 
 export default function Hero() {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <section
       id="hero"
@@ -105,14 +107,15 @@ export default function Hero() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 1.5 }}
         className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+        aria-hidden="true"
       >
         <motion.div
-          animate={{ y: [0, 8, 0] }}
+          animate={prefersReducedMotion ? undefined : { y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           className="w-5 h-8 border border-slate-300 dark:border-slate-600 rounded-full flex justify-center"
         >
           <motion.div
-            animate={{ y: [0, 10, 0] }}
+            animate={prefersReducedMotion ? undefined : { y: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             className="w-0.5 h-2 bg-slate-400 dark:bg-slate-500 rounded-full mt-1.5"
           />

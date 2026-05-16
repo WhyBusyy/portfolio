@@ -49,8 +49,11 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
+      <a href="#main-content" className="skip-link">
+        본문으로 바로가기
+      </a>
       <Navigation />
-      <main className="min-h-screen">
+      <main id="main-content" tabIndex={-1} className="min-h-screen focus:outline-none">
         <Hero />
         <About />
         <Work />

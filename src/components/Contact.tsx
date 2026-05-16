@@ -31,7 +31,7 @@ export default function Contact() {
   ];
 
   return (
-    <section ref={ref} id="contact" className="py-32 lg:py-40 section-padding">
+    <section ref={ref} id="contact" aria-labelledby="contact-title" className="py-32 lg:py-40 section-padding">
       <div className="container-max-width">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -39,7 +39,7 @@ export default function Contact() {
           transition={{ duration: 0.8 }}
           className="text-center"
         >
-          <h2 className="section-title">Contact</h2>
+          <h2 id="contact-title" className="section-title">Contact</h2>
 
           <motion.p
             initial={{ opacity: 0, y: 15 }}

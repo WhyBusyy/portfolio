@@ -36,14 +36,14 @@ export default function Experience() {
   ];
 
   return (
-    <section ref={ref} id="experience" className="py-32 lg:py-40 section-padding">
+    <section ref={ref} id="experience" aria-labelledby="experience-title" className="py-32 lg:py-40 section-padding">
       <div className="container-max-width">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="section-title">Beyond Code</h2>
+          <h2 id="experience-title" className="section-title">Beyond Code</h2>
           <p className="section-subtitle">
             개발 외의 경험이 개발자로서의 강점이 됩니다.
           </p>

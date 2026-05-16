@@ -109,6 +109,7 @@ export default function Skills() {
     <section
       ref={ref}
       id="skills"
+      aria-labelledby="skills-title"
       className="py-32 lg:py-40 section-padding bg-slate-50/50 dark:bg-white/[0.02]"
     >
       <div className="container-max-width">
@@ -117,7 +118,7 @@ export default function Skills() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="section-title">Skills</h2>
+          <h2 id="skills-title" className="section-title">Skills</h2>
           <p className="section-subtitle">
             프로젝트에서 사용한 기술 스택입니다.
           </p>

@@ -38,6 +38,7 @@ export default function HowIWork() {
     <section
       ref={ref}
       id="how-i-work"
+      aria-labelledby="how-i-work-title"
       className="py-32 lg:py-40 section-padding bg-slate-50/50 dark:bg-white/[0.02]"
     >
       <div className="container-max-width">
@@ -46,7 +47,7 @@ export default function HowIWork() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="section-title">How I Work</h2>
+          <h2 id="how-i-work-title" className="section-title">How I Work</h2>
           <p className="section-subtitle">일에 임하는 저만의 원칙입니다.</p>
 
           <div className="max-w-3xl mx-auto">

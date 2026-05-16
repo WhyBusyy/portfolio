@@ -197,6 +197,7 @@ export default function SideProjects() {
     <section
       ref={ref}
       id="side-projects"
+      aria-labelledby="side-projects-title"
       className="py-32 lg:py-40 section-padding bg-slate-50/50 dark:bg-white/[0.02]"
     >
       <div className="container-max-width">
@@ -205,7 +206,7 @@ export default function SideProjects() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="section-title">Side Projects</h2>
+          <h2 id="side-projects-title" className="section-title">Side Projects</h2>
           <p className="section-subtitle">
             개인적으로 만들어본 프로젝트들입니다.
           </p>

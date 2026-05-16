@@ -53,14 +53,14 @@ export default function About() {
   ];
 
   return (
-    <section ref={ref} id="about" className="py-32 lg:py-40 section-padding">
+    <section ref={ref} id="about" aria-labelledby="about-title" className="py-32 lg:py-40 section-padding">
       <div className="container-max-width">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="section-title">About Me</h2>
+          <h2 id="about-title" className="section-title">About Me</h2>
           <p className="section-subtitle">개발자로서의 기본 정보를 소개합니다.</p>
 
           <div className="max-w-4xl mx-auto">

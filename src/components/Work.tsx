@@ -82,14 +82,14 @@ export default function Work() {
   ];
 
   return (
-    <section ref={ref} id="work" className="py-32 lg:py-40 section-padding">
+    <section ref={ref} id="work" aria-labelledby="work-title" className="py-32 lg:py-40 section-padding">
       <div className="container-max-width">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="section-title">Work</h2>
+          <h2 id="work-title" className="section-title">Work</h2>
           <p className="section-subtitle">
             실무에서 수행한 프로젝트와 기여 내용입니다.
           </p>
