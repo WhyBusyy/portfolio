@@ -104,9 +104,10 @@ export const projects: ProjectData[] = [
     period: "2024년 하반기",
     role: "Frontend Developer",
     techStack: [
-      "Next.js",
+      "Next.js (App Router)",
       "React",
       "TypeScript",
+      "SSR / RSC",
       "Zustand",
       "TanStack Query",
       "Tailwind CSS",
@@ -116,7 +117,7 @@ export const projects: ProjectData[] = [
     overview: {
       lead: "B2B 직거래 플랫폼 '플랫팜'의 초기 설계부터 참여하여, 70개 이상 벤더사를 수용하는 프론트엔드 아키텍처를 구축했습니다.",
       detail:
-        "벤더사마다 다른 요구사항을 유연하게 수용할 수 있는 구조가 핵심이었습니다. 컴포넌트 설계, 상태 관리 전략, API 연동 구조, 폴더 체계 등 프론트엔드 전반의 아키텍처를 설계하고 기능 고도화를 주도했습니다.",
+        "벤더사마다 다른 요구사항을 유연하게 수용할 수 있는 구조가 핵심이었습니다. Next.js App Router 기반의 SSR/RSC(서버 컴포넌트)로 초기 로딩과 SEO를 확보하고, 컴포넌트 설계, 상태 관리 전략, API 연동 구조, 폴더 체계 등 프론트엔드 전반의 아키텍처를 설계하고 기능 고도화를 주도했습니다.",
     },
     screenshots: [],
     challenges: [
