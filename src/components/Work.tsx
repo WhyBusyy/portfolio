@@ -20,6 +20,20 @@ export default function Work() {
       roles: ["Frontend 개발", "Backend 개발"],
       projects: [
         {
+          title: "개발·운영 자동화 (DX)",
+          period: "2026년 상반기",
+          description:
+            "직전 배포 이후 커밋을 티켓별로 Slack에 자동 정리하는 배포 알림 Composite Action, Notion 배포 기록 자동화(9곳), VSA 아키텍처 컨벤션 검증 CI를 직접 구축 (DX)",
+          slug: "dx-automation" as string | null,
+        },
+        {
+          title: "사내 회의 알림 봇",
+          period: "2026년 상반기",
+          description:
+            "노션이 Slack에 올린 회의 메시지를 파싱해 참여자에게 10분 전·시작 시 개인 DM, 평일 오전 당일 일정을 일괄 안내하는 전 구성원 대상 편의 자동화 (Node.js)",
+          slug: "meeting-notifier-bot" as string | null,
+        },
+        {
           title: "영업 담당자 자동매칭 시스템 구축 및 DB 마이그레이션",
           period: "2025년 8월 ~ 2026년 3월",
           description:

@@ -2,6 +2,109 @@ import { ProjectData } from "@/types/project";
 
 export const projects: ProjectData[] = [
   {
+    slug: "dx-automation",
+    title: "개발·운영 자동화 (DX)",
+    company: "주식회사 루멘테라",
+    period: "2026년 상반기",
+    role: "Frontend Developer",
+    techStack: [
+      "GitHub Actions",
+      "Composite Action",
+      "Slack API",
+      "Notion API",
+      "Node.js",
+      "Bash",
+    ],
+    overview: {
+      lead: "상시 배포의 변경점 파악과 아키텍처 일관성 유지를 자동화로 해결했습니다. 요청받은 일이 아니라 팀의 반복 병목을 직접 찾아 공용 CI 도구로 만들었습니다.",
+      detail:
+        "하루에도 여러 번 배포가 일어나는데 무엇이·왜 배포됐는지 파악하기 어려웠고, 배포 알림은 단일 서비스에 이메일로만 전달됐습니다. 또 프론트엔드 규모가 커지며 아키텍처 컨벤션이 코드리뷰만으로는 일관되게 지켜지기 어려웠습니다. 배포 알림·기록 자동화와 아키텍처 검증 CI를 직접 설계·구축해 팀 전체가 쓰는 공용 도구로 정착시켰습니다.",
+    },
+    screenshots: [],
+    challenges: [
+      {
+        title: "상시 배포되지만 변경점을 알 수 없던 문제",
+        before: [
+          "하루에도 여러 번 배포가 일어나지만 무엇이·왜 배포됐는지 파악이 어려움",
+          "배포 알림이 단일 서비스에, 그것도 이메일(SES→Teams) 형태로만 전달돼 가독성 낮음",
+        ],
+        after: [
+          "직전 성공 배포 SHA를 GitHub API로 조회해, 그 사이 커밋을 티켓별로 그룹핑해 Slack으로 발송하는 Composite Action 구축",
+          "클라이언트·서버·어드민 등 다중 서비스에 통합, 새 서비스도 설정 한 줄로 동일 알림 적용",
+          "본문 길이 컷·API 타임아웃·HTTP 응답 검증 등 안전 가드까지 반영",
+        ],
+      },
+      {
+        title: "배포 이력이 흩어져 사후 추적이 어려움",
+        before:
+          "배포 내역이 자동으로 남지 않아 언제 무엇이 배포됐는지 사후에 추적하기 어려움",
+        after:
+          "운영 배포 워크플로 9곳에 Notion 배포 기록을 자동 생성하는 액션을 배선하고, 기존 Teams 이메일 알림은 정리",
+      },
+      {
+        title: "코드리뷰만으로는 지키기 어려운 아키텍처 컨벤션",
+        before:
+          "프론트엔드 규모가 커지며 폴더 구조·의존 방향 규칙이 코드리뷰만으로는 일관되게 지켜지기 어려움",
+        after:
+          "VSA(Vertical Slice Architecture) 컨벤션 7개 규칙을 검증하는 CLI를 직접 구현하고, pre-commit과 GitHub Actions PR 검사로 자동화",
+      },
+    ],
+    metrics: [
+      {
+        value: "티켓별 그룹핑",
+        change: null,
+        label: "배포 커밋 자동 정리 → Slack 발송",
+      },
+      { value: "9곳", change: null, label: "배포 워크플로 Notion 기록 자동화 배선" },
+      { value: "VSA 7규칙", change: null, label: "아키텍처 컨벤션 CI 자동 검증" },
+    ],
+  },
+  {
+    slug: "meeting-notifier-bot",
+    title: "사내 회의 알림 봇",
+    company: "주식회사 루멘테라",
+    period: "2026년 상반기",
+    role: "Developer",
+    techStack: ["Node.js", "Slack Web API", "node-cron", "Luxon", "PM2"],
+    overview: {
+      lead: "잦은 내부 회의에서 참여 여부를 매번 수동으로 확인해야 하던 불편을, 전 구성원 대상 자동 알림 봇으로 해결했습니다.",
+      detail:
+        "노션 연동이 Slack 채널에 올리는 회의 요청 메시지를 파싱해, 참여자 이름을 Slack 사용자와 매칭하고, 회의 10분 전·시작 시점에 참여자에게 개인 DM을 보냅니다. 평일 오전 9시에는 당일 회의 일정을 채널에 일괄 안내합니다. 개발 대상이 아닌 전사 구성원의 회의 참여 경험을 개선한 사내 편의 자동화입니다.",
+    },
+    screenshots: [],
+    challenges: [
+      {
+        title: "참여 여부를 매번 수동으로 확인해야 하던 문제",
+        before: [
+          "회의가 잦고 Slack에 게시되지만 건수가 많아 당일 회의·참여자를 한눈에 파악하기 어려움",
+          "확인이 개인 책임에 의존해 회의 누락·지각 발생",
+        ],
+        after: [
+          "노션이 올린 회의 메시지를 파싱해 참여자 이름을 Slack ID로 매칭 (별칭·부분일치·멘션 토큰 대응)",
+          "회의 10분 전·시작 시점에 참여자 개인 DM 자동 발송, 평일 09시엔 당일 일정 채널 일괄 안내",
+        ],
+      },
+      {
+        title: "무인 상시 운영의 안정성 확보",
+        before:
+          "일회성 스크립트로는 회의 일정 변경·중복이나 장시간 구동 시 신뢰성을 확보하기 어려움",
+        after: [
+          "상태 영속화 + 제목·시간 기준 dedup, 시간 변경 시 최신 메시지로 자동 교체",
+          "공휴일 스킵(공공 API), 매칭 실패 시 관리자 알림, 헬스체크 HTTP 엔드포인트, PM2 상시 구동",
+        ],
+      },
+    ],
+    metrics: [
+      { value: "전사", change: null, label: "구성원 회의 참여 알림 자동화" },
+      {
+        value: "10분 전·시작",
+        change: null,
+        label: "참여자 개인 DM 자동 발송",
+      },
+      { value: "무인 상시", change: null, label: "dedup·공휴일·헬스체크 + PM2 구동" },
+    ],
+  },
+  {
     slug: "performance-optimization",
     title: "프론트엔드 성능 최적화",
     company: "주식회사 루멘테라",
