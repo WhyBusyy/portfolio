@@ -57,13 +57,13 @@ export default function Hero() {
             </div>
             <div>
               <p className="text-xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-500 dark:text-slate-400 leading-[1.2]">
-                13점 → 78점
+                158,000줄 → 0
               </p>
               <Link
-                href="/projects/performance-optimization"
+                href="/projects/vendor-matching"
                 className="inline-block text-xs sm:text-sm text-slate-400 dark:text-slate-500 mt-1 tracking-wide hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
-                Lighthouse 성능 점수 →
+                정적 JSON DB 이관 →
               </Link>
             </div>
           </motion.div>
