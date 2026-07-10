@@ -65,7 +65,7 @@ export default function Work() {
           title: "프론트엔드 성능 최적화",
           period: "2025년 상반기",
           description:
-            "렌더링 최적화 및 구조 개선을 통해 Chrome Lighthouse 성능 점수를 13점 → 78점으로 개선하며 사용자 경험 향상에 기여 (Frontend)",
+            "코드 스플리팅·메모이제이션 등 프론트엔드 최적화로 초기 로딩 전방위 개선, 현재 데스크톱 실측 초기 렌더 0.6s·메인스레드 블로킹 10ms 수준 (Frontend)",
           slug: "performance-optimization" as string | null,
         },
         {

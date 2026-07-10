@@ -119,23 +119,24 @@ export const projects: ProjectData[] = [
       "Lighthouse",
     ],
     overview: {
-      lead: "Lighthouse 성능 점수 13점 → 78점. 번들 분석부터 렌더링 최적화까지 단독으로 수행했습니다.",
+      lead: "느렸던 초기 로딩을 코드 스플리팅·이미지·렌더링 최적화로 전방위 개선했습니다. 프론트엔드 성능 최적화를 단독으로 수행했고, 현재 데스크톱 실측 기준 초기 렌더 0.6s·메인스레드 블로킹 10ms 수준으로 동작합니다.",
       detail:
-        "플랫팜 서비스의 초기 로딩이 8초 이상 걸리며 사용자 이탈의 원인이 되고 있었습니다. 번들 분석 → 코드 스플리팅 → 이미지 최적화 → 메모이제이션 순서로 체계적으로 접근하여, 측정 가능한 성과를 만들었습니다.",
+        "플랫팜 클라이언트의 초기 로딩이 느려 사용자 경험을 해치고 있었습니다. Next.js 내장 최적화 기반의 코드 스플리팅, next/image와 캐시를 활용한 이미지 최적화, 메모이제이션과 prefetch·Link 전환을 통한 렌더링·네비게이션 최적화를 순차적으로 적용했습니다. 그 결과 초기 렌더와 메인스레드 반응성이 뚜렷이 개선됐습니다.",
     },
     screenshots: [],
     challenges: [
       {
         title: "거대한 초기 번들",
-        before: "모든 페이지가 단일 번들로 로드되어 초기 로딩 8초 이상",
+        before: "페이지 전반이 크게 묶여 로드되어 초기 로딩이 오래 걸리는 구조",
         after:
-          "라우트 기반 코드 스플리팅과 dynamic import로 초기 번들 60% 이상 감소",
+          "Next.js 내장 최적화 기반의 코드 스플리팅과 dynamic import로 초기 로딩에 필요한 코드만 우선 로드",
       },
       {
         title: "불필요한 리렌더링",
-        before: "상태 변경 시 무관한 컴포넌트까지 리렌더링되어 인터랙션 지연",
+        before:
+          "상태 변경 시 무관한 컴포넌트까지 리렌더링되며, 인터랙션이 수 초간 멈출 만큼 메인스레드 블로킹이 심했음",
         after:
-          "React.memo, useMemo, useCallback 적용 및 상태 구조 재설계로 렌더링 횟수 대폭 감소",
+          "React.memo, useMemo, useCallback 적용 및 상태 구조 재설계로 렌더링 횟수를 대폭 줄여, 현재 데스크톱 실측 기준 메인스레드 블로킹(TBT) 10ms 수준",
       },
       {
         title: "최적화되지 않은 이미지",
@@ -145,12 +146,16 @@ export const projects: ProjectData[] = [
     ],
     metrics: [
       {
-        value: "78",
-        change: "13 → 78",
-        label: "Lighthouse 성능 점수",
+        value: "TBT 10ms",
+        change: null,
+        label: "메인스레드 블로킹 최소화 (데스크톱 실측)",
       },
-      { value: "60%+", change: null, label: "초기 번들 사이즈 감소" },
-      { value: "단독", change: null, label: "성능 최적화 전 과정 수행" },
+      {
+        value: "FCP 0.6s",
+        change: null,
+        label: "초기 콘텐츠 렌더 (데스크톱 실측)",
+      },
+      { value: "단독", change: null, label: "프론트엔드 성능 최적화 전 과정 수행" },
     ],
   },
   {
