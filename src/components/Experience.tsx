@@ -20,11 +20,11 @@ export default function Experience() {
     },
     {
       icon: Users,
-      title: "SNS 마케팅",
+      title: "SNS 콘텐츠 운영",
       description:
         "SNS 계정 팔로워 10,000명 이상 달성한 경험이 있습니다.",
       devConnection:
-        "데이터 기반 의사결정과 A/B 테스트 사고방식을 자연스럽게 체득했습니다.",
+        "'만드는 나'가 아니라 '보는 사용자' 기준으로 판단하는 습관을 익혔고, 이를 UI와 카피 설계에 적용합니다.",
     },
     {
       icon: Heart,
