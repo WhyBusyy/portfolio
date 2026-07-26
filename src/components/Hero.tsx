@@ -57,7 +57,7 @@ export default function Hero() {
             </div>
             <div>
               <p className="text-xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-500 dark:text-slate-400 leading-[1.2]">
-                158,000줄 → 0
+                158,000줄 → 0줄
               </p>
               <Link
                 href="/projects/vendor-matching"
