@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Code, Server, Cloud, Users, Smartphone } from "lucide-react";
+import { Code, Server, Cloud, Users, Smartphone, FlaskConical } from "lucide-react";
 
 type SkillLevel = "core" | "proficient" | "familiar";
 
@@ -62,6 +62,16 @@ export default function Skills() {
         { name: "Webpack", level: "familiar" },
         { name: "Vite", level: "familiar" },
         { name: "Framer Motion", level: "familiar" },
+      ],
+    },
+    {
+      title: "Testing",
+      icon: FlaskConical,
+      skills: [
+        { name: "Playwright (E2E)", level: "core" },
+        { name: "Jest", level: "proficient" },
+        { name: "Testing Library", level: "proficient" },
+        { name: "Stagehand", level: "familiar" },
       ],
     },
     {
