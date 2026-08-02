@@ -30,11 +30,11 @@ export default function Work() {
               slug: "qa-automation-bot" as string | null,
             },
             {
-              title: "운영·개발 브랜치 자동 동기화 CI",
+              title: "브랜치 동기화 자동화 CI",
               period: "2026년 6월",
               description:
-                "핫픽스 수동 동기화와 충돌 해소를 보조 CI 3종으로 자동화. 도입 첫 주 동기화 21회 중 17회 무인 머지 (GitHub Actions)",
-              slug: "ci-branch-sync" as string | null,
+                "브랜치 간 동기화와 충돌 해소를 자동화하는 보조 CI 3종 구축, 잘못된 베이스의 머지를 required check로 차단 (GitHub Actions)",
+              slug: null as string | null,
             },
             {
               title: "배포 알림·기록 자동화",
@@ -85,7 +85,7 @@ export default function Work() {
               title: "전문의약품 도입 — 상품 3단 계층 전환",
               period: "2026년 4월 ~ 7월",
               description:
-                "'상품 1 : 판매처 1'을 모상품→규격상품→판매설정 3단 계층으로 전환. 검색·벤더·어드민 화면 3종 구현 + API 명세 작성 + 벤더 전용 서버 엔드포인트 구현 (Fullstack)",
+                "상품과 판매처가 1:1로 묶여 있던 구조를 상품 계층 3단으로 분리. 검색·벤더·어드민 화면 3종 구현 + API 명세 작성 + 벤더 전용 서버 엔드포인트 구현 (Fullstack)",
               slug: "etc-hierarchy" as string | null,
             },
             {
