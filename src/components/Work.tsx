@@ -18,62 +18,112 @@ export default function Work() {
       motto:
         "약국과 제약사 간의 상품 주문, 결제, 장부관리까지 한 번에 처리할 수 있는 B2B 직거래 통합관리 플랫폼 '플랫팜' 프론트엔드 개발 및 운영",
       roles: ["Frontend 개발", "Backend 개발"],
-      projects: [
+      tracks: [
         {
-          title: "개발·운영 자동화 (DX)",
-          period: "2026년 상반기",
-          description:
-            "직전 배포 이후 커밋을 티켓별로 Slack에 자동 정리하는 배포 알림 Composite Action, Notion 배포 기록 자동화(9곳), VSA 아키텍처 컨벤션 검증 CI를 직접 구축 (DX)",
-          slug: "dx-automation" as string | null,
+          label: "품질 · 자동화",
+          items: [
+            {
+              title: "QA 자동화 봇 (스모크·단위·E2E + AI 테스트 생성)",
+              period: "2026년 3월 ~ 현재",
+              description:
+                "PR마다 94개 테스트를 자동 실행하고, 변경 diff를 분석해 Playwright 테스트를 AI로 생성·검증하는 QA 봇 설계·구축. CI 누적 170회 실행 (Playwright · Claude API)",
+              slug: "qa-automation-bot" as string | null,
+            },
+            {
+              title: "운영·개발 브랜치 자동 동기화 CI",
+              period: "2026년 6월",
+              description:
+                "핫픽스 수동 동기화와 충돌 해소를 보조 CI 3종으로 자동화. 도입 첫 주 동기화 21회 중 17회 무인 머지 (GitHub Actions)",
+              slug: "ci-branch-sync" as string | null,
+            },
+            {
+              title: "배포 알림·기록 자동화",
+              period: "2026년 5월",
+              description:
+                "직전 배포 이후 커밋을 티켓별로 Slack에 자동 정리하는 Composite Action과 Notion 배포 기록 자동화(9곳)를 직접 구축 (DX)",
+              slug: "dx-automation" as string | null,
+            },
+            {
+              title: "사내 회의 알림 봇",
+              period: "2026년 5월",
+              description:
+                "노션이 Slack에 올린 회의 메시지를 파싱해 참여자에게 10분 전·시작 시 개인 DM, 평일 오전 당일 일정을 일괄 안내하는 전 구성원 대상 편의 자동화 (Node.js)",
+              slug: "meeting-notifier-bot" as string | null,
+            },
+          ],
         },
         {
-          title: "사내 회의 알림 봇",
-          period: "2026년 상반기",
-          description:
-            "노션이 Slack에 올린 회의 메시지를 파싱해 참여자에게 10분 전·시작 시 개인 DM, 평일 오전 당일 일정을 일괄 안내하는 전 구성원 대상 편의 자동화 (Node.js)",
-          slug: "meeting-notifier-bot" as string | null,
+          label: "아키텍처 · 성능",
+          items: [
+            {
+              title: "프론트엔드 아키텍처 마이그레이션 (VSA 하이브리드)",
+              period: "2026년 4월",
+              description:
+                "약 600개 파일 구조 재설계. 후보 4안 비교 후 의존성 전수조사로 완전한 Vertical Slice를 기각하고 하이브리드 채택, 7규칙 검증 CLI를 CI에 고정 (Frontend)",
+              slug: "vsa-migration" as string | null,
+            },
+            {
+              title: "WYSIWYG 에디터 마이그레이션",
+              period: "2026년 3월",
+              description:
+                "CKEditor에서 Tiptap 에디터로 마이그레이션하여 패키지 크기 2.5GB → 3MB, 운영 배포 시간 약 50% 단축 (12분 → 6분) (Frontend)",
+              slug: "editor-migration" as string | null,
+            },
+            {
+              title: "프론트엔드 성능 최적화",
+              period: "2025년 상반기",
+              description:
+                "코드 스플리팅·메모이제이션 등 프론트엔드 최적화로 초기 로딩 전방위 개선, 현재 데스크톱 실측 초기 렌더 0.6s·메인스레드 블로킹 10ms 수준 (Frontend)",
+              slug: "performance-optimization" as string | null,
+            },
+          ],
         },
         {
-          title: "영업 담당자 자동매칭 시스템 구축 및 DB 마이그레이션",
-          period: "2025년 8월 ~ 2026년 3월",
-          description:
-            "비정형 벤더 데이터 표준화 → 주소 기반 자동매칭 구축(성공률 90%+) → JSON 158,000줄 DB 마이그레이션 + 서버 이관까지 완성 (Fullstack)",
-          slug: "vendor-matching" as string | null,
-        },
-        {
-          title: "WYSIWYG 에디터 마이그레이션",
-          period: "2026년 3월",
-          description:
-            "CKEditor에서 Tiptap 에디터로 마이그레이션하여 패키지 크기 2.5GB → 3MB, 운영 배포 시간 약 50% 단축 (12분 → 6분) (Frontend)",
-          slug: "editor-migration" as string | null,
-        },
-        {
-          title: "웨비나 라이브 스트리밍 페이지 구현",
-          period: "2026년 2월",
-          description:
-            "Naver Cloud Player 기반 라이브 스트리밍 웨비나 페이지를 구현하고, 사전예약 및 실시간 현황 확인 기능을 개발 (Frontend)",
-          slug: null as string | null,
-        },
-        {
-          title: "자체 CMS 구축",
-          period: "2026년 1월",
-          description:
-            "프론트엔드와 백엔드 전 과정을 1개월 만에 단독 개발한 자체 CMS 구축을 통한 운영 효율 및 개발 생산성 개선 (Fullstack)",
-          slug: "cms-development" as string | null,
-        },
-        {
-          title: "프론트엔드 성능 최적화",
-          period: "2025년 상반기",
-          description:
-            "코드 스플리팅·메모이제이션 등 프론트엔드 최적화로 초기 로딩 전방위 개선, 현재 데스크톱 실측 초기 렌더 0.6s·메인스레드 블로킹 10ms 수준 (Frontend)",
-          slug: "performance-optimization" as string | null,
-        },
-        {
-          title: "서비스 초기 설계 및 프론트엔드 구조 설계",
-          period: "2024년 하반기",
-          description:
-            "서비스 초기 설계 단계부터 참여하여, 다양한 벤더사 요구사항을 반영한 확장 가능한 프론트엔드 구조 설계 및 기능 고도화를 주도 (Frontend)",
-          slug: "frontend-architecture" as string | null,
+          label: "제품 개발",
+          items: [
+            {
+              title: "전문의약품 도입 — 상품 3단 계층 전환",
+              period: "2026년 4월 ~ 7월",
+              description:
+                "'상품 1 : 판매처 1'을 모상품→규격상품→판매설정 3단 계층으로 전환. 검색·벤더·어드민 화면 3종 구현 + API 명세 작성 + 벤더 전용 서버 엔드포인트 구현 (Fullstack)",
+              slug: "etc-hierarchy" as string | null,
+            },
+            {
+              title: "웨비나 라이브 스트리밍 페이지",
+              period: "2026년 2월",
+              description:
+                "Naver Cloud Player 기반 라이브 스트리밍 시청 페이지와 사전예약·실시간 참여 현황 기능 구현. 라우트 코로케이션 첫 적용 사례 (Frontend)",
+              slug: "webinar-live" as string | null,
+            },
+            {
+              title: "자체 CMS 구축",
+              period: "2026년 1월",
+              description:
+                "프론트엔드와 백엔드 전 과정을 1개월 만에 단독 개발한 자체 CMS 구축을 통한 운영 효율 및 개발 생산성 개선 (Fullstack)",
+              slug: "cms-development" as string | null,
+            },
+            {
+              title: "대형 제약사 잔고결제 시연 페이지",
+              period: "2026년 1월",
+              description:
+                "계약 해지를 앞둔 고객사를 대상으로 잔고결제 시연 페이지를 구현, 다른 서비스로의 전환을 통해 계약 유지로 연결 (Frontend)",
+              slug: null as string | null,
+            },
+            {
+              title: "영업 담당자 자동매칭 시스템 구축 및 DB 마이그레이션",
+              period: "2025년 8월 ~ 2026년 3월",
+              description:
+                "비정형 벤더 데이터 표준화 → 주소 기반 자동매칭 구축(성공률 90%+) → JSON 158,000줄 DB 마이그레이션 + 서버 이관까지 완성 (Fullstack)",
+              slug: "vendor-matching" as string | null,
+            },
+            {
+              title: "서비스 초기 설계 및 프론트엔드 구조 설계",
+              period: "2024년 하반기",
+              description:
+                "서비스 초기 설계 단계부터 참여하여, 다양한 벤더사 요구사항을 반영한 확장 가능한 프론트엔드 구조 설계 및 기능 고도화를 주도 (Frontend)",
+              slug: "frontend-architecture" as string | null,
+            },
+          ],
         },
       ],
       ongoing: [
@@ -169,13 +219,14 @@ export default function Work() {
                   </div>
                 </div>
 
-                {/* Projects */}
-                <div>
-                  <p className="text-xs font-semibold text-slate-400 dark:text-slate-500 tracking-widest uppercase mb-6">
-                    Projects
-                  </p>
-                  <div className="space-y-0">
-                    {career.projects.map((project, idx) => {
+                {/* Projects — 트랙별 그룹 */}
+                {career.tracks.map((track, trackIdx) => (
+                  <div key={track.label} className={trackIdx > 0 ? "mt-4" : ""}>
+                    <p className="text-xs font-semibold text-slate-400 dark:text-slate-500 tracking-widest uppercase mb-6">
+                      {track.label}
+                    </p>
+                    <div className="space-y-0">
+                    {track.items.map((project, idx) => {
                       const content = (
                         <div
                           className={`flex gap-6 ${
@@ -184,7 +235,7 @@ export default function Work() {
                         >
                           <div className="flex flex-col items-center flex-shrink-0">
                             <div className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400 mt-2" />
-                            {idx < career.projects.length - 1 && (
+                            {idx < track.items.length - 1 && (
                               <div className="w-px flex-1 bg-slate-200 dark:bg-white/[0.06]" />
                             )}
                           </div>
@@ -224,7 +275,7 @@ export default function Work() {
                           }
                           transition={{
                             duration: 0.6,
-                            delay: 0.3 + idx * 0.1,
+                            delay: 0.3 + trackIdx * 0.1 + idx * 0.06,
                           }}
                         >
                           {project.slug ? (
@@ -237,8 +288,9 @@ export default function Work() {
                         </motion.div>
                       );
                     })}
+                    </div>
                   </div>
-                </div>
+                ))}
 
                 {/* Divider */}
                 <div className="border-t border-slate-200 dark:border-white/[0.06] my-10" />
