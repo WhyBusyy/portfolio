@@ -26,7 +26,7 @@ export default function Work() {
               title: "QA 자동화 봇 (스모크·단위·E2E + AI 테스트 생성)",
               period: "2026년 3월 ~ 현재",
               description:
-                "PR마다 94개 테스트를 자동 실행하고, 변경 diff를 분석해 Playwright 테스트를 AI로 생성·검증하는 QA 봇 설계·구축. CI 누적 170회 실행 (Playwright · Claude API)",
+                "PR마다 90개 이상의 테스트를 자동 실행하고, 변경 diff를 분석해 Playwright 테스트를 AI로 생성·검증하는 QA 봇 설계·구축. 5개월 넘게 PR 게이트로 지속 실행 (Playwright · Claude API)",
               slug: "qa-automation-bot" as string | null,
             },
             {
