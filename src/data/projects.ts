@@ -6,7 +6,7 @@ export const projects: ProjectData[] = [
     slug: "qa-automation-bot",
     title: "QA 자동화 봇 (스모크·단위·E2E + AI 테스트 생성)",
     company: "주식회사 루멘테라",
-    period: "2026년 3월 ~ 현재",
+    period: "2026년 3월 - 현재",
     role: "Developer",
     techStack: [
       "Playwright",

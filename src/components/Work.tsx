@@ -13,7 +13,7 @@ export default function Work() {
   const careerData = [
     {
       company: "주식회사 루멘테라",
-      period: "2024.05 ~ 현재",
+      period: "2024.05 - 현재",
       logo: "/platpharm-logo.svg",
       motto:
         "약국과 제약사 간의 상품 주문, 결제, 장부관리까지 한 번에 처리할 수 있는 B2B 직거래 통합관리 플랫폼 '플랫팜' 프론트엔드 개발 및 운영",
@@ -24,7 +24,7 @@ export default function Work() {
           items: [
             {
               title: "QA 자동화 봇 (스모크·단위·E2E + AI 테스트 생성)",
-              period: "2026년 3월 ~ 현재",
+              period: "2026년 3월 - 현재",
               description:
                 "PR마다 90개 이상의 테스트를 자동 실행하고, 변경 diff를 분석해 Playwright 테스트를 AI로 생성·검증하는 QA 봇 설계·구축. 5개월 넘게 PR 게이트로 지속 실행 (Playwright · Claude API)",
               slug: "qa-automation-bot" as string | null,
@@ -175,17 +175,17 @@ export default function Work() {
                   bg-white dark:bg-dark-bg"
                 >
                   <div className="flex-shrink-0">
-                    <div className="h-14 rounded-2xl bg-white dark:bg-white border border-slate-200 dark:border-white/10 flex items-center justify-center px-5">
+                    <div className="w-16 h-16 rounded-2xl bg-white dark:bg-white border border-slate-200 dark:border-white/10 flex items-center justify-center p-2">
                       {career.logo ? (
                         <Image
                           src={career.logo}
                           alt={`${career.company} 로고`}
                           width={138}
                           height={22}
-                          className="w-[132px] h-auto"
+                          className="w-full h-auto"
                         />
                       ) : (
-                        <span className="text-xl font-bold text-slate-600 px-2">
+                        <span className="text-xl font-bold text-slate-600">
                           {career.company.charAt(0)}
                         </span>
                       )}
