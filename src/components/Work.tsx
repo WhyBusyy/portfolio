@@ -82,6 +82,13 @@ export default function Work() {
           label: "제품 개발",
           items: [
             {
+              title: "디자인 시스템 구축 및 전면 적용",
+              period: "2026년 3월 ~ 7월",
+              description:
+                "시맨틱 토큰 297개와 공용 컴포넌트로 디자인 시스템을 구축하고 약국·벤더 관리자 화면 전반에 적용, 구 타이포 클래스 222곳(82파일) 마이그레이션 + DS 정합 규칙을 코드베이스에 고정 (Frontend)",
+              slug: "design-system" as string | null,
+            },
+            {
               title: "다단계 승인 플로우 어드민 재설계",
               period: "2026년 4월 ~ 7월",
               description:
