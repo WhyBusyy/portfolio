@@ -87,7 +87,7 @@ const sideProjects: SideProject[] = [
     ],
     github: "https://github.com/WhyBusyy/tui-games",
     demo: null,
-    screenshot: null,
+    screenshot: "/tui-games.webp",
     category: "Terminal",
     icon: Gamepad2,
     gradient:
