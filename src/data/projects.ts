@@ -640,57 +640,6 @@ export const projects: ProjectData[] = [
       { value: "1주일", change: null, label: "DB 마이그레이션 ~ QA" },
     ],
   },
-  {
-    slug: "frontend-architecture",
-    title: "서비스 초기 설계 및 프론트엔드 구조 설계",
-    company: "주식회사 루멘테라",
-    period: "2024년 하반기",
-    role: "Frontend Developer",
-    techStack: [
-      "Next.js (App Router)",
-      "React",
-      "TypeScript",
-      "SSR / RSC",
-      "Zustand",
-      "TanStack Query",
-      "Tailwind CSS",
-      "Emotion",
-      "MUI",
-    ],
-    overview: {
-      lead: "B2B 직거래 플랫폼 '플랫팜'의 초기 설계부터 참여하여, 70개 이상 벤더사를 수용하는 프론트엔드 아키텍처를 구축했습니다.",
-      detail:
-        "벤더사마다 다른 요구사항을 유연하게 수용할 수 있는 구조가 핵심이었습니다. Next.js App Router 기반의 SSR/RSC(서버 컴포넌트)로 초기 로딩과 SEO를 확보하고, 컴포넌트 설계, 상태 관리 전략, API 연동 구조, 폴더 체계 등 프론트엔드 전반의 아키텍처를 설계하고 기능 고도화를 주도했습니다.",
-    },
-    screenshots: [],
-    challenges: [
-      {
-        title: "벤더사별 다른 요구사항",
-        before:
-          "벤더사마다 다른 UI/UX 요구사항으로 코드 중복과 유지보수 비용 증가 예상",
-        after:
-          "컴포지션 패턴과 설정 기반 렌더링으로 벤더별 커스터마이징이 가능한 유연한 구조 설계",
-      },
-      {
-        title: "복잡한 상태 관리",
-        before:
-          "복잡한 폼, 주문 플로우, 실시간 데이터 동기화가 뒤섞여 상태 추적이 어려운 구조",
-        after:
-          "Zustand(클라이언트)와 TanStack Query(서버)로 상태를 분리하여 예측 가능한 데이터 흐름 구축",
-      },
-      {
-        title: "출시 속도와 코드 품질의 균형",
-        before: "빠른 출시가 필요하지만 기술 부채를 최소화해야 하는 상황",
-        after:
-          "공통 컴포넌트와 코드 컨벤션을 먼저 확립하여 초기 개발 속도와 장기 유지보수성 모두 확보",
-      },
-    ],
-    metrics: [
-      { value: "1년+", change: null, label: "서비스 운영 및 유지보수" },
-      { value: "70%", change: null, label: "프론트엔드 초기 구조 설계 기여" },
-      { value: "70+", change: null, label: "대응 가능한 벤더사 수" },
-    ],
-  },
 ];
 
 export function getProjectBySlug(slug: string): ProjectData | undefined {

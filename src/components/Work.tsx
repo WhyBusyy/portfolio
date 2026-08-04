@@ -117,11 +117,11 @@ export default function Work() {
               slug: "vendor-matching" as string | null,
             },
             {
-              title: "서비스 초기 설계 및 프론트엔드 구조 설계",
+              title: "서비스 초기 구축 참여",
               period: "2024년 하반기",
               description:
-                "서비스 초기 설계 단계부터 참여하여, 다양한 벤더사 요구사항을 반영한 확장 가능한 프론트엔드 구조 설계 및 기능 고도화를 주도 (Frontend)",
-              slug: "frontend-architecture" as string | null,
+                "B2B 직거래 플랫폼 '플랫팜'의 초기 구축 단계부터 참여, 벤더사별로 다른 요구사항을 수용하는 프론트엔드 구조와 공통 컴포넌트 체계 구성 (Frontend)",
+              slug: null as string | null,
             },
           ],
         },
