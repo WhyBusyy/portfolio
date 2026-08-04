@@ -175,17 +175,17 @@ export default function Work() {
                   bg-white dark:bg-dark-bg"
                 >
                   <div className="flex-shrink-0">
-                    <div className="w-16 h-16 rounded-2xl bg-white dark:bg-white border border-slate-200 dark:border-white/10 flex items-center justify-center p-2.5">
+                    <div className="h-14 rounded-2xl bg-white dark:bg-white border border-slate-200 dark:border-white/10 flex items-center justify-center px-5">
                       {career.logo ? (
                         <Image
                           src={career.logo}
                           alt={`${career.company} 로고`}
-                          width={44}
-                          height={44}
-                          className="w-full h-full object-contain"
+                          width={138}
+                          height={22}
+                          className="w-[132px] h-auto"
                         />
                       ) : (
-                        <span className="text-xl font-bold text-slate-600">
+                        <span className="text-xl font-bold text-slate-600 px-2">
                           {career.company.charAt(0)}
                         </span>
                       )}
