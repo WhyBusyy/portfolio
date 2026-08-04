@@ -197,7 +197,7 @@ export default function Work() {
                       <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
                         {career.company}
                       </h3>
-                      <p className="text-sm text-slate-400 dark:text-slate-500 mt-1">
+                      <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
                         {career.period}
                       </p>
                     </div>
@@ -222,7 +222,7 @@ export default function Work() {
                 {/* Projects — 트랙별 그룹 */}
                 {career.tracks.map((track, trackIdx) => (
                   <div key={track.label} className={trackIdx > 0 ? "mt-4" : ""}>
-                    <p className="text-xs font-semibold text-slate-400 dark:text-slate-500 tracking-widest uppercase mb-6">
+                    <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 tracking-widest uppercase mb-6">
                       {track.label}
                     </p>
                     <div className="space-y-0">
@@ -240,7 +240,7 @@ export default function Work() {
                             )}
                           </div>
                           <div className="flex-1 pb-10">
-                            <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">
+                            <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">
                               {project.period}
                             </p>
                             <h4
@@ -297,7 +297,7 @@ export default function Work() {
 
                 {/* Ongoing */}
                 <div>
-                  <p className="text-xs font-semibold text-slate-400 dark:text-slate-500 tracking-widest uppercase mb-6">
+                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 tracking-widest uppercase mb-6">
                     Ongoing
                   </p>
                   <div className="space-y-0">
@@ -323,7 +323,7 @@ export default function Work() {
                             )}
                           </div>
                           <div className="flex-1 pb-10">
-                            <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">
+                            <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">
                               {item.period}
                             </p>
                             <h4 className="text-base font-semibold text-slate-900 dark:text-white mb-2">

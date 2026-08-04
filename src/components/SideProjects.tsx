@@ -14,6 +14,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 interface SideProject {
@@ -283,11 +284,13 @@ export default function SideProjects() {
                     {/* Screenshot / Placeholder */}
                     <div className="relative aspect-[16/10] overflow-hidden bg-slate-100 dark:bg-white/[0.04]">
                       {project.screenshot ? (
-                        <img
+                        <Image
                           src={project.screenshot}
                           alt={project.title}
+                          fill
+                          sizes="(max-width: 640px) 280px, 340px"
                           draggable={false}
-                          className={`w-full h-full transition-transform duration-500 pointer-events-none ${
+                          className={`transition-transform duration-500 pointer-events-none ${
                             project.imageFit === "contain"
                               ? "object-contain"
                               : "object-cover"
@@ -301,7 +304,7 @@ export default function SideProjects() {
                           <div
                             className={`absolute w-24 h-24 bg-gradient-to-br ${project.gradient} blur-2xl opacity-40`}
                           />
-                          <IconComponent className="w-12 h-12 text-slate-400 dark:text-slate-500 relative z-10" />
+                          <IconComponent className="w-12 h-12 text-slate-500 dark:text-slate-400 relative z-10" />
                         </div>
                       )}
 

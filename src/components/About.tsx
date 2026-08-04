@@ -92,7 +92,7 @@ export default function About() {
                         <IconComponent className="w-4 h-4 text-slate-600 dark:text-slate-400" />
                       </div>
                       <div>
-                        <p className="text-xs text-slate-400 dark:text-slate-500 mb-0.5">
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-0.5">
                           {info.label}
                         </p>
                         {info.href ? (
@@ -144,7 +144,7 @@ export default function About() {
                       <p className="text-sm text-slate-500 dark:text-slate-400">
                         {edu.major}
                       </p>
-                      <p className="text-xs text-slate-400 dark:text-slate-500">
+                      <p className="text-xs text-slate-500 dark:text-slate-400">
                         {edu.period}
                       </p>
                     </div>
@@ -190,7 +190,7 @@ export default function About() {
                         <span className="text-sm font-medium text-slate-800 dark:text-slate-200">
                           {cert.name}
                         </span>
-                        <span className="text-xs text-slate-400 dark:text-slate-500">
+                        <span className="text-xs text-slate-500 dark:text-slate-400">
                           {cert.date}
                         </span>
                       </div>

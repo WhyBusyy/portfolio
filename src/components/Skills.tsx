@@ -19,7 +19,7 @@ const getSkillStyle = (level: SkillLevel): string => {
     case "proficient":
       return "px-3 py-1.5 bg-slate-50 dark:bg-white/[0.04] text-slate-600 dark:text-slate-400 rounded-lg text-xs font-medium";
     case "familiar":
-      return "px-3 py-1.5 bg-slate-50/50 dark:bg-white/[0.02] text-slate-400 dark:text-slate-500 rounded-lg text-xs";
+      return "px-3 py-1.5 bg-slate-50/50 dark:bg-white/[0.02] text-slate-500 dark:text-slate-400 rounded-lg text-xs";
     default:
       return "px-3 py-1.5 bg-slate-50 dark:bg-white/[0.04] text-slate-600 dark:text-slate-400 rounded-lg text-xs font-medium";
   }
@@ -140,19 +140,19 @@ export default function Skills() {
           <div className="flex items-center justify-center gap-6 mb-16">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400" />
-              <span className="text-xs text-slate-400 dark:text-slate-500">
+              <span className="text-xs text-slate-500 dark:text-slate-400">
                 Core
               </span>
             </div>
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-slate-400 dark:bg-slate-500" />
-              <span className="text-xs text-slate-400 dark:text-slate-500">
+              <span className="text-xs text-slate-500 dark:text-slate-400">
                 Proficient
               </span>
             </div>
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-600" />
-              <span className="text-xs text-slate-400 dark:text-slate-500">
+              <span className="text-xs text-slate-500 dark:text-slate-400">
                 Familiar
               </span>
             </div>

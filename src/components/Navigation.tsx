@@ -87,7 +87,7 @@ export default function Navigation() {
             transition={{ duration: 0.6 }}
             className="flex items-center gap-2 cursor-pointer hover:opacity-60 transition-opacity rounded-md"
             onClick={() => scrollToSection("#hero")}
-            aria-label="홈으로 이동"
+            aria-label="WhyBusyy 홈으로 이동"
           >
             <Image
               src="/logo.png"

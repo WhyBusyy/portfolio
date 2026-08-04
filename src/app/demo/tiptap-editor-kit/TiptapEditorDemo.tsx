@@ -31,7 +31,7 @@ export default function TiptapEditorDemo() {
           <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300">
             Editor
           </h2>
-          <span className="text-[10px] text-slate-400 dark:text-slate-500 font-mono">
+          <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">
             React + TypeScript
           </span>
         </div>

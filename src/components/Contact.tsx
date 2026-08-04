@@ -63,7 +63,7 @@ export default function Contact() {
                 transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
                 className="flex items-center gap-3"
               >
-                <contact.icon className="w-4 h-4 text-slate-400 dark:text-slate-500" />
+                <contact.icon className="w-4 h-4 text-slate-500 dark:text-slate-400" />
                 {contact.href ? (
                   <a
                     href={contact.href}

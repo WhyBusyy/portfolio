@@ -105,7 +105,7 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
       {/* Overview */}
       <section className="py-20 section-padding">
         <AnimatedSection className="max-w-3xl mx-auto">
-          <p className="text-sm font-semibold text-slate-400 dark:text-slate-500 tracking-widest uppercase mb-6">
+          <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 tracking-widest uppercase mb-6">
             Overview
           </p>
           <div className="space-y-6">
@@ -124,7 +124,7 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
         <section className="py-20 section-padding">
           <div className="max-w-4xl mx-auto">
             <AnimatedSection>
-              <p className="text-sm font-semibold text-slate-400 dark:text-slate-500 tracking-widest uppercase mb-10">
+              <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 tracking-widest uppercase mb-10">
                 Challenges & Solutions
               </p>
             </AnimatedSection>
@@ -145,7 +145,7 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
                       <div className="space-y-3">
                         <div className="flex items-center gap-2">
                           <div className="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-600" />
-                          <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wide">
+                          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
                             Before
                           </span>
                         </div>
@@ -202,7 +202,7 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
         <section className="py-20 section-padding bg-slate-50/50 dark:bg-white/[0.02]">
           <div className="max-w-4xl mx-auto">
             <AnimatedSection>
-              <p className="text-sm font-semibold text-slate-400 dark:text-slate-500 tracking-widest uppercase mb-10">
+              <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 tracking-widest uppercase mb-10">
                 Impact
               </p>
             </AnimatedSection>
@@ -242,7 +242,7 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
               >
                 <ArrowLeft className="w-4 h-4 flex-shrink-0 transition-transform group-hover:-translate-x-1" />
                 <div className="min-w-0">
-                  <p className="text-xs text-slate-400 dark:text-slate-500">
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
                     이전
                   </p>
                   <p className="font-medium">{prev.title}</p>
@@ -254,7 +254,7 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
 
             <Link
               href="/#work"
-              className="text-sm text-slate-400 dark:text-slate-500
+              className="text-sm text-slate-500 dark:text-slate-400
                          hover:text-blue-600 dark:hover:text-blue-400 transition-colors hidden sm:block flex-shrink-0"
             >
               모든 프로젝트
@@ -267,7 +267,7 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
                            hover:text-slate-900 dark:hover:text-white transition-colors text-right min-w-0"
               >
                 <div className="min-w-0">
-                  <p className="text-xs text-slate-400 dark:text-slate-500">
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
                     다음
                   </p>
                   <p className="font-medium">{next.title}</p>

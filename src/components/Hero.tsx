@@ -22,7 +22,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-sm sm:text-base tracking-widest uppercase text-slate-400 dark:text-slate-500"
+            className="text-sm sm:text-base tracking-widest uppercase text-slate-500 dark:text-slate-400"
           >
             유병규 · Frontend Developer
           </motion.p>
@@ -39,7 +39,7 @@ export default function Hero() {
               </h1>
               <Link
                 href="/projects/editor-migration"
-                className="inline-block text-xs sm:text-sm text-slate-400 dark:text-slate-500 mt-1 tracking-wide hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                className="inline-block text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 tracking-wide hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 에디터 패키지 경량화 →
               </Link>
@@ -50,7 +50,7 @@ export default function Hero() {
               </p>
               <Link
                 href="/projects/cms-development"
-                className="inline-block text-xs sm:text-sm text-slate-400 dark:text-slate-500 mt-1 tracking-wide hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                className="inline-block text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 tracking-wide hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 콘텐츠 관련 개발 요청 →
               </Link>
@@ -61,7 +61,7 @@ export default function Hero() {
               </p>
               <Link
                 href="/projects/vendor-matching"
-                className="inline-block text-xs sm:text-sm text-slate-400 dark:text-slate-500 mt-1 tracking-wide hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                className="inline-block text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 tracking-wide hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 정적 JSON DB 이관 →
               </Link>
