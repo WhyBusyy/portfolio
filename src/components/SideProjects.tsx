@@ -76,8 +76,14 @@ const sideProjects: SideProject[] = [
   {
     title: "포트폴리오 사이트",
     description:
-      "미니멀리즘 스타일을 적용한 개인 포트폴리오. Framer Motion 애니메이션과 다크모드를 구현했습니다.",
-    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+      "미니멀리즘 스타일의 개인 포트폴리오. 폰트를 동적 서브셋으로 전환해 전송량 3.5MB → 653KB로 줄이고, Lighthouse 성능 98 · 접근성 100을 달성했습니다 (데스크톱 실측). skip navigation, aria 라벨, prefers-reduced-motion을 적용했습니다.",
+    techStack: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Framer Motion",
+      "a11y",
+    ],
     github: "https://github.com/WhyBusyy/portfolio",
     demo: null,
     screenshot: "/portfolio.png",

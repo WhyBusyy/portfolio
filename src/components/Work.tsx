@@ -138,7 +138,7 @@ export default function Work() {
           title: "운영 안정성 및 유지보수성 개선",
           period: "2024년 하반기 - 현재",
           description:
-            "운영 단계에서 발생하는 이슈 대응을 주도하며, 프론트엔드 전반의 안정성과 유지보수성 개선 (Frontend)",
+            "운영 이슈 대응을 주도하고, 재발 방지를 위해 해당 케이스를 회귀 테스트 스펙으로 고정해 PR 게이트에서 상시 검증 (Frontend)",
           slug: null as string | null,
         },
       ],
