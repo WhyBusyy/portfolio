@@ -82,11 +82,11 @@ export default function Work() {
           label: "제품 개발",
           items: [
             {
-              title: "전문의약품 도입 — 상품 3단 계층 전환",
+              title: "다단계 승인 플로우 어드민 재설계",
               period: "2026년 4월 ~ 7월",
               description:
-                "상품과 판매처가 1:1로 묶여 있던 구조를 상품 계층 3단으로 분리. 검색·벤더·어드민 화면 3종 구현 + API 명세 작성 + 벤더 전용 서버 엔드포인트 구현 (Fullstack)",
-              slug: "etc-hierarchy" as string | null,
+                "등록·수정·승인 흐름에 흩어져 있던 모달 6개를 통합 모달 1개(9모드)로 재설계, 상세 진입 API 4회 → 1회, 낙관적 잠금으로 동시 편집 충돌 방어 (Fullstack)",
+              slug: "admin-approval-flow" as string | null,
             },
             {
               title: "웨비나 라이브 스트리밍 페이지",
@@ -103,10 +103,10 @@ export default function Work() {
               slug: "cms-development" as string | null,
             },
             {
-              title: "대형 제약사 잔고결제 시연 페이지",
+              title: "대형 제약사 신규 서비스 제안 페이지",
               period: "2026년 1월",
               description:
-                "계약 해지를 앞둔 고객사를 대상으로 잔고결제 시연 페이지를 구현, 다른 서비스로의 전환을 통해 계약 유지로 연결 (Frontend)",
+                "계약 해지를 앞둔 고객사에 제안할 신규 서비스 시연 페이지를 구현, 서비스 전환을 통해 계약 유지로 연결 (Frontend)",
               slug: null as string | null,
             },
             {
