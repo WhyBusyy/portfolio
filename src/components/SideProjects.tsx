@@ -10,6 +10,7 @@ import {
   Smartphone,
   Terminal,
   Package,
+  Gamepad2,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
@@ -72,6 +73,26 @@ const sideProjects: SideProject[] = [
     gradient:
       "from-violet-500/20 to-purple-500/20 dark:from-violet-500/10 dark:to-purple-500/10",
     accentColor: "text-violet-600 dark:text-violet-400",
+  },
+  {
+    title: "TUI Games",
+    description:
+      "터미널에서 돌아가는 미니게임 4종(Snake·Tetris·Sudoku·Galaga). 의존성 없이 Node.js 표준 라이브러리만 쓰고, 변경된 셀만 다시 그리는 이중 버퍼 차분 렌더러를 직접 구현했습니다. 순수 로직을 분리해 테스트 68개를 붙였습니다.",
+    techStack: [
+      "Node.js",
+      "JavaScript",
+      "ANSI / TUI",
+      "node:test",
+      "Zero-dependency",
+    ],
+    github: "https://github.com/WhyBusyy/tui-games",
+    demo: null,
+    screenshot: null,
+    category: "Terminal",
+    icon: Gamepad2,
+    gradient:
+      "from-indigo-500/20 to-slate-500/20 dark:from-indigo-500/10 dark:to-slate-500/10",
+    accentColor: "text-indigo-600 dark:text-indigo-400",
   },
   {
     title: "포트폴리오 사이트",
