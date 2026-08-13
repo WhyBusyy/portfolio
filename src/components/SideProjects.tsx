@@ -129,13 +129,13 @@ const sideProjects: SideProject[] = [
     accentColor: "text-amber-600 dark:text-amber-400",
   },
   {
-    title: "Re:Gym",
+    title: "Re:Gym — 중고 헬스 기구 거래 앱",
     description:
-      "Flutter 기반 크로스플랫폼 앱 프로젝트. 현재 개발 진행 중입니다.",
+      "상품 등록·필터 검색·키워드 알림·찜·채팅·판매/구매 관리까지 MVP 구현을 마치고 TestFlight로 테스트 중입니다. 장비 구분·사용감·구입 시기처럼 기구 특성에 맞춘 등록 폼과 브랜드·부위·가격 필터를 직접 설계했습니다.",
     techStack: ["Flutter", "Dart"],
     github: null,
     demo: null,
-    screenshot: "/re-gym.png",
+    screenshot: "/re-gym.webp",
     category: "Mobile",
     icon: Smartphone,
     gradient:
