@@ -46,6 +46,17 @@ export default function Hero() {
             </div>
             <div>
               <p className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-700 dark:text-slate-300 leading-[1.2]">
+                수동 QA → PR 게이트
+              </p>
+              <Link
+                href="/projects/qa-automation-bot"
+                className="inline-block text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 tracking-wide hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >
+                테스트 90개 이상 상시 실행 →
+              </Link>
+            </div>
+            <div>
+              <p className="text-xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-500 dark:text-slate-400 leading-[1.2]">
                 3일 1회 → 2주 1회
               </p>
               <Link
@@ -53,17 +64,6 @@ export default function Hero() {
                 className="inline-block text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 tracking-wide hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 콘텐츠 관련 개발 요청 →
-              </Link>
-            </div>
-            <div>
-              <p className="text-xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-500 dark:text-slate-400 leading-[1.2]">
-                158,000줄 → 0줄
-              </p>
-              <Link
-                href="/projects/vendor-matching"
-                className="inline-block text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 tracking-wide hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-              >
-                정적 JSON DB 이관 →
               </Link>
             </div>
           </motion.div>
@@ -75,7 +75,7 @@ export default function Hero() {
             className="max-w-2xl mx-auto"
           >
             <p className="text-lg sm:text-xl text-slate-500 dark:text-slate-400 leading-relaxed text-balance">
-              줄이고, 자동화하고, 빠르게 합니다.
+              반복을 없애고, 기준을 코드에 남깁니다.
             </p>
           </motion.div>
 
