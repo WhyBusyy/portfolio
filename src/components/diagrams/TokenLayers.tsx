@@ -39,10 +39,11 @@ export default function TokenLayers() {
       />
       {layer(L, 48, "화면", "버튼 · 카드 · 폼")}
       {layer(L, 214, "팔레트", "원시 색 값 목록")}
+      {/* 의미 토큰 칸은 좁게 — 우회 경로가 지나갈 자리를 남긴다 */}
       <Node
         x={L}
         y={131}
-        w={colW}
+        w={colW - 64}
         h={50}
         label="의미 토큰"
         sub="정의되지 않음"
@@ -51,17 +52,14 @@ export default function TokenLayers() {
       />
       {/* 화면 → 팔레트 직접 참조 (의미 토큰 우회) */}
       <path
-        d={`M ${L + colW - 40} 98 C ${L + colW + 4} 128, ${L + colW + 4} 184, ${
+        d={`M ${L + colW - 40} 98 C ${L + colW - 18} 120, ${L + colW - 18} 158, ${
           L + colW - 40
-        } 212`}
+        } 194`}
         className="fill-none stroke-slate-400 dark:stroke-slate-500"
         strokeWidth={1.4}
         strokeDasharray="4 3"
       />
-      <path
-        d={`M ${L + colW - 40} 214 l 7 -7 l 1 9 z`}
-        className="fill-slate-400 dark:fill-slate-500"
-      />
+      <Arrow x1={L + colW - 40} y1={192} x2={L + colW - 40} y2={212} dashed />
       <Txt x={L + 8} y={306} muted size={10.5}>
         화면이 색 값을 직접 지정 · 변경 지점 특정 불가
       </Txt>
