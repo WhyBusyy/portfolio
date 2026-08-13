@@ -89,13 +89,6 @@ export default function Work() {
               slug: "design-system" as string | null,
             },
             {
-              title: "다단계 승인 플로우 어드민 재설계",
-              period: "2026년 4월 ~ 7월",
-              description:
-                "등록·수정·승인 흐름에 흩어져 있던 모달 6개를 통합 모달 1개(9모드)로 재설계, 상세 진입 API 4회 → 1회, 낙관적 잠금으로 동시 편집 충돌 방어 (Fullstack)",
-              slug: null as string | null,
-            },
-            {
               title: "웨비나 라이브 스트리밍 페이지",
               period: "2026년 2월",
               description:
