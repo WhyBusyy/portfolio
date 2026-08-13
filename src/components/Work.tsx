@@ -40,7 +40,7 @@ export default function Work() {
               title: "배포 알림·기록 자동화",
               period: "2026년 5월",
               description:
-                "직전 배포 이후 커밋을 티켓별로 Slack에 자동 정리하는 Composite Action과 Notion 배포 기록 자동화(9곳)를 직접 구축 (DX)",
+                "직전 배포 이후 커밋을 티켓별로 Slack에 자동 정리하는 Composite Action과 Notion 배포 기록 자동화를 직접 구축 (DX)",
               slug: "dx-automation" as string | null,
             },
             {

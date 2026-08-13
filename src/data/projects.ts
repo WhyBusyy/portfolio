@@ -125,7 +125,7 @@ export const projects: ProjectData[] = [
         before:
           "배포 내역이 자동으로 남지 않아 언제 무엇이 배포됐는지 사후에 추적하기 어려움",
         after:
-          "운영 배포 워크플로 9곳에 Notion 배포 기록을 자동 생성하는 액션을 배선하고, 기존 이메일 알림은 정리",
+          "운영 배포 워크플로 전반에 Notion 배포 기록을 자동 생성하는 액션을 배선하고, 기존 이메일 알림은 정리",
       },
     ],
     metrics: [
@@ -134,7 +134,11 @@ export const projects: ProjectData[] = [
         change: null,
         label: "배포 커밋 자동 정리 → Slack 발송",
       },
-      { value: "9곳", change: null, label: "배포 워크플로 Notion 기록 자동화 배선" },
+      {
+        value: "자동 기록",
+        change: "운영 배포 워크플로 전반",
+        label: "배포 이력을 Notion에 자동 생성",
+      },
       {
         value: "설정 한 줄",
         change: null,
