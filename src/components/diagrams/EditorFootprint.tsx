@@ -11,7 +11,6 @@ export default function EditorFootprint() {
   return (
     <Figure
       title="에디터 교체 전후: 의존성 크기와 배포 시간"
-      caption="크기 차이가 약 850배로 선형 축에 담기지 않아 로그 축으로 그렸다. 막대 길이는 실제 배율이 아니다."
       viewBox="0 0 796 268"
     >
       <Eyebrow x={20} y={26}>
