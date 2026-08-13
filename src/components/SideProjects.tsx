@@ -131,8 +131,16 @@ const sideProjects: SideProject[] = [
   {
     title: "Re:Gym — 중고 헬스 기구 거래 앱",
     description:
-      "중고 헬스 기구 거래 앱의 Flutter 클라이언트를 맡았습니다. 상품 등록·필터 검색·키워드 알림·찜·채팅·판매/구매 관리 화면을 구현해 MVP를 마치고 TestFlight로 테스트 중입니다. 서버·기획 담당자와 역할을 나눠 진행한 팀 프로젝트입니다.",
-    techStack: ["Flutter", "Dart"],
+      "중고 헬스 기구 거래 앱의 Flutter 클라이언트와 관리자 웹을 맡았습니다. 상품 등록·필터 검색·키워드 알림·찜·판매/구매 관리 화면과 STOMP 기반 실시간 채팅을 구현하고, 판매글·브랜드·부위를 관리하는 백오피스를 Next.js로 함께 만들었습니다. 단위 34개·위젯 12개 총 46개 테스트를 붙였고, MVP를 마치고 TestFlight로 테스트 중입니다.",
+    techStack: [
+      "Flutter",
+      "Dart",
+      "STOMP (WebSocket)",
+      "Firebase Messaging",
+      "Kakao SDK",
+      "Next.js",
+      "flutter_test",
+    ],
     github: null,
     demo: null,
     screenshot: "/re-gym.webp",
