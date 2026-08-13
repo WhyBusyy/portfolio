@@ -131,7 +131,7 @@ const sideProjects: SideProject[] = [
   {
     title: "Re:Gym — 중고 헬스 기구 거래 앱",
     description:
-      "상품 등록·필터 검색·키워드 알림·찜·채팅·판매/구매 관리까지 MVP 구현을 마치고 TestFlight로 테스트 중입니다. 장비 구분·사용감·구입 시기처럼 기구 특성에 맞춘 등록 폼과 브랜드·부위·가격 필터를 직접 설계했습니다.",
+      "중고 헬스 기구 거래 앱의 Flutter 클라이언트를 맡았습니다. 상품 등록·필터 검색·키워드 알림·찜·채팅·판매/구매 관리 화면을 구현해 MVP를 마치고 TestFlight로 테스트 중입니다. 서버·기획 담당자와 역할을 나눠 진행한 팀 프로젝트입니다.",
     techStack: ["Flutter", "Dart"],
     github: null,
     demo: null,
