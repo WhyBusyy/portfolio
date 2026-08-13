@@ -6,6 +6,7 @@ import { useRef } from "react";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { ProjectData } from "@/types/project";
+import { getProjectDiagrams } from "@/components/diagrams";
 
 interface Props {
   project: ProjectData;
@@ -39,6 +40,8 @@ function AnimatedSection({
 }
 
 export default function ProjectDetailClient({ project, prev, next }: Props) {
+  const diagrams = getProjectDiagrams(project.slug);
+
   return (
     <main className="min-h-screen bg-white dark:bg-dark-bg">
       {/* Header */}
@@ -105,9 +108,9 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
       {/* Overview */}
       <section className="py-20 section-padding">
         <AnimatedSection className="max-w-3xl mx-auto">
-          <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 tracking-widest uppercase mb-6">
+          <h2 className="text-sm font-semibold text-slate-500 dark:text-slate-400 tracking-widest uppercase mb-6">
             Overview
-          </p>
+          </h2>
           <div className="space-y-6">
             <p className="text-lg sm:text-xl text-slate-700 dark:text-slate-300 leading-relaxed">
               {project.overview.lead}
@@ -119,14 +122,34 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
         </AnimatedSection>
       </section>
 
+      {/* Structure — 사내 화면 대신 직접 그린 구조 다이어그램 */}
+      {diagrams.length > 0 && (
+        <section className="py-20 section-padding bg-slate-50/50 dark:bg-white/[0.02]">
+          <div className="max-w-4xl mx-auto">
+            <AnimatedSection>
+              <h2 className="text-sm font-semibold text-slate-500 dark:text-slate-400 tracking-widest uppercase mb-10">
+                Structure
+              </h2>
+            </AnimatedSection>
+            <div className="space-y-4">
+              {diagrams.map((Diagram, index) => (
+                <AnimatedSection key={index} delay={index * 0.15}>
+                  <Diagram />
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Challenges & Solutions */}
       {project.challenges.length > 0 && (
         <section className="py-20 section-padding">
           <div className="max-w-4xl mx-auto">
             <AnimatedSection>
-              <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 tracking-widest uppercase mb-10">
+              <h2 className="text-sm font-semibold text-slate-500 dark:text-slate-400 tracking-widest uppercase mb-10">
                 Challenges & Solutions
-              </p>
+              </h2>
             </AnimatedSection>
 
             <div className="space-y-8">
@@ -202,9 +225,9 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
         <section className="py-20 section-padding bg-slate-50/50 dark:bg-white/[0.02]">
           <div className="max-w-4xl mx-auto">
             <AnimatedSection>
-              <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 tracking-widest uppercase mb-10">
+              <h2 className="text-sm font-semibold text-slate-500 dark:text-slate-400 tracking-widest uppercase mb-10">
                 Impact
-              </p>
+              </h2>
             </AnimatedSection>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
