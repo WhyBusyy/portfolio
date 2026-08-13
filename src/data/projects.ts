@@ -19,7 +19,7 @@ export const projects: ProjectData[] = [
       "Linear SDK",
     ],
     overview: {
-      lead: "PR마다 스모크·단위·E2E 90개 이상의 케이스를 자동 실행하고, 변경 diff를 분석해 Playwright 테스트를 AI로 생성·검증까지 하는 QA 봇을 설계·구축했습니다. 5개월 넘게 CI에서 지속 실행되며 팀의 PR 게이트로 정착했습니다.",
+      lead: "PR마다 스모크·단위·E2E 90개 이상의 케이스를 자동 실행하고, 변경 diff를 분석해 Playwright 테스트를 AI로 생성·검증까지 하는 QA 봇을 설계·구축했습니다. 팀의 PR 게이트로 정착해 지금도 상시 실행되고 있습니다.",
       detail:
         "릴리스마다 사람이 손으로 화면을 눌러보는 QA가 병목이었습니다. 역할별 로그인 fixture를 만들고 고정 스위트를 PR 게이트로 세운 뒤, 변경된 코드에 대한 테스트는 AI가 생성하도록 파이프라인을 붙였습니다. 다만 AI가 만든 테스트를 그대로 신뢰할 수는 없기에, 문법 검증·DB 읽기 전용 강제·비용 로깅 같은 검증 장치를 함께 설계했습니다.",
     },
@@ -77,8 +77,8 @@ export const projects: ProjectData[] = [
       },
       {
         value: "지속 실행",
-        change: "5개월+",
-        label: "팀의 PR 게이트로 정착",
+        change: null,
+        label: "팀의 PR 게이트로 정착해 상시 실행",
       },
       {
         value: "read-only",
