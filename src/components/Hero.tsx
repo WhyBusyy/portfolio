@@ -24,7 +24,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-sm sm:text-base tracking-widest uppercase text-slate-500 dark:text-slate-400"
           >
-            유병규 · Web Developer
+            유병규 · Frontend Developer
           </motion.p>
 
           <motion.div
