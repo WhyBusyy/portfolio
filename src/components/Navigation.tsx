@@ -44,10 +44,10 @@ export default function Navigation() {
 
   const navItems = [
     { name: "About", href: "#about" },
+    { name: "How I Work", href: "#how-i-work" },
     { name: "Work", href: "#work" },
     { name: "Skills", href: "#skills" },
     { name: "Experience", href: "#experience" },
-    { name: "How I Work", href: "#how-i-work" },
     { name: "Contact", href: "#contact" },
   ];
 

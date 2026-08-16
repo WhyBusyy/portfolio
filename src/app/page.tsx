@@ -103,11 +103,11 @@ export default function Home() {
       <main id="main-content" tabIndex={-1} className="min-h-screen focus:outline-none">
         <Hero />
         <About />
+        <HowIWork />
         <Work />
         <SideProjects />
         <Skills />
         <Experience />
-        <HowIWork />
         <Contact />
       </main>
     </>

@@ -3,7 +3,8 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Target, Smile, Lightbulb, CheckCircle } from "lucide-react";
+import { Microscope, ShieldCheck, Wrench, FileCode2 } from "lucide-react";
+import Link from "next/link";
 
 export default function HowIWork() {
   const ref = useRef(null);
@@ -11,26 +12,36 @@ export default function HowIWork() {
 
   const workPrinciples = [
     {
-      icon: Smile,
-      title: "과정에서 재미를 찾습니다",
-      description: "목표 달성도 중요하지만 일의 과정에서 재미를 찾는 편입니다.",
-    },
-    {
-      icon: Target,
-      title: "긍정적 영향을 추구합니다",
+      icon: Microscope,
+      title: "정답을 의심합니다",
       description:
-        "회사와 세상에 긍정적 영향을 주는 일은 그 자체로 동기부여가 됩니다.",
+        "널리 쓰이는 방식이 우리 코드베이스에도 맞다고 여기지 않습니다. 구조를 바꿀 때 후보 네 가지를 비교했고, 의존성을 전수조사해 기각 근거를 만들었습니다.",
+      href: "/projects/vsa-migration",
+      hrefLabel: "아키텍처 마이그레이션",
     },
     {
-      icon: Lightbulb,
-      title: "유연한 문제 해결",
+      icon: ShieldCheck,
+      title: "AI 결과를 믿지 않습니다",
       description:
-        "문제가 생겨도 그 상황 안에서 일을 진행할 수 있는 방향을 찾습니다.",
+        "생성된 코드는 검증을 통과하기 전까지 초안이라고 봅니다. 테스트 생성 파이프라인에 문법 검증과 데이터 쓰기 차단을 넣었습니다.",
+      href: "/projects/qa-automation-bot",
+      hrefLabel: "QA 자동화 봇",
     },
     {
-      icon: CheckCircle,
-      title: "꼼꼼한 업무 처리",
-      description: "맡은 임무를 면밀하게 처리합니다.",
+      icon: Wrench,
+      title: "맡은 일만 하지 않습니다",
+      description:
+        "팀이 반복해서 소모하는 시간은 누군가 줄여야 한다고 믿습니다. 배포 확인과 QA를 도구로 만들었습니다.",
+      href: "/projects/dx-automation",
+      hrefLabel: "배포 알림·기록 자동화",
+    },
+    {
+      icon: FileCode2,
+      title: "규칙을 코드에 남깁니다",
+      description:
+        "한 번 정리하는 것보다 그 상태를 유지하는 게 어렵습니다. 아키텍처 규칙은 검증 도구로, 디자인 시스템 규칙은 문서로 남겼습니다.",
+      href: "/projects/design-system",
+      hrefLabel: "디자인 시스템",
     },
   ];
 
@@ -48,7 +59,7 @@ export default function HowIWork() {
           transition={{ duration: 0.8 }}
         >
           <h2 id="how-i-work-title" className="section-title">How I Work</h2>
-          <p className="section-subtitle">일에 임하는 저만의 원칙입니다.</p>
+          <p className="section-subtitle">일할 때 지키는 기준입니다.</p>
 
           <div className="max-w-3xl mx-auto">
             <div className="grid sm:grid-cols-2 gap-8">
@@ -73,6 +84,13 @@ export default function HowIWork() {
                     <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
                       {principle.description}
                     </p>
+                    <Link
+                      href={principle.href}
+                      className="inline-block mt-2 text-xs text-blue-600 dark:text-blue-400
+                                 hover:opacity-70 transition-opacity"
+                    >
+                      {principle.hrefLabel} &rarr;
+                    </Link>
                   </div>
                 </motion.div>
               ))}
