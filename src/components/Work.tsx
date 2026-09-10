@@ -59,7 +59,7 @@ export default function Work() {
               title: "프론트엔드 아키텍처 마이그레이션 (VSA 하이브리드)",
               period: "2026년 4월",
               description:
-                "수백 개 파일 규모의 구조 재설계. 후보 4안 비교 후 의존성 전수조사로 완전한 Vertical Slice를 기각하고 하이브리드 채택, 7규칙 검증 CLI를 모든 PR에서 상시 검증하도록 고정 (Frontend)",
+                "수백 개 파일 규모의 구조 재설계. 후보 4안 비교와 의존성 전수조사 끝에 완전한 Vertical Slice 대신 하이브리드를 택하고, 7규칙 검증 CLI를 모든 PR에서 상시 검증하도록 고정 (Frontend)",
               slug: "vsa-migration" as string | null,
             },
             {

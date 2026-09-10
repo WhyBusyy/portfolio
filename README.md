@@ -20,6 +20,7 @@ Next.js, TypeScript, React 기반의 프론트엔드 개발자 포트폴리오 �
 - **다크 모드**: 라이트/다크 테마 전환 지원 (로컬 스토리지 저장)
 - **프로젝트 케이스 스터디**: `/projects/[slug]` 동적 라우트를 통한 프로젝트 상세 페이지 (도전과제, 해결방안, 성과 지표 포함)
 - **구조 다이어그램**: 프로젝트별 구조·흐름을 인라인 SVG 로 직접 작성 (외부 의존성 없음, 라이트/다크 대응)
+- **의사결정 기록**: 후보를 비교해 방향을 정한 프로젝트에 채택·기각 사유와 판단 기준을 함께 표기
 - **스킬 숙련도 시각화**: core / proficient / familiar 3단계 시각적 구분
 - **스크롤 애니메이션**: Framer Motion 기반 fade-in + slide-up 인터랙션
 - **접근성**: skip navigation, 섹션별 aria-labelledby, `prefers-reduced-motion` 대응 (Lighthouse 접근성 100)
@@ -32,15 +33,16 @@ Next.js, TypeScript, React 기반의 프론트엔드 개발자 포트폴리오 �
 Navigation ─ 상단 네비게이션 (섹션 앵커, 다크모드 토글)
 Hero ─────── 핵심 지표 3종 + CTA (프로젝트 보기, 연락하기)
 About ────── 개인 정보 / 학력 / 외국어 / 자격증
+HowIWork ──── 일할 때 지키는 기준 (각 항목에서 근거가 되는 프로젝트로 이동)
 Work ─────── 회사 프로젝트 (트랙별 그룹 · 클릭 시 /projects/[slug] 이동)
 SideProjects  개인 프로젝트 (가로 스크롤 캐러셀, GitHub/Demo/npm 링크)
 Skills ────── 기술 스택 (숙련도별 시각 구분 + 범례)
 Beyond Code ─ 비개발 경험과 개발자 강점 연결
-HowIWork ──── 일하는 방식과 그 근거
 Contact ───── 연락처
 ```
 
-프로젝트 상세 페이지는 `Overview → Structure(다이어그램) → Challenges & Solutions → Impact` 순으로 구성됩니다.
+프로젝트 상세 페이지는 `Overview → Decisions → Structure(다이어그램) → Challenges & Solutions → Impact` 순으로 구성됩니다.
+`Decisions` 는 후보 비교 기록이 남아 있는 프로젝트에만 렌더링됩니다 (`projects.ts` 의 `decisions` 필드).
 
 ## 프로젝트 구조
 

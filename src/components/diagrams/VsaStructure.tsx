@@ -143,7 +143,7 @@ export default function VsaStructure() {
         );
       })}
       <Txt x={barX} y={412} accent size={10.5}>
-        옮길 수 있는 비율(파랑)이 낮아 완전한 코로케이션을 기각
+        옮길 수 있는 비율(파랑)이 낮아 완전한 코로케이션은 채택하지 않음
       </Txt>
     </Figure>
   );

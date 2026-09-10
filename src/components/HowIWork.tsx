@@ -15,7 +15,7 @@ export default function HowIWork() {
       icon: Microscope,
       title: "정답을 의심합니다",
       description:
-        "널리 쓰이는 방식이 우리 코드베이스에도 맞다고 여기지 않습니다. 구조를 바꿀 때 후보 네 가지를 비교했고, 의존성을 전수조사해 기각 근거를 만들었습니다.",
+        "널리 쓰이는 방식이 우리 코드베이스에도 맞다고 여기지 않습니다. 구조를 바꿀 때 후보 네 가지를 비교했고, 의존성을 전수조사한 결과 가장 유력했던 안은 적용 자체가 불가능했습니다.",
       href: "/projects/vsa-migration",
       hrefLabel: "아키텍처 마이그레이션",
     },

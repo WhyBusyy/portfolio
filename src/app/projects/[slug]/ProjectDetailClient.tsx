@@ -122,6 +122,80 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
         </AnimatedSection>
       </section>
 
+      {/* Decisions — 후보를 비교해 방향을 정한 기록 */}
+      {project.decisions && project.decisions.length > 0 && (
+        <section className="py-20 section-padding">
+          <div className="max-w-4xl mx-auto">
+            <AnimatedSection>
+              <h2 className="text-sm font-semibold text-slate-500 dark:text-slate-400 tracking-widest uppercase mb-10">
+                Decisions
+              </h2>
+            </AnimatedSection>
+
+            <div className="space-y-8">
+              {project.decisions.map((decision, index) => (
+                <AnimatedSection key={index} delay={index * 0.15}>
+                  <div
+                    className="bg-white dark:bg-white/[0.03] rounded-2xl p-6 sm:p-8
+                               border border-slate-100 dark:border-white/[0.04]"
+                  >
+                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
+                      {decision.question}
+                    </h3>
+                    <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mt-3">
+                      {decision.basis}
+                    </p>
+
+                    <ul className="mt-7 space-y-5">
+                      {decision.options.map((option, i) => {
+                        const chosen = option.verdict === "채택";
+                        return (
+                          <li
+                            key={i}
+                            className="flex flex-col sm:flex-row sm:gap-5 gap-2"
+                          >
+                            <span
+                              className={`inline-flex items-center justify-center flex-shrink-0
+                                          h-6 w-12 rounded-md text-xs font-semibold ${
+                                            chosen
+                                              ? "bg-blue-50 text-blue-700 dark:bg-blue-400/10 dark:text-blue-300"
+                                              : "bg-slate-100 text-slate-500 dark:bg-white/[0.06] dark:text-slate-400"
+                                          }`}
+                            >
+                              {option.verdict}
+                            </span>
+                            <div className="min-w-0">
+                              <p
+                                className={`text-sm font-medium ${
+                                  chosen
+                                    ? "text-slate-900 dark:text-white"
+                                    : "text-slate-600 dark:text-slate-300"
+                                }`}
+                              >
+                                {option.label}
+                              </p>
+                              <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mt-1.5">
+                                {option.reason}
+                              </p>
+                            </div>
+                          </li>
+                        );
+                      })}
+                    </ul>
+
+                    <div className="mt-7 pt-5 border-t border-slate-100 dark:border-white/[0.06]">
+                      <p className="text-sm text-blue-600 dark:text-blue-400 leading-relaxed">
+                        {decision.outcome}
+                      </p>
+                    </div>
+                  </div>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Structure — 사내 화면 대신 직접 그린 구조 다이어그램 */}
       {diagrams.length > 0 && (
         <section className="py-20 section-padding bg-slate-50/50 dark:bg-white/[0.02]">
