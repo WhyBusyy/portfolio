@@ -15,15 +15,15 @@ export default function HowIWork() {
       icon: Microscope,
       title: "정답을 의심합니다",
       description:
-        "널리 쓰이는 방식이 우리 코드베이스에도 맞다고 여기지 않습니다. 구조를 바꿀 때 후보 네 가지를 비교했고, 의존성을 전수조사한 결과 가장 유력했던 안은 적용 자체가 불가능했습니다.",
+        "좋은 구조인지는 방법론이 아니라 우리 코드가 결정한다고 봅니다. 후보 네 가지를 비교하고 의존성을 전수조사해, 정답으로 통하던 안 대신 하이브리드 구조를 택했습니다.",
       href: "/projects/vsa-migration",
       hrefLabel: "아키텍처 마이그레이션",
     },
     {
       icon: ShieldCheck,
-      title: "AI 결과를 믿지 않습니다",
+      title: "AI에 안전장치를 붙입니다",
       description:
-        "생성된 코드는 검증을 통과하기 전까지 초안이라고 봅니다. 테스트 생성 파이프라인에 문법 검증과 데이터 쓰기 차단을 넣었습니다.",
+        "검증이 자동으로 걸리면 AI 산출물을 더 과감하게 쓸 수 있습니다. 테스트 생성 파이프라인에 문법 검증과 데이터 쓰기 차단을 넣어 실제 데이터를 건드리지 않게 했습니다.",
       href: "/projects/qa-automation-bot",
       hrefLabel: "QA 자동화 봇",
     },
@@ -39,7 +39,7 @@ export default function HowIWork() {
       icon: FileCode2,
       title: "규칙을 코드에 남깁니다",
       description:
-        "한 번 정리하는 것보다 그 상태를 유지하는 게 어렵습니다. 아키텍처 규칙은 검증 도구로, 디자인 시스템 규칙은 문서로 남겼습니다.",
+        "규칙을 사람 기억에 맡기면 시간이 지나면서 무너집니다. 아키텍처 규칙은 검증 도구로, 디자인 시스템 규칙은 문서로 남겼습니다.",
       href: "/projects/design-system",
       hrefLabel: "디자인 시스템",
     },
