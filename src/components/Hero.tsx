@@ -52,7 +52,7 @@ export default function Hero() {
                 href="/projects/qa-automation-bot"
                 className="inline-block text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 tracking-wide hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
-                테스트 90개 이상 상시 실행 →
+                PR마다 테스트 상시 실행 →
               </Link>
             </div>
             <div>
