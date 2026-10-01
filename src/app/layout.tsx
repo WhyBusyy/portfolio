@@ -5,11 +5,11 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "WhyBusyy | 프론트엔드 개발자",
+    default: "WhyBusyy | 프론트엔드 · 프로덕트 엔지니어",
     template: "%s | WhyBusyy",
   },
   description:
-    "Next.js, TypeScript, React 기반으로 웹 서비스를 개발해 온 프론트엔드 개발자입니다.",
+    "Next.js, TypeScript, React 기반으로 웹 서비스를 개발해 온 프론트엔드 · 프로덕트 엔지니어입니다.",
 };
 
 export default function RootLayout({

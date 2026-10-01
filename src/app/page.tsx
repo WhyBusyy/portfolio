@@ -11,9 +11,9 @@ import Contact from "@/components/Contact";
 import { SITE_URL } from "@/constants/site";
 
 export const metadata: Metadata = {
-  title: "WhyBusyy | 프론트엔드 개발자 포트폴리오",
+  title: "WhyBusyy | 프론트엔드 · 프로덕트 엔지니어 포트폴리오",
   description:
-    "Next.js, TypeScript, React 기반으로 웹 서비스를 개발해 온 프론트엔드 개발자입니다.",
+    "Next.js, TypeScript, React 기반으로 웹 서비스를 개발해 온 프론트엔드 · 프로덕트 엔지니어입니다.",
   keywords: [
     "프론트엔드",
     "개발자",
@@ -24,9 +24,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "WhyBusyy" }],
   openGraph: {
-    title: "WhyBusyy | 프론트엔드 개발자 포트폴리오",
+    title: "WhyBusyy | 프론트엔드 · 프로덕트 엔지니어 포트폴리오",
     description:
-      "Next.js, TypeScript, React 기반으로 웹 서비스를 개발해 온 프론트엔드 개발자입니다.",
+      "Next.js, TypeScript, React 기반으로 웹 서비스를 개발해 온 프론트엔드 · 프로덕트 엔지니어입니다.",
     type: "website",
     locale: "ko_KR",
     images: [
@@ -40,9 +40,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "WhyBusyy | 프론트엔드 개발자 포트폴리오",
+    title: "WhyBusyy | 프론트엔드 · 프로덕트 엔지니어 포트폴리오",
     description:
-      "Next.js, TypeScript, React 기반으로 웹 서비스를 개발해 온 프론트엔드 개발자입니다.",
+      "Next.js, TypeScript, React 기반으로 웹 서비스를 개발해 온 프론트엔드 · 프로덕트 엔지니어입니다.",
     images: ["/og-image.png"],
   },
 };
@@ -54,9 +54,9 @@ const profileJsonLd = {
     "@type": "Person",
     name: "유병규",
     alternateName: "WhyBusyy",
-    jobTitle: "프론트엔드 개발자",
+    jobTitle: "프론트엔드 · 프로덕트 엔지니어",
     description:
-      "Next.js, TypeScript, React 기반으로 웹 서비스를 개발해 온 프론트엔드 개발자.",
+      "Next.js, TypeScript, React 기반으로 웹 서비스를 개발해 온 프론트엔드 · 프로덕트 엔지니어.",
     url: SITE_URL,
     email: "ybg6152@naver.com",
     sameAs: ["https://github.com/WhyBusyy"],
