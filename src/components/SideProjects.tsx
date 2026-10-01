@@ -11,6 +11,7 @@ import {
   Terminal,
   Package,
   Gamepad2,
+  GitMerge,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
@@ -149,6 +150,31 @@ const sideProjects: SideProject[] = [
     gradient:
       "from-emerald-500/20 to-teal-500/20 dark:from-emerald-500/10 dark:to-teal-500/10",
     accentColor: "text-emerald-600 dark:text-emerald-400",
+  },
+];
+
+interface OssContribution {
+  repo: string;
+  stars: string;
+  pr: number;
+  url: string;
+  summary: string;
+}
+
+const ossContributions: OssContribution[] = [
+  {
+    repo: "facebook/lexical",
+    stars: "23.9k",
+    pr: 8214,
+    url: "https://github.com/facebook/lexical/pull/8214",
+    summary: "Playground LayoutContainerNode import 방식 수정",
+  },
+  {
+    repo: "Tencent/BrowserSkill",
+    stars: "8.0k",
+    pr: 360,
+    url: "https://github.com/Tencent/BrowserSkill/pull/360",
+    summary: "확장 팝업 비활성 버튼 안내 문구 추가 (10개 로케일)",
   },
 ];
 
@@ -434,6 +460,36 @@ export default function SideProjects() {
                 );
               })}
             </div>
+          </div>
+
+          <div className="max-w-5xl mx-auto mt-16">
+            <h3 className="text-sm font-semibold tracking-wider uppercase text-slate-500 dark:text-slate-400 mb-4">
+              Open Source Contributions
+            </h3>
+            <ul className="divide-y divide-slate-100 dark:divide-white/[0.04] border-y border-slate-100 dark:border-white/[0.04]">
+              {ossContributions.map((oss) => (
+                <li key={oss.url}>
+                  <a
+                    href={oss.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 py-4"
+                  >
+                    <span className="flex items-center gap-2 text-sm font-medium text-slate-900 dark:text-white
+                                     group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      <GitMerge className="w-4 h-4 text-violet-600 dark:text-violet-400" />
+                      {oss.repo} #{oss.pr}
+                    </span>
+                    <span className="text-xs text-slate-400 dark:text-slate-500">
+                      ★ {oss.stars} · merged
+                    </span>
+                    <span className="text-sm text-slate-500 dark:text-slate-400 sm:ml-auto">
+                      {oss.summary}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         </motion.div>
       </div>
