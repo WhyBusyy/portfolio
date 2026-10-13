@@ -86,7 +86,7 @@ export default function Hero() {
             className="flex items-center justify-center gap-6 pt-4"
           >
             <a
-              href="#work"
+              href="#featured"
               className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:opacity-70 transition-opacity cursor-pointer"
             >
               프로젝트 보기 &darr;

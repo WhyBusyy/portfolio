@@ -46,12 +46,11 @@ export default function Navigation() {
   };
 
   const navItems = [
-    { name: "About", href: "#about" },
+    { name: "Work", href: "#featured" },
     { name: "How I Work", href: "#how-i-work" },
-    { name: "Work", href: "#work" },
+    { name: "Projects", href: "#work" },
     { name: "Skills", href: "#skills" },
-    { name: "Experience", href: "#experience" },
-    { name: "Contact", href: "#contact" },
+    { name: "About", href: "#about" },
   ];
 
   const scrollToSection = (href: string) => {
