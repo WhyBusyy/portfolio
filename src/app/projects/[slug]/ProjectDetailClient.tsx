@@ -90,17 +90,7 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
               </span>
             </div>
 
-            <div className="flex flex-wrap gap-2 mt-8">
-              {project.techStack.map((tech) => (
-                <span
-                  key={tech}
-                  className="px-3 py-1.5 bg-slate-50 dark:bg-white/[0.04] text-slate-600
-                             dark:text-slate-400 rounded-lg text-xs font-medium"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
+            <p className="mt-8 text-sm text-slate-500 dark:text-slate-400">{project.techStack.join(", ")}</p>
           </motion.div>
         </div>
       </section>
@@ -108,7 +98,7 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
       {/* Overview */}
       <section className="py-20 section-padding">
         <AnimatedSection className="max-w-3xl mx-auto">
-          <h2 className="text-sm font-semibold text-slate-500 dark:text-slate-400 tracking-widest uppercase mb-6">
+          <h2 className="text-2xl font-bold tracking-[-0.02em] text-slate-900 dark:text-white mb-8">
             Overview
           </h2>
           <div className="space-y-6">
@@ -127,7 +117,7 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
         <section className="py-20 section-padding">
           <div className="max-w-4xl mx-auto">
             <AnimatedSection>
-              <h2 className="text-sm font-semibold text-slate-500 dark:text-slate-400 tracking-widest uppercase mb-10">
+              <h2 className="text-2xl font-bold tracking-[-0.02em] text-slate-900 dark:text-white mb-8">
                 Decisions
               </h2>
             </AnimatedSection>
@@ -136,8 +126,7 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
               {project.decisions.map((decision, index) => (
                 <AnimatedSection key={index} delay={index * 0.15}>
                   <div
-                    className="bg-white dark:bg-white/[0.03] rounded-2xl p-6 sm:p-8
-                               border border-slate-100 dark:border-white/[0.04]"
+                    className="border-t border-slate-200 dark:border-white/[0.1] pt-8"
                   >
                     <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
                       {decision.question}
@@ -201,7 +190,7 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
         <section className="py-20 section-padding bg-slate-50/50 dark:bg-white/[0.02]">
           <div className="max-w-4xl mx-auto">
             <AnimatedSection>
-              <h2 className="text-sm font-semibold text-slate-500 dark:text-slate-400 tracking-widest uppercase mb-10">
+              <h2 className="text-2xl font-bold tracking-[-0.02em] text-slate-900 dark:text-white mb-8">
                 Structure
               </h2>
             </AnimatedSection>
@@ -221,7 +210,7 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
         <section className="py-20 section-padding">
           <div className="max-w-4xl mx-auto">
             <AnimatedSection>
-              <h2 className="text-sm font-semibold text-slate-500 dark:text-slate-400 tracking-widest uppercase mb-10">
+              <h2 className="text-2xl font-bold tracking-[-0.02em] text-slate-900 dark:text-white mb-8">
                 Challenges & Solutions
               </h2>
             </AnimatedSection>
@@ -230,8 +219,7 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
               {project.challenges.map((challenge, index) => (
                 <AnimatedSection key={index} delay={index * 0.15}>
                   <div
-                    className="bg-white dark:bg-white/[0.03] rounded-2xl p-6 sm:p-8
-                               border border-slate-100 dark:border-white/[0.04]"
+                    className="border-t border-slate-200 dark:border-white/[0.1] pt-8"
                   >
                     <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">
                       {challenge.title}
@@ -299,7 +287,7 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
         <section className="py-20 section-padding bg-slate-50/50 dark:bg-white/[0.02]">
           <div className="max-w-4xl mx-auto">
             <AnimatedSection>
-              <h2 className="text-sm font-semibold text-slate-500 dark:text-slate-400 tracking-widest uppercase mb-10">
+              <h2 className="text-2xl font-bold tracking-[-0.02em] text-slate-900 dark:text-white mb-8">
                 Impact
               </h2>
             </AnimatedSection>
