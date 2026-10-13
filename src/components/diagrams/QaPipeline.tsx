@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import DetailPanel from "./DetailPanel";
 import { Arrow, Bracket, Eyebrow, Figure, Node, Txt } from "./primitives";
 
 /** 단계 설명은 프로젝트 상세(projects.ts)에 공개된 사실만 옮긴다. */
@@ -72,68 +72,15 @@ export default function QaPipeline() {
   const R2 = 168;
   const pos = (i: number) => (i < 4 ? { x: x(i), y: R1 } : { x: x(i - 4), y: R2 });
 
-  const current = active === null ? null : STEPS[active];
 
   const footer = (
-    <div className="mt-4 rounded-xl border border-slate-100 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] p-4 sm:p-5">
-      <div className="flex flex-wrap items-center gap-2">
-        <button
-          type="button"
-          onClick={() => select(Math.max(0, (active ?? 0) - 1))}
-          disabled={active === null || active === 0}
-          aria-label="이전 단계"
-          className="rounded-lg border border-slate-200 dark:border-white/[0.1] p-1.5 text-slate-600 dark:text-slate-300 disabled:opacity-40 hover:bg-slate-50 dark:hover:bg-white/[0.05] focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500"
-        >
-          <ChevronLeft className="h-4 w-4" aria-hidden="true" />
-        </button>
-        <button
-          type="button"
-          onClick={() => select(active === null ? 0 : Math.min(STEPS.length - 1, active + 1))}
-          disabled={active === STEPS.length - 1}
-          aria-label="다음 단계"
-          className="rounded-lg border border-slate-200 dark:border-white/[0.1] p-1.5 text-slate-600 dark:text-slate-300 disabled:opacity-40 hover:bg-slate-50 dark:hover:bg-white/[0.05] focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500"
-        >
-          <ChevronRight className="h-4 w-4" aria-hidden="true" />
-        </button>
-        {active !== null && (
-          <button
-            type="button"
-            onClick={() => setActive(null)}
-            className="text-xs text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 px-1.5"
-          >
-            전체 보기
-          </button>
-        )}
-        <span className="ml-auto text-xs tabular-nums text-slate-400 dark:text-slate-500">
-          {active === null ? `${STEPS.length}단계` : `${active + 1} / ${STEPS.length}`}
-        </span>
-      </div>
-
-      {/*
-        모든 설명을 같은 격자 칸에 겹쳐 두고 현재 것만 보이게 한다.
-        칸 높이가 가장 긴 설명에 맞춰 고정되므로 단계를 바꿔도 아래 섹션이 밀리지 않는다.
-      */}
-      <div aria-hidden="true" className="mt-3 grid text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-        <p className={`[grid-area:1/1] ${active === null ? "" : "invisible"}`}>
-          단계에 마우스를 올리거나 누르면, 각 단계에서 무엇을 하는지 볼 수 있습니다.
-        </p>
-        {STEPS.map((s, i) => (
-          <p key={s.label} className={`[grid-area:1/1] ${active === i ? "" : "invisible"}`}>
-            <span className="font-semibold text-slate-900 dark:text-white">{s.label}</span>
-            {s.gate && (
-              <span className="ml-2 rounded bg-blue-50 dark:bg-blue-400/10 px-1.5 py-0.5 text-[11px] font-semibold text-blue-700 dark:text-blue-300">
-                검증 게이트
-              </span>
-            )}
-            <span className="block mt-1">{s.detail}</span>
-          </p>
-        ))}
-      </div>
-      {/* 화면 낭독기에는 현재 단계만 알린다 */}
-      <p aria-live="polite" className="sr-only">
-        {current ? `${current.label}. ${current.detail}` : ""}
-      </p>
-    </div>
+    <DetailPanel
+      items={STEPS.map((st) => ({ label: st.label, detail: st.detail, badge: st.gate ? "검증 게이트" : undefined }))}
+      active={active}
+      onChange={setActive}
+      hint="단계에 마우스를 올리거나 누르면, 각 단계에서 무엇을 하는지 볼 수 있습니다."
+      countLabel={`${STEPS.length}단계`}
+    />
   );
 
   const nodes = (place: (i: number) => { x: number; y: number }, w: number, h: number) =>
