@@ -17,28 +17,27 @@ Next.js, TypeScript, React 기반의 프론트엔드 개발자 포트폴리오 �
 ## 주요 기능
 
 - **반응형 디자인**: 모바일, 태블릿, 데스크톱 모든 기기에서 최적화
-- **다크 모드**: 라이트/다크 테마 전환 지원 (로컬 스토리지 저장)
+- **다크 모드**: 기본값은 시스템 설정을 따르고, 직접 바꾼 테마는 로컬 스토리지에 저장 (첫 렌더 전에 적용해 깜빡임 없음)
 - **프로젝트 케이스 스터디**: `/projects/[slug]` 동적 라우트를 통한 프로젝트 상세 페이지 (도전과제, 해결방안, 성과 지표 포함)
-- **구조 다이어그램**: 프로젝트별 구조·흐름을 인라인 SVG 로 직접 작성 (외부 의존성 없음, 라이트/다크 대응)
+- **구조 다이어그램**: 프로젝트별 구조·흐름을 인라인 SVG 로 직접 작성 (외부 의존성 없음, 라이트/다크 대응). 일부는 노드에 마우스를 올리거나 누르면 설명이 바뀌는 인터랙티브 방식이며, 좁은 화면에서는 세로 배치로 바뀌어 가로 스크롤이 생기지 않음
 - **의사결정 기록**: 후보를 비교해 방향을 정한 프로젝트에 채택·기각 사유와 판단 기준을 함께 표기
-- **스킬 숙련도 시각화**: core / proficient / familiar 3단계 시각적 구분
-- **스크롤 애니메이션**: Framer Motion 기반 fade-in + slide-up 인터랙션
+- **스킬 숙련도 시각화**: core / proficient / familiar 3단계 타일 + 분야 필터
+- **스크롤 인터랙션**: Framer Motion `useScroll` 기반. Selected Work 는 스크롤에 맞춰 오른쪽 예시 화면이 바뀌는 고정(sticky) 구성
 - **접근성**: skip navigation, 섹션별 aria-labelledby, `prefers-reduced-motion` 대응 (Lighthouse 접근성 100)
-- **성능**: 폰트 동적 서브셋으로 전송량 감축, 이미지 `next/image` 최적화 (Lighthouse 성능 98)
+- **성능**: 폰트 동적 서브셋으로 전송량 감축, 이미지 `next/image` 최적화
 - **SEO**: Open Graph, Twitter Card, JSON-LD, sitemap/robots, 정적 생성(SSG)
 
 ## 섹션 구성
 
 ```
-Navigation ─ 상단 네비게이션 (섹션 앵커, 다크모드 토글)
-Hero ─────── 핵심 지표 3종 + CTA (프로젝트 보기, 연락하기)
-About ────── 개인 정보 / 학력 / 외국어 / 자격증
+Navigation ── 상단 네비게이션 (섹션 앵커, 다크모드 토글)
+Hero ──────── 한 문장 소개 + 성과 3종 패널 (호버·포커스로 전환되는 전후 시각화)
+FeaturedWork  Selected Work: 대표 작업 4개와 판단 한 줄 (스크롤 연동 예시 화면)
 HowIWork ──── 일할 때 지키는 기준 (각 항목에서 근거가 되는 프로젝트로 이동)
-Work ─────── 회사 프로젝트 (트랙별 그룹 · 클릭 시 /projects/[slug] 이동)
+Work ──────── Projects: 회사 프로젝트 (트랙 탭 + 펼치는 목록, 상세 페이지 연결)
 SideProjects  개인 프로젝트 (가로 스크롤 캐러셀, GitHub/Demo/npm 링크)
-Skills ────── 기술 스택 (숙련도별 시각 구분 + 범례)
-Beyond Code ─ 비개발 경험과 개발자 강점 연결
-Contact ───── 연락처
+Skills ────── 기술 스택 (분야 필터 + 숙련도 범례)
+Profile ───── About: 연락처, 학력·자격증·어학, Beyond Code
 ```
 
 프로젝트 상세 페이지는 `Overview → Decisions → Structure(다이어그램) → Challenges & Solutions → Impact` 순으로 구성됩니다.
@@ -63,16 +62,17 @@ portfolio/
 │   │           └── ProjectDetailClient.tsx
 │   ├── components/
 │   │   ├── Navigation.tsx             # 네비게이션 바 (다크모드 토글)
-│   │   ├── Hero.tsx                   # 히어로 섹션 (핵심 지표)
-│   │   ├── About.tsx                  # 개인 정보 / 학력 / 자격증
-│   │   ├── Work.tsx                   # 회사 프로젝트 (트랙별 그룹)
+│   │   ├── Hero.tsx                   # 히어로 섹션 (성과 패널)
+│   │   ├── FeaturedWork.tsx           # Selected Work (스크롤 연동)
+│   │   ├── featured/fragments.tsx     # Selected Work 예시 화면
+│   │   ├── Work.tsx                   # 회사 프로젝트 (트랙 탭)
 │   │   ├── SideProjects.tsx           # 개인 프로젝트 캐러셀
 │   │   ├── Skills.tsx                 # 기술 스택 (숙련도 구분)
-│   │   ├── Experience.tsx             # Beyond Code (비개발 경험)
 │   │   ├── HowIWork.tsx               # 일하는 방식
-│   │   ├── Contact.tsx                # 연락처
+│   │   ├── Profile.tsx                # About · 연락처 · Beyond Code
 │   │   └── diagrams/
 │   │       ├── primitives.tsx         # 다이어그램 공용 시각 언어
+│   │       ├── DetailPanel.tsx        # 인터랙티브 다이어그램 설명 칸
 │   │       ├── index.tsx              # slug → 다이어그램 매핑
 │   │       └── *.tsx                  # 프로젝트별 다이어그램
 │   ├── constants/
@@ -115,21 +115,20 @@ npm start
 
 - **src/data/projects.ts**: 프로젝트 데이터 (개요, 도전과제, 성과 지표, 기술 스택)
 - **src/constants/site.ts**: 배포 URL (OG 이미지 · JSON-LD · sitemap · robots 에 전파)
-- **Hero.tsx**: 핵심 지표 3종 및 CTA 링크
-- **About.tsx**: 개인 정보, 학력, 외국어, 자격증
+- **Hero.tsx**: 소개 문장, 성과 3종 패널, CTA 링크
+- **FeaturedWork.tsx**: 대표 작업 4개 (판단 한 줄, 지표, 예시 화면)
 - **Work.tsx**: 회사 프로젝트 목록 (트랙 구성) 및 상세 페이지 연결
 - **SideProjects.tsx**: 개인 프로젝트 목록 (GitHub/Demo/npm 링크)
 - **Skills.tsx**: 기술 스택 카테고리 및 숙련도 (core/proficient/familiar)
-- **Experience.tsx**: 비개발 경험 및 개발자 강점 연결 텍스트
 - **HowIWork.tsx**: 일하는 방식과 근거가 되는 프로젝트 링크
-- **Contact.tsx**: 연락처 정보
+- **Profile.tsx**: 연락처, 학력·자격증·어학, 비개발 경험
 
 ### 디자인 토큰
 
 - **포인트 색상**: `blue-600` / `dark:blue-400`
 - **배경 색상**: `bg-white` / `dark:bg-dark-bg` (#0a0a0a)
-- **카드 스타일**: `rounded-2xl` + `border border-slate-100 dark:border-white/[0.04]`
-- **그래디언트 텍스트**: `globals.css`의 `.gradient-text` 클래스
+- **라운드**: 두 단계로 고정 (`md`/`lg` 6px, `xl`/`2xl` 12px, `tailwind.config.ts`)
+- **섹션 구분**: 카드 대신 섹션 사이 옅은 경계선 (`globals.css` 의 `main > section + section`)
 
 ### 프로젝트 상세 페이지 추가
 
@@ -155,10 +154,10 @@ OG 이미지·JSON-LD·sitemap·robots 가 모두 이 값을 기준으로 생성
 
 - **미니멀리즘**: 절제된 색상과 여백, 깔끔한 타이포그래피
 - **타이포그래피**: Pretendard 웹폰트로 한글 가독성 향상
-- **카드 디자인**: 라운드 코너 + 미세 보더, 호버 시 자연스러운 인터랙션
+- **카드 최소화**: 위계가 있는 곳에만 면을 쓰고, 나머지는 여백과 경계선으로 구분
 - **스킬 숙련도**: 색상 농도로 core/proficient/familiar 시각적 위계 표현
 - **케이스 스터디**: Before/After 비교 카드, 성과 지표 그리드, 구조 다이어그램
-- **반응형 레이아웃**: 모바일 우선 설계, 좁은 화면에서는 다이어그램 가로 스크롤
+- **반응형 레이아웃**: 모바일 우선 설계, 좁은 화면에서는 다이어그램을 세로 배치로 전환
 
 ## 라이선스
 

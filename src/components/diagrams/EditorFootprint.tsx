@@ -72,7 +72,7 @@ function chart(x0: number, maxW: number, deployW: number) {
           </Txt>
         </g>
       ))}
-      <Txt x={x0 + maxW} y={142} anchor="end" muted size={9.5}>
+      <Txt x={lx} y={142} anchor="end" muted size={9.5}>
         로그 축
       </Txt>
 
