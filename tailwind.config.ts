@@ -12,6 +12,13 @@ const config: Config = {
       fontFamily: {
         sans: ['Pretendard Variable', 'Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto', 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'sans-serif'],
       },
+      // 라운드는 두 단계만 쓴다: 작은 요소(md·lg) 6px, 큰 덩어리(xl·2xl) 12px
+      borderRadius: {
+        md: '6px',
+        lg: '6px',
+        xl: '12px',
+        '2xl': '12px',
+      },
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',

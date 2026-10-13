@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { ShoppingCart, Users, Heart } from "lucide-react";
 
 export default function Experience() {
   const ref = useRef(null);
@@ -11,7 +10,6 @@ export default function Experience() {
 
   const experiences = [
     {
-      icon: ShoppingCart,
       title: "개인 쇼핑몰 운영",
       description:
         "개인 쇼핑몰 운영을 통해 월매출 1,000만원 이상 달성한 경험이 있습니다.",
@@ -19,7 +17,6 @@ export default function Experience() {
         "사용자 구매 여정과 전환율에 대한 실전 감각을 UI/UX 설계에 직접 반영합니다.",
     },
     {
-      icon: Users,
       title: "SNS 콘텐츠 운영",
       description:
         "SNS 계정 팔로워 10,000명 이상 달성한 경험이 있습니다.",
@@ -27,7 +24,6 @@ export default function Experience() {
         "'만드는 나'가 아니라 '보는 사용자' 기준으로 판단하는 습관을 익혔고, 이를 UI와 카피 설계에 적용합니다.",
     },
     {
-      icon: Heart,
       title: "다양한 업계 경험",
       description: "제약, 금융 회사 근무 경험이 있습니다.",
       devConnection:
@@ -48,41 +44,25 @@ export default function Experience() {
             개발 외의 경험이 개발자로서의 강점이 됩니다.
           </p>
 
-          <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {experiences.map((experience, index) => (
-              <motion.div
+          {/* 아이콘 칩·카드 없이 가는 선과 여백으로 나눈다 */}
+          <ul className="grid max-w-4xl gap-x-12 sm:grid-cols-3">
+            {experiences.map((experience) => (
+              <li
                 key={experience.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={
-                  isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
-                }
-                transition={{ duration: 0.6, delay: 0.1 + index * 0.1 }}
-                className="bg-white dark:bg-white/[0.03] rounded-2xl border border-slate-100 dark:border-white/[0.04] p-6"
+                className="border-t border-slate-200 dark:border-white/[0.1] pt-6 pb-8"
               >
-                {/* Icon */}
-                <div className="w-10 h-10 mb-5 rounded-xl bg-slate-100 dark:bg-white/[0.06] flex items-center justify-center">
-                  <experience.icon className="w-4 h-4 text-slate-600 dark:text-slate-400" />
-                </div>
-
-                {/* Title */}
-                <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-2">
+                <h3 className="text-base font-semibold text-slate-900 dark:text-white">
                   {experience.title}
                 </h3>
-
-                {/* Description */}
-                <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
                   {experience.description}
                 </p>
-
-                {/* Dev Connection */}
-                <div className="pt-4 border-t border-slate-100 dark:border-white/[0.06] mt-4">
-                  <p className="text-xs text-blue-600 dark:text-blue-400 leading-relaxed">
-                    {experience.devConnection}
-                  </p>
-                </div>
-              </motion.div>
+                <p className="mt-3 text-sm leading-relaxed text-slate-900 dark:text-slate-200">
+                  {experience.devConnection}
+                </p>
+              </li>
             ))}
-          </div>
+          </ul>
         </motion.div>
       </div>
     </section>

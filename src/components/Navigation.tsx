@@ -12,7 +12,10 @@ export default function Navigation() {
 
   useEffect(() => {
     const savedDarkMode = localStorage.getItem("darkMode");
-    const darkMode = savedDarkMode !== null ? savedDarkMode === "true" : true;
+    const darkMode =
+      savedDarkMode !== null
+        ? savedDarkMode === "true"
+        : window.matchMedia("(prefers-color-scheme: dark)").matches;
     setTimeout(() => {
       setIsDark(darkMode);
     }, 0);
@@ -81,10 +84,7 @@ export default function Navigation() {
     >
       <div className="container-max-width section-padding">
         <div className="flex items-center justify-between h-12">
-          <motion.button
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
+          <button
             className="flex items-center gap-2 cursor-pointer hover:opacity-60 transition-opacity rounded-md"
             onClick={() => scrollToSection("#hero")}
             aria-label="WhyBusyy 홈으로 이동"
@@ -100,26 +100,20 @@ export default function Navigation() {
             <span className="font-semibold text-sm tracking-tight text-slate-900 dark:text-white">
               WhyBusyy
             </span>
-          </motion.button>
+          </button>
 
           <div className="hidden md:flex items-center gap-7">
-            {navItems.map((item, index) => (
-              <motion.button
+            {navItems.map((item) => (
+              <button
                 key={item.name}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: index * 0.05 }}
                 onClick={() => scrollToSection(item.href)}
                 className="text-xs text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
               >
                 {item.name}
-              </motion.button>
+              </button>
             ))}
 
-            <motion.button
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
+            <button
               onClick={toggleDarkMode}
               aria-label={isDark ? "라이트 모드로 전환" : "다크 모드로 전환"}
               className="p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer"
@@ -129,14 +123,11 @@ export default function Navigation() {
               ) : (
                 <Moon className="w-4 h-4 text-slate-500 hover:text-slate-900 transition-colors" aria-hidden="true" />
               )}
-            </motion.button>
+            </button>
           </div>
 
           <div className="md:hidden flex items-center gap-2">
-            <motion.button
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+            <button
               onClick={toggleDarkMode}
               aria-label={isDark ? "라이트 모드로 전환" : "다크 모드로 전환"}
               className="p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer"
@@ -146,12 +137,9 @@ export default function Navigation() {
               ) : (
                 <Moon className="w-4 h-4 text-slate-500" aria-hidden="true" />
               )}
-            </motion.button>
+            </button>
 
-            <motion.button
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
+            <button
               onClick={() => setIsOpen(!isOpen)}
               aria-label={isOpen ? "메뉴 닫기" : "메뉴 열기"}
               aria-expanded={isOpen}
@@ -163,7 +151,7 @@ export default function Navigation() {
               ) : (
                 <Menu className="w-4 h-4 text-slate-600 dark:text-slate-400" aria-hidden="true" />
               )}
-            </motion.button>
+            </button>
           </div>
         </div>
       </div>
@@ -179,17 +167,14 @@ export default function Navigation() {
             className="md:hidden bg-white/95 dark:bg-dark-bg/95 backdrop-blur-xl"
           >
             <div className="section-padding py-4 space-y-1">
-              {navItems.map((item, index) => (
-                <motion.button
+              {navItems.map((item) => (
+                <button
                   key={item.name}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.2, delay: index * 0.05 }}
                   onClick={() => scrollToSection(item.href)}
                   className="block w-full text-left py-2.5 px-3 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg transition-colors cursor-pointer"
                 >
                   {item.name}
-                </motion.button>
+                </button>
               ))}
 
             </div>

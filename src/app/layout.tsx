@@ -13,10 +13,10 @@ export const metadata: Metadata = {
 };
 
 /**
- * 첫 페인트 전에 저장된 테마를 적용한다 (기본값 다크).
+ * 첫 페인트 전에 저장된 테마를 적용한다 (저장값이 없으면 시스템 설정).
  * Navigation 이 없는 상세 페이지에 바로 들어와도 같은 테마가 유지되고, 흰 화면 깜빡임이 없다.
  */
-const themeInitScript = `try{var d=localStorage.getItem("darkMode");if(d===null||d==="true")document.documentElement.classList.add("dark")}catch(e){document.documentElement.classList.add("dark")}`;
+const themeInitScript = `try{var d=localStorage.getItem("darkMode");var on=d===null?window.matchMedia("(prefers-color-scheme: dark)").matches:d==="true";if(on)document.documentElement.classList.add("dark")}catch(e){}`;
 
 export default function RootLayout({
   children,

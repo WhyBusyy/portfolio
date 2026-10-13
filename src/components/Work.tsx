@@ -158,16 +158,11 @@ export default function Work() {
             실무에서 수행한 프로젝트와 기여 내용입니다.
           </p>
 
-          <div className="max-w-4xl mx-auto space-y-16">
+          <div className="max-w-4xl space-y-16">
             {careerData.map((career, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={
-                  isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
-                }
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
+                >
                 {/* Company Header */}
                 <div
                   className="sticky top-12 z-10 pt-2 pb-8 mb-10 flex flex-col sm:flex-row gap-6 items-start
@@ -175,7 +170,7 @@ export default function Work() {
                   bg-white dark:bg-dark-bg"
                 >
                   <div className="flex-shrink-0">
-                    <div className="w-16 h-16 rounded-2xl bg-white dark:bg-white border border-slate-200 dark:border-white/10 flex items-center justify-center p-2">
+                    <div className="w-16 h-16 rounded-xl bg-white flex items-center justify-center p-2">
                       {career.logo ? (
                         <Image
                           src={career.logo}
@@ -206,43 +201,30 @@ export default function Work() {
                       {career.motto}
                     </p>
 
-                    <div className="flex flex-wrap gap-2">
-                      {career.roles.map((role, idx) => (
-                        <span
-                          key={idx}
-                          className="px-3 py-1 bg-slate-100 dark:bg-white/[0.06] text-slate-600 dark:text-slate-400 rounded-full text-xs font-medium"
-                        >
-                          {role}
-                        </span>
-                      ))}
-                    </div>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">
+                      {career.roles.join(" · ")}
+                    </p>
                   </div>
                 </div>
 
                 {/* Projects — 트랙별 그룹 */}
                 {career.tracks.map((track, trackIdx) => (
-                  <div key={track.label} className={trackIdx > 0 ? "mt-4" : ""}>
-                    <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 tracking-widest uppercase mb-6">
+                  <div key={track.label} className={trackIdx > 0 ? "mt-12" : ""}>
+                    <p className="text-sm font-semibold text-slate-900 dark:text-white mb-1">
                       {track.label}
                     </p>
                     <div className="space-y-0">
                     {track.items.map((project, idx) => {
                       const content = (
                         <div
-                          className={`flex gap-6 ${
+                          className={`grid gap-1 border-t border-slate-200 dark:border-white/[0.08] py-6 sm:grid-cols-[9rem_1fr] sm:gap-8 ${
                             project.slug ? "group cursor-pointer" : ""
                           }`}
                         >
-                          <div className="flex flex-col items-center flex-shrink-0">
-                            <div className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400 mt-2" />
-                            {idx < track.items.length - 1 && (
-                              <div className="w-px flex-1 bg-slate-200 dark:bg-white/[0.06]" />
-                            )}
-                          </div>
-                          <div className="flex-1 pb-10">
-                            <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">
-                              {project.period}
-                            </p>
+                          <p className="text-sm tabular-nums text-slate-500 dark:text-slate-400">
+                            {project.period}
+                          </p>
+                          <div>
                             <h4
                               className={`text-base font-semibold text-slate-900 dark:text-white mb-2 ${
                                 project.slug
@@ -265,19 +247,7 @@ export default function Work() {
                       );
 
                       return (
-                        <motion.div
-                          key={idx}
-                          initial={{ opacity: 0, y: 15 }}
-                          animate={
-                            isInView
-                              ? { opacity: 1, y: 0 }
-                              : { opacity: 0, y: 15 }
-                          }
-                          transition={{
-                            duration: 0.6,
-                            delay: 0.3 + trackIdx * 0.1 + idx * 0.06,
-                          }}
-                        >
+                        <div key={idx}>
                           {project.slug ? (
                             <Link href={`/projects/${project.slug}`}>
                               {content}
@@ -285,47 +255,26 @@ export default function Work() {
                           ) : (
                             content
                           )}
-                        </motion.div>
+                        </div>
                       );
                     })}
                     </div>
                   </div>
                 ))}
 
-                {/* Divider */}
-                <div className="border-t border-slate-200 dark:border-white/[0.06] my-10" />
-
                 {/* Ongoing */}
-                <div>
-                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 tracking-widest uppercase mb-6">
+                <div className="mt-12">
+                  <p className="text-sm font-semibold text-slate-900 dark:text-white mb-1">
                     Ongoing
                   </p>
                   <div className="space-y-0">
                     {career.ongoing.map((item, idx) => (
-                      <motion.div
-                        key={idx}
-                        initial={{ opacity: 0, y: 15 }}
-                        animate={
-                          isInView
-                            ? { opacity: 1, y: 0 }
-                            : { opacity: 0, y: 15 }
-                        }
-                        transition={{
-                          duration: 0.6,
-                          delay: 0.5 + idx * 0.1,
-                        }}
-                      >
-                        <div className="flex gap-6">
-                          <div className="flex flex-col items-center flex-shrink-0">
-                            <div className="w-2 h-2 rounded-full bg-slate-400 dark:bg-slate-500 mt-2" />
-                            {idx < career.ongoing.length - 1 && (
-                              <div className="w-px flex-1 bg-slate-200 dark:bg-white/[0.06]" />
-                            )}
-                          </div>
-                          <div className="flex-1 pb-10">
-                            <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">
-                              {item.period}
-                            </p>
+                      <div key={idx}>
+                        <div className="grid gap-1 border-t border-slate-200 dark:border-white/[0.08] py-6 sm:grid-cols-[9rem_1fr] sm:gap-8">
+                          <p className="text-sm tabular-nums text-slate-500 dark:text-slate-400">
+                            {item.period}
+                          </p>
+                          <div>
                             <h4 className="text-base font-semibold text-slate-900 dark:text-white mb-2">
                               {item.title}
                             </h4>
@@ -334,11 +283,11 @@ export default function Work() {
                             </p>
                           </div>
                         </div>
-                      </motion.div>
+                      </div>
                     ))}
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </motion.div>

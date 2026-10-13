@@ -63,7 +63,7 @@ export default function About() {
           <h2 id="about-title" className="section-title">About Me</h2>
           <p className="section-subtitle">개발자로서의 기본 정보를 소개합니다.</p>
 
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-4xl">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={

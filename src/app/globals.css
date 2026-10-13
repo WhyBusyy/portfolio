@@ -52,7 +52,7 @@
   }
 
   .gradient-text {
-    @apply bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent;
+    @apply text-slate-900 dark:text-white;
   }
 
   .accent-text {
@@ -68,11 +68,18 @@
   }
 
   .section-title {
-    @apply text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-center mb-4 gradient-text;
+    @apply text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.03em] mb-3 text-slate-900 dark:text-white text-balance;
   }
 
   .section-subtitle {
-    @apply text-lg sm:text-xl text-slate-500 dark:text-slate-400 text-center mb-16 max-w-2xl mx-auto;
+    @apply text-base sm:text-lg text-slate-500 dark:text-slate-400 mb-12 sm:mb-16 max-w-2xl text-pretty;
+  }
+}
+
+/* 섹션 사이 가는 구분선: 카드 대신 선과 여백으로 섹션을 나눈다 */
+@layer base {
+  main > section + section {
+    @apply border-t border-slate-200/80 dark:border-white/[0.08];
   }
 }
 

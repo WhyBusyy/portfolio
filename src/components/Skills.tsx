@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Code, Server, Cloud, Users, Smartphone, FlaskConical } from "lucide-react";
 
 type SkillLevel = "core" | "proficient" | "familiar";
 
@@ -12,16 +11,15 @@ interface Skill {
   level: SkillLevel;
 }
 
+/** 숙련도는 배경 칩 대신 글자 굵기와 진하기로만 구분한다 */
 const getSkillStyle = (level: SkillLevel): string => {
   switch (level) {
     case "core":
-      return "px-3 py-1.5 bg-blue-50 dark:bg-blue-500/[0.08] text-blue-700 dark:text-blue-300 rounded-lg text-xs font-medium";
+      return "font-semibold text-slate-900 dark:text-white";
     case "proficient":
-      return "px-3 py-1.5 bg-slate-50 dark:bg-white/[0.04] text-slate-600 dark:text-slate-400 rounded-lg text-xs font-medium";
+      return "text-slate-600 dark:text-slate-300";
     case "familiar":
-      return "px-3 py-1.5 bg-slate-50/50 dark:bg-white/[0.02] text-slate-500 dark:text-slate-400 rounded-lg text-xs";
-    default:
-      return "px-3 py-1.5 bg-slate-50 dark:bg-white/[0.04] text-slate-600 dark:text-slate-400 rounded-lg text-xs font-medium";
+      return "text-slate-500 dark:text-slate-400";
   }
 };
 
@@ -31,12 +29,10 @@ export default function Skills() {
 
   const skillCategories: {
     title: string;
-    icon: typeof Code;
     skills: Skill[];
   }[] = [
     {
       title: "Language",
-      icon: Code,
       skills: [
         { name: "TypeScript", level: "core" },
         { name: "JavaScript", level: "core" },
@@ -48,7 +44,6 @@ export default function Skills() {
     },
     {
       title: "Frontend",
-      icon: Code,
       skills: [
         { name: "Next.js / React", level: "core" },
         { name: "SSR / RSC", level: "core" },
@@ -66,7 +61,6 @@ export default function Skills() {
     },
     {
       title: "Testing",
-      icon: FlaskConical,
       skills: [
         { name: "Playwright (E2E)", level: "core" },
         { name: "Jest", level: "proficient" },
@@ -76,7 +70,6 @@ export default function Skills() {
     },
     {
       title: "Mobile",
-      icon: Smartphone,
       skills: [
         { name: "Flutter", level: "familiar" },
         { name: "Dart", level: "familiar" },
@@ -84,7 +77,6 @@ export default function Skills() {
     },
     {
       title: "Backend",
-      icon: Server,
       skills: [
         { name: "Node.js", level: "proficient" },
         { name: "NestJS", level: "proficient" },
@@ -95,7 +87,6 @@ export default function Skills() {
     },
     {
       title: "DevOps",
-      icon: Cloud,
       skills: [
         { name: "AWS (EC2, S3, Amplify, CloudFront)", level: "proficient" },
         { name: "Docker", level: "familiar" },
@@ -106,7 +97,6 @@ export default function Skills() {
     },
     {
       title: "Collaboration",
-      icon: Users,
       skills: [
         { name: "Figma", level: "core" },
         { name: "Notion", level: "proficient" },
@@ -123,7 +113,7 @@ export default function Skills() {
       ref={ref}
       id="skills"
       aria-labelledby="skills-title"
-      className="py-32 lg:py-40 section-padding bg-slate-50/50 dark:bg-white/[0.02]"
+      className="py-32 lg:py-40 section-padding"
     >
       <div className="container-max-width">
         <motion.div
@@ -132,74 +122,30 @@ export default function Skills() {
           transition={{ duration: 0.8 }}
         >
           <h2 id="skills-title" className="section-title">Skills</h2>
-          <p className="section-subtitle">
-            프로젝트에서 사용한 기술 스택입니다.
+          <p className="section-subtitle">프로젝트에서 사용한 기술 스택입니다.</p>
+
+          {/* 범례: 글자 굵기 자체가 범례가 되도록 같은 스타일로 보여 준다 */}
+          <p className="mb-8 flex flex-wrap gap-x-5 gap-y-1 text-sm">
+            <span className={getSkillStyle("core")}>주력</span>
+            <span className={getSkillStyle("proficient")}>능숙</span>
+            <span className={getSkillStyle("familiar")}>사용해 봄</span>
           </p>
 
-          {/* Legend */}
-          <div className="flex items-center justify-center gap-6 mb-16">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400" />
-              <span className="text-xs text-slate-500 dark:text-slate-400">
-                Core
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-slate-400 dark:bg-slate-500" />
-              <span className="text-xs text-slate-500 dark:text-slate-400">
-                Proficient
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-600" />
-              <span className="text-xs text-slate-500 dark:text-slate-400">
-                Familiar
-              </span>
-            </div>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {skillCategories.map((category, categoryIndex) => (
-              <motion.div
-                key={category.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={
-                  isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
-                }
-                transition={{
-                  duration: 0.6,
-                  delay: 0.1 + categoryIndex * 0.1,
-                }}
-                className="bg-white dark:bg-white/[0.03] rounded-2xl p-6 border border-slate-100 dark:border-white/[0.04]"
-              >
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-white/[0.06] flex items-center justify-center">
-                    <category.icon className="w-4 h-4 text-slate-600 dark:text-slate-400" />
-                  </div>
-                  <h3 className="text-sm font-semibold text-slate-900 dark:text-white tracking-wide uppercase">
-                    {category.title}
-                  </h3>
-                </div>
-
-                <div className="flex flex-wrap gap-2">
-                  {category.skills.map((skill, skillIndex) => (
-                    <motion.span
-                      key={skill.name}
-                      initial={{ opacity: 0 }}
-                      animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-                      transition={{
-                        duration: 0.4,
-                        delay: 0.2 + categoryIndex * 0.1 + skillIndex * 0.03,
-                      }}
-                      className={getSkillStyle(skill.level)}
-                    >
+          {/* 카드 격자 대신 사양표: 왼쪽 분야, 오른쪽 기술 */}
+          <dl className="max-w-4xl divide-y divide-slate-200 dark:divide-white/[0.1] border-y border-slate-200 dark:border-white/[0.1]">
+            {skillCategories.map((category) => (
+              <div key={category.title} className="grid gap-2 py-5 sm:grid-cols-[10rem_1fr] sm:gap-8">
+                <dt className="text-sm text-slate-500 dark:text-slate-400">{category.title}</dt>
+                <dd className="flex flex-wrap gap-x-4 gap-y-1.5 text-[15px] leading-relaxed">
+                  {category.skills.map((skill) => (
+                    <span key={skill.name} className={getSkillStyle(skill.level)}>
                       {skill.name}
-                    </motion.span>
+                    </span>
                   ))}
-                </div>
-              </motion.div>
+                </dd>
+              </div>
             ))}
-          </div>
+          </dl>
         </motion.div>
       </div>
     </section>

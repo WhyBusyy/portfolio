@@ -30,8 +30,6 @@ interface SideProject {
   imageFit?: "cover" | "contain";
   category: string;
   icon: LucideIcon;
-  gradient: string;
-  accentColor: string;
 }
 
 const sideProjects: SideProject[] = [
@@ -55,9 +53,6 @@ const sideProjects: SideProject[] = [
     imageFit: "contain",
     category: "Mobile",
     icon: Smartphone,
-    gradient:
-      "from-pink-500/20 to-rose-500/20 dark:from-pink-500/10 dark:to-rose-500/10",
-    accentColor: "text-pink-600 dark:text-pink-400",
   },
   {
     title: "tiptap-editor-kit",
@@ -70,9 +65,6 @@ const sideProjects: SideProject[] = [
     screenshot: "/tiptap-editor-kit-demo.png",
     category: "npm Package",
     icon: Package,
-    gradient:
-      "from-violet-500/20 to-purple-500/20 dark:from-violet-500/10 dark:to-purple-500/10",
-    accentColor: "text-violet-600 dark:text-violet-400",
   },
   {
     title: "TUI Games",
@@ -90,9 +82,6 @@ const sideProjects: SideProject[] = [
     screenshot: "/tui-games.webp",
     category: "Terminal",
     icon: Gamepad2,
-    gradient:
-      "from-indigo-500/20 to-slate-500/20 dark:from-indigo-500/10 dark:to-slate-500/10",
-    accentColor: "text-indigo-600 dark:text-indigo-400",
   },
   {
     title: "포트폴리오 사이트",
@@ -110,9 +99,6 @@ const sideProjects: SideProject[] = [
     screenshot: "/portfolio.png",
     category: "Frontend",
     icon: Globe,
-    gradient:
-      "from-blue-500/20 to-cyan-500/20 dark:from-blue-500/10 dark:to-cyan-500/10",
-    accentColor: "text-blue-600 dark:text-blue-400",
   },
   {
     title: "서버 헬스체크 모니터링",
@@ -124,9 +110,6 @@ const sideProjects: SideProject[] = [
     screenshot: "/health-check.png",
     category: "DevOps",
     icon: Terminal,
-    gradient:
-      "from-amber-500/20 to-orange-500/20 dark:from-amber-500/10 dark:to-orange-500/10",
-    accentColor: "text-amber-600 dark:text-amber-400",
   },
   {
     title: "Re:Gym — 중고 헬스 기구 거래 앱",
@@ -146,9 +129,6 @@ const sideProjects: SideProject[] = [
     screenshot: "/re-gym.webp",
     category: "Mobile",
     icon: Smartphone,
-    gradient:
-      "from-emerald-500/20 to-teal-500/20 dark:from-emerald-500/10 dark:to-teal-500/10",
-    accentColor: "text-emerald-600 dark:text-emerald-400",
   },
 ];
 
@@ -247,7 +227,7 @@ export default function SideProjects() {
             개인적으로 만들어본 프로젝트들입니다.
           </p>
 
-          <div className="relative max-w-5xl mx-auto">
+          <div className="relative max-w-5xl">
             {/* Left Arrow */}
             <button
               type="button"
@@ -256,11 +236,8 @@ export default function SideProjects() {
               disabled={!canScrollLeft}
               className="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10
                          w-10 h-10 items-center justify-center rounded-full
-                         bg-white/90 dark:bg-white/[0.08] backdrop-blur
-                         border border-slate-200 dark:border-white/[0.08]
-                         shadow-sm hover:shadow-md
-                         text-slate-600 dark:text-slate-300
-                         hover:text-blue-600 dark:hover:text-blue-400
+                         bg-slate-900 text-white dark:bg-white dark:text-slate-900
+                         hover:opacity-80 active:scale-95
                          transition-all
                          disabled:opacity-0 disabled:pointer-events-none"
             >
@@ -275,11 +252,8 @@ export default function SideProjects() {
               disabled={!canScrollRight}
               className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10
                          w-10 h-10 items-center justify-center rounded-full
-                         bg-white/90 dark:bg-white/[0.08] backdrop-blur
-                         border border-slate-200 dark:border-white/[0.08]
-                         shadow-sm hover:shadow-md
-                         text-slate-600 dark:text-slate-300
-                         hover:text-blue-600 dark:hover:text-blue-400
+                         bg-slate-900 text-white dark:bg-white dark:text-slate-900
+                         hover:opacity-80 active:scale-95
                          transition-all
                          disabled:opacity-0 disabled:pointer-events-none"
             >
@@ -299,25 +273,17 @@ export default function SideProjects() {
                          scroll-smooth select-none
                          ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
             >
-              {sideProjects.map((project, index) => {
+              {sideProjects.map((project) => {
                 const IconComponent = project.icon;
 
                 return (
-                  <motion.div
+                  <div
                     key={project.title}
                     data-side-card
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={
-                      isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
-                    }
-                    transition={{ duration: 0.6, delay: 0.1 + index * 0.1 }}
-                    className="group flex-shrink-0 w-[280px] sm:w-[340px]
-                               bg-white dark:bg-white/[0.03] rounded-2xl overflow-hidden
-                               border border-slate-100 dark:border-white/[0.04]
-                               snap-start"
+                    className="group flex-shrink-0 w-[280px] sm:w-[340px] snap-start"
                   >
                     {/* Screenshot / Placeholder */}
-                    <div className="relative aspect-[16/10] overflow-hidden bg-slate-100 dark:bg-white/[0.04]">
+                    <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-slate-100 dark:bg-white/[0.04]">
                       {project.screenshot ? (
                         <Image
                           src={project.screenshot}
@@ -332,31 +298,16 @@ export default function SideProjects() {
                           }`}
                         />
                       ) : (
-                        <div
-                          className={`w-full h-full flex items-center justify-center bg-gradient-to-br ${project.gradient}`}
-                        >
-                          {/* Glow behind icon */}
-                          <div
-                            className={`absolute w-24 h-24 bg-gradient-to-br ${project.gradient} blur-2xl opacity-40`}
-                          />
-                          <IconComponent className="w-12 h-12 text-slate-500 dark:text-slate-400 relative z-10" />
+                        <div className="w-full h-full flex items-center justify-center">
+                          <IconComponent className="w-10 h-10 text-slate-400 dark:text-slate-500" />
                         </div>
                       )}
 
-                      {/* Category badge */}
-                      <div className="absolute top-3 left-3">
-                        <span
-                          className={`text-[10px] font-semibold tracking-wider uppercase px-2.5 py-1
-                                      bg-white/80 dark:bg-white/[0.08] backdrop-blur-sm rounded-full
-                                      ${project.accentColor}`}
-                        >
-                          {project.category}
-                        </span>
-                      </div>
                     </div>
 
                     {/* Card body */}
-                    <div className="p-6 border-t border-slate-100 dark:border-white/[0.04]">
+                    <div className="pt-4">
+                      <p className="mb-1 text-xs text-slate-500 dark:text-slate-400">{project.category}</p>
                       <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-2">
                         {project.title}
                       </h3>
@@ -365,22 +316,14 @@ export default function SideProjects() {
                       </p>
 
                       {project.techStack.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5">
-                          {project.techStack.map((tech) => (
-                            <span
-                              key={tech}
-                              className="px-2 py-1 bg-slate-50 dark:bg-white/[0.04] text-slate-500
-                                         dark:text-slate-400 rounded-md text-xs"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
+                        <p className="text-xs leading-relaxed text-slate-500 dark:text-slate-400">
+                          {project.techStack.join(" · ")}
+                        </p>
                       )}
 
                       {/* Links */}
                       {(project.github || project.demo || project.npm) && (
-                        <div className="flex gap-3 mt-4 pt-4 border-t border-slate-100 dark:border-white/[0.04]">
+                        <div className="flex gap-4 mt-4">
                           {project.github && (
                             <a
                               href={project.github}
@@ -430,7 +373,7 @@ export default function SideProjects() {
                         </div>
                       )}
                     </div>
-                  </motion.div>
+                  </div>
                 );
               })}
             </div>
