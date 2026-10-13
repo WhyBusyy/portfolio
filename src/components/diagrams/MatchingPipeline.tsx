@@ -20,7 +20,7 @@ export default function MatchingPipeline() {
     >
       {/* 1단계 — 정규화 */}
       <Eyebrow x={16} y={34}>
-        1단계 — 지역 데이터 정규화
+        1단계: 지역 데이터 정규화
       </Eyebrow>
 
       <Node x={x(0)} y={y1} w={W} h={H} label="비정형 입력" sub="벤더별 상이한 표기" muted />
@@ -76,7 +76,7 @@ export default function MatchingPipeline() {
 
       {/* 2단계 — 배정 */}
       <Eyebrow x={16} y={210}>
-        2단계 — 주소 기반 담당자 배정
+        2단계: 주소 기반 담당자 배정
       </Eyebrow>
 
       <Node x={x(0)} y={y2} w={W} h={H} label="거래 신청" sub="약국 주소 입력" />

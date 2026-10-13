@@ -41,7 +41,7 @@ export default async function DemoPage({
                 tiptap-editor-kit
               </h1>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                WYSIWYG Editor — React & Vanilla JS
+                WYSIWYG Editor for React & Vanilla JS
               </p>
             </div>
           </div>

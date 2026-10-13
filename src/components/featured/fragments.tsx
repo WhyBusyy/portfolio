@@ -189,13 +189,15 @@ function Bar({
           {value}
         </span>
       </div>
-      <div className="mt-1.5 h-2.5 rounded-full bg-slate-100 dark:bg-white/[0.06] overflow-hidden">
+      {/* 배경 트랙 없이 막대만: 길이 차이 자체가 정보다 */}
+      <div className="mt-1.5 h-2">
         <div
-          className={`h-full rounded-full motion-safe:transition-[width] motion-safe:duration-700 ${
-            accent ? "bg-blue-500" : "bg-slate-400 dark:bg-slate-500"
+          className={`h-full rounded-sm origin-left motion-safe:transition-transform motion-safe:duration-700 ${
+            accent ? "bg-blue-600 dark:bg-blue-400" : "bg-slate-300 dark:bg-white/20"
           }`}
           style={{
-            width: show ? `${Math.max(percent, 0.8)}%` : "0%",
+            width: `${Math.max(percent, 0.8)}%`,
+            transform: show ? "scaleX(1)" : "scaleX(0)",
             transitionDelay: show ? `${index * 150}ms` : "0ms",
           }}
         />

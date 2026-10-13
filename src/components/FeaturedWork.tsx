@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
+import { useMotionValueEvent, useScroll } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { CmsFragment, EditorFragment, QaFragment, VsaFragment } from "./featured/fragments";
@@ -48,26 +49,12 @@ export default function FeaturedWork() {
   const trackRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
 
-  // 스크롤 이벤트에서 섹션의 실제 위치로 바로 계산한다.
-  // (처음 재 둔 위치를 쓰거나 다음 프레임에 계산하면 장면이 어긋나거나 한 박자 늦게 바뀐다)
-  useEffect(() => {
-    const update = () => {
-      const el = trackRef.current;
-      if (!el || el.offsetHeight === 0) return; // 모바일에서는 숨김
-      const range = el.offsetHeight - window.innerHeight;
-      const p = Math.min(1, Math.max(0, -el.getBoundingClientRect().top / range));
-      const next = Math.min(CASES.length - 1, Math.floor(p * CASES.length));
-      setActive((cur) => (cur === next ? cur : next));
-    };
-    const id = requestAnimationFrame(update);
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    return () => {
-      cancelAnimationFrame(id);
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
-    };
-  }, []);
+  // Motion useScroll 로 섹션 진행도(0~1)를 받아, 사례 번호가 바뀔 때만 상태를 갱신한다.
+  const { scrollYProgress } = useScroll({ target: trackRef, offset: ["start start", "end end"] });
+  useMotionValueEvent(scrollYProgress, "change", (p) => {
+    const next = Math.min(CASES.length - 1, Math.floor(p * CASES.length));
+    setActive((cur) => (cur === next ? cur : next));
+  });
 
   /** 목록을 누르면 그 사례가 활성화되는 스크롤 위치로 이동 */
   const goTo = (i: number) => {

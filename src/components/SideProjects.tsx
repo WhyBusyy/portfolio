@@ -112,7 +112,7 @@ const sideProjects: SideProject[] = [
     icon: Terminal,
   },
   {
-    title: "Re:Gym — 중고 헬스 기구 거래 앱",
+    title: "Re:Gym - 중고 헬스 기구 거래 앱",
     description:
       "중고 헬스 기구 거래 앱의 Flutter 클라이언트와 관리자 웹을 맡았습니다. 상품 등록·필터 검색·키워드 알림·찜·판매/구매 관리 화면과 STOMP 기반 실시간 채팅을 구현하고, 판매글·브랜드·부위를 관리하는 백오피스를 Next.js로 함께 만들었습니다. 단위 34개·위젯 12개 총 46개 테스트를 붙였고, MVP를 마치고 TestFlight로 테스트 중입니다.",
     techStack: [
@@ -317,7 +317,7 @@ export default function SideProjects() {
 
                       {project.techStack.length > 0 && (
                         <p className="text-xs leading-relaxed text-slate-500 dark:text-slate-400">
-                          {project.techStack.join(" · ")}
+                          {project.techStack.join(", ")}
                         </p>
                       )}
 

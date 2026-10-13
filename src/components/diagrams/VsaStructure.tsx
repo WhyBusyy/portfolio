@@ -32,7 +32,7 @@ export default function VsaStructure() {
     >
       {/* 전 */}
       <Eyebrow x={L} y={26}>
-        전 — 레이어별로 분산
+        전: 레이어별로 분산
       </Eyebrow>
       <rect
         x={L}
@@ -76,7 +76,7 @@ export default function VsaStructure() {
 
       {/* 후 */}
       <Eyebrow x={R} y={26} accent>
-        후 — 하이브리드
+        후: 하이브리드
       </Eyebrow>
       <rect
         x={R}
@@ -101,7 +101,7 @@ export default function VsaStructure() {
 
       {/* 전수조사 */}
       <Eyebrow x={L} y={236}>
-        판단 근거 — 의존성 전수조사
+        판단 근거: 의존성 전수조사
       </Eyebrow>
       {survey.map((s, i) => {
         const y = 258 + i * 40;

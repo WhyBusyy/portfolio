@@ -202,7 +202,7 @@ export default function Work() {
                     </p>
 
                     <p className="text-sm text-slate-500 dark:text-slate-400">
-                      {career.roles.join(" · ")}
+                      {career.roles.join(", ")}
                     </p>
                   </div>
                 </div>

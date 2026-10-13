@@ -9,12 +9,12 @@ const INITIAL_CONTENT = `
 <p>이 에디터는 <strong>tiptap-editor-kit</strong> npm 패키지로 구현되었습니다.</p>
 <p>아래 기능들을 직접 사용해보세요:</p>
 <ul>
-  <li><strong>서식</strong> — 굵게, 기울임, 밑줄, 취소선</li>
-  <li><strong>제목</strong> — H1, H2, H3</li>
-  <li><strong>색상</strong> — 글자 색상, 배경 색상</li>
-  <li><strong>정렬</strong> — 왼쪽, 가운데, 오른쪽</li>
-  <li><strong>삽입</strong> — 이미지 (드래그 & 드롭, 붙여넣기, 버튼), 링크, 리스트, 인용구</li>
-  <li><strong>테이블</strong> — 삽입, 행/열 추가·삭제, 셀 병합·분할</li>
+  <li><strong>서식</strong>: 굵게, 기울임, 밑줄, 취소선</li>
+  <li><strong>제목</strong>: H1, H2, H3</li>
+  <li><strong>색상</strong>: 글자 색상, 배경 색상</li>
+  <li><strong>정렬</strong>: 왼쪽, 가운데, 오른쪽</li>
+  <li><strong>삽입</strong>: 이미지 (드래그 & 드롭, 붙여넣기, 버튼), 링크, 리스트, 인용구</li>
+  <li><strong>테이블</strong>: 삽입, 행/열 추가·삭제, 셀 병합·분할</li>
 </ul>
 <blockquote><p>이미지는 로컬 프리뷰로 표시됩니다. 실제 프로젝트에서는 <code>onImageUpload</code> prop으로 S3 등 외부 업로드를 연동할 수 있습니다.</p></blockquote>
 `;

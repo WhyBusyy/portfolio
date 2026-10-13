@@ -17,7 +17,7 @@ export default function ComponentUnification() {
     >
       {/* before */}
       <Eyebrow x={L} y={30}>
-        전 — 화면마다 따로 마크업
+        전: 화면마다 따로 마크업
       </Eyebrow>
       {screens.map((s, i) => (
         <g key={s}>
@@ -40,7 +40,7 @@ export default function ComponentUnification() {
 
       {/* after */}
       <Eyebrow x={R} y={30} accent>
-        후 — 단일 컴포넌트 호출
+        후: 단일 컴포넌트 호출
       </Eyebrow>
       {screens.map((s, i) => (
         <g key={s}>
