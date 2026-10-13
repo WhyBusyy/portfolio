@@ -7,6 +7,7 @@ import SideProjects from "@/components/SideProjects";
 import Skills from "@/components/Skills";
 import Experience from "@/components/Experience";
 import HowIWork from "@/components/HowIWork";
+import FeaturedWork from "@/components/FeaturedWork";
 import Contact from "@/components/Contact";
 import { SITE_URL } from "@/constants/site";
 
@@ -102,6 +103,7 @@ export default function Home() {
       <Navigation />
       <main id="main-content" tabIndex={-1} className="min-h-screen focus:outline-none">
         <Hero />
+        <FeaturedWork />
         <About />
         <HowIWork />
         <Work />
