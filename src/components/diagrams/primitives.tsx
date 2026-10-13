@@ -20,25 +20,37 @@ export function Figure({
   caption,
   viewBox,
   children,
+  interactive = false,
+  footer,
+  fluid = false,
+  className = "",
 }: {
   title: string;
   caption?: string;
   viewBox: string;
   children: React.ReactNode;
+  /** 내부에 조작 가능한 노드가 있으면 img 대신 group 으로 노출한다. */
+  interactive?: boolean;
+  /** 다이어그램과 캡션 사이에 넣을 조작부·설명 */
+  footer?: React.ReactNode;
+  /** true 면 최소 폭 없이 컨테이너에 맞춰 줄어든다 (세로 배치용) */
+  fluid?: boolean;
+  className?: string;
 }) {
   return (
-    <figure className="my-8">
+    <figure className={`my-8 ${className}`}>
       <div className="overflow-x-auto">
         <svg
           viewBox={viewBox}
-          role="img"
+          role={interactive ? "group" : "img"}
           aria-label={title}
-          className="w-full h-auto min-w-[560px]"
+          className={`w-full h-auto ${fluid ? "" : "min-w-[560px]"}`}
         >
           <title>{title}</title>
           {children}
         </svg>
       </div>
+      {footer}
       {caption && (
         <figcaption className="mt-3 text-xs text-slate-500 dark:text-slate-400 text-center">
           {caption}
@@ -59,6 +71,9 @@ export function Node({
   accent = false,
   dashed = false,
   muted = false,
+  state = "default",
+  onSelect,
+  selectLabel,
 }: {
   x: number;
   y: number;
@@ -69,27 +84,60 @@ export function Node({
   accent?: boolean;
   dashed?: boolean;
   muted?: boolean;
+  /** active: 현재 단계 강조 · dim: 아직 오지 않은 단계 */
+  state?: "default" | "active" | "dim";
+  /** 있으면 호버·포커스·클릭으로 선택 가능한 노드가 된다. */
+  onSelect?: () => void;
+  selectLabel?: string;
 }) {
   const cx = x + w / 2;
+  const active = state === "active";
+  const interactiveProps = onSelect
+    ? {
+        role: "button",
+        tabIndex: 0,
+        "aria-label": selectLabel ?? label,
+        "aria-pressed": active,
+        onClick: onSelect,
+        // 마우스를 올리거나 키보드로 포커스해도 선택된다 (터치는 클릭으로)
+        onMouseEnter: onSelect,
+        onFocus: onSelect,
+        onKeyDown: (e: React.KeyboardEvent) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onSelect();
+          }
+        },
+      }
+    : {};
   return (
-    <g>
+    <g
+      {...interactiveProps}
+      opacity={state === "dim" ? 0.35 : 1}
+      style={{ transition: "opacity 300ms" }}
+      className={`motion-reduce:!transition-none ${
+        onSelect
+          ? "cursor-pointer outline-none [&:focus-visible>rect]:stroke-blue-500 [&:focus-visible>rect]:[stroke-width:2.5]"
+          : ""
+      }`}
+    >
       <rect
         x={x}
         y={y}
         width={w}
         height={h}
         rx={8}
-        className={`${accent ? FILL_ACCENT : muted ? FILL_MUTED : FILL_BOX} ${
-          accent ? STROKE_ACCENT : STROKE_BOX
+        className={`${accent || active ? FILL_ACCENT : muted ? FILL_MUTED : FILL_BOX} ${
+          accent || active ? STROKE_ACCENT : STROKE_BOX
         }`}
-        strokeWidth={1}
+        strokeWidth={active ? 2 : 1}
         strokeDasharray={dashed ? "4 3" : undefined}
       />
       <text
         x={cx}
         y={sub ? y + h / 2 - 4 : y + h / 2 + 4}
         textAnchor="middle"
-        className={`${accent ? TEXT_ACCENT : TEXT} text-[12px] font-semibold`}
+        className={`${accent || active ? TEXT_ACCENT : TEXT} text-[12px] font-semibold`}
         style={{ fontSize: 12, fontWeight: 600 }}
       >
         {label}
@@ -117,6 +165,7 @@ export function Arrow({
   y2,
   accent = false,
   dashed = false,
+  dim = false,
 }: {
   x1: number;
   y1: number;
@@ -124,6 +173,7 @@ export function Arrow({
   y2: number;
   accent?: boolean;
   dashed?: boolean;
+  dim?: boolean;
 }) {
   const cls = accent ? STROKE_ACCENT : STROKE_LINE;
   const dx = x2 - x1;
@@ -136,7 +186,7 @@ export function Arrow({
   const px = -uy * 3.5;
   const py = ux * 3.5;
   return (
-    <g>
+    <g opacity={dim ? 0.35 : 1} style={{ transition: "opacity 300ms" }} className="motion-reduce:!transition-none">
       <line
         x1={x1}
         y1={y1}
