@@ -1,16 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowUpRight, ChevronDown } from "lucide-react";
 
-export default function Work() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  const careerData = [
+const careerData = [
     {
       company: "주식회사 루멘테라",
       period: "2024.05 - 현재",
@@ -145,152 +140,130 @@ export default function Work() {
     },
   ];
 
+type Item = { title: string; period: string; description: string; slug: string | null };
+
+const career = careerData[0];
+const TABS: { label: string; items: Item[] }[] = [
+  { label: "전체", items: [...career.tracks.flatMap((t) => t.items), ...career.ongoing] },
+  ...career.tracks.map((t) => ({ label: t.label.replace(" · ", "·"), items: t.items })),
+  { label: "진행 중", items: career.ongoing },
+];
+
+/** 한 줄: 평소엔 제목·기간만, 누르면 설명과 상세 링크가 펼쳐진다 */
+function Row({ item, open, onToggle }: { item: Item; open: boolean; onToggle: () => void }) {
+  const panelId = `work-${item.title.replace(/\s+/g, "-")}`;
   return (
-    <section ref={ref} id="work" aria-labelledby="work-title" className="py-32 lg:py-40 section-padding">
-      <div className="container-max-width">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8 }}
-        >
-          <h2 id="work-title" className="section-title">Work</h2>
-          <p className="section-subtitle">
-            실무에서 수행한 프로젝트와 기여 내용입니다.
-          </p>
-
-          <div className="max-w-4xl space-y-16">
-            {careerData.map((career, index) => (
-              <div
-                key={index}
-                >
-                {/* Company Header */}
-                <div
-                  className="sticky top-12 z-10 pt-2 pb-8 mb-10 flex flex-col sm:flex-row gap-6 items-start
-                  [mask-image:linear-gradient(to_bottom,black_70%,transparent)]
-                  bg-white dark:bg-dark-bg"
-                >
-                  <div className="flex-shrink-0">
-                    <div className="w-16 h-16 rounded-xl bg-white flex items-center justify-center p-2">
-                      {career.logo ? (
-                        <Image
-                          src={career.logo}
-                          alt={`${career.company} 로고`}
-                          width={138}
-                          height={22}
-                          className="w-full h-auto"
-                        />
-                      ) : (
-                        <span className="text-xl font-bold text-slate-600">
-                          {career.company.charAt(0)}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="flex-1 space-y-3">
-                    <div>
-                      <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
-                        {career.company}
-                      </h3>
-                      <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-                        {career.period}
-                      </p>
-                    </div>
-
-                    <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                      {career.motto}
-                    </p>
-
-                    <p className="text-sm text-slate-500 dark:text-slate-400">
-                      {career.roles.join(", ")}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Projects — 트랙별 그룹 */}
-                {career.tracks.map((track, trackIdx) => (
-                  <div key={track.label} className={trackIdx > 0 ? "mt-12" : ""}>
-                    <p className="text-sm font-semibold text-slate-900 dark:text-white mb-1">
-                      {track.label}
-                    </p>
-                    <div className="space-y-0">
-                    {track.items.map((project, idx) => {
-                      const content = (
-                        <div
-                          className={`grid gap-1 border-t border-slate-200 dark:border-white/[0.08] py-6 sm:grid-cols-[9rem_1fr] sm:gap-8 ${
-                            project.slug ? "group cursor-pointer" : ""
-                          }`}
-                        >
-                          <p className="text-sm tabular-nums text-slate-500 dark:text-slate-400">
-                            {project.period}
-                          </p>
-                          <div>
-                            <h4
-                              className={`text-base font-semibold text-slate-900 dark:text-white mb-2 ${
-                                project.slug
-                                  ? "group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
-                                  : ""
-                              }`}
-                            >
-                              {project.title}
-                              {project.slug && (
-                                <span className="inline-block ml-1.5 text-blue-600 dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity text-xs">
-                                  &rarr;
-                                </span>
-                              )}
-                            </h4>
-                            <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-                              {project.description}
-                            </p>
-                          </div>
-                        </div>
-                      );
-
-                      return (
-                        <div key={idx}>
-                          {project.slug ? (
-                            <Link href={`/projects/${project.slug}`}>
-                              {content}
-                            </Link>
-                          ) : (
-                            content
-                          )}
-                        </div>
-                      );
-                    })}
-                    </div>
-                  </div>
-                ))}
-
-                {/* Ongoing */}
-                <div className="mt-12">
-                  <p className="text-sm font-semibold text-slate-900 dark:text-white mb-1">
-                    Ongoing
-                  </p>
-                  <div className="space-y-0">
-                    {career.ongoing.map((item, idx) => (
-                      <div key={idx}>
-                        <div className="grid gap-1 border-t border-slate-200 dark:border-white/[0.08] py-6 sm:grid-cols-[9rem_1fr] sm:gap-8">
-                          <p className="text-sm tabular-nums text-slate-500 dark:text-slate-400">
-                            {item.period}
-                          </p>
-                          <div>
-                            <h4 className="text-base font-semibold text-slate-900 dark:text-white mb-2">
-                              {item.title}
-                            </h4>
-                            <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-                              {item.description}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
+    <li className="transition-opacity duration-200 group-hover/list:opacity-45 hover:!opacity-100 focus-within:!opacity-100 motion-reduce:transition-none">
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={open}
+        aria-controls={panelId}
+        className="grid w-full grid-cols-[1fr_auto] items-baseline gap-x-4 gap-y-1 py-4 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 sm:grid-cols-[9rem_1fr_auto] rounded"
+      >
+        <span className="order-2 col-span-2 text-sm tabular-nums text-slate-500 dark:text-slate-400 sm:order-none sm:col-span-1">
+          {item.period}
+        </span>
+        <span className="text-[17px] font-semibold tracking-[-0.01em] text-slate-900 dark:text-white">
+          {item.title}
+        </span>
+        <ChevronDown
+          className={`h-4 w-4 self-center text-slate-500 transition-transform duration-300 dark:text-slate-400 ${open ? "rotate-180" : ""}`}
+          aria-hidden="true"
+        />
+      </button>
+      <div
+        id={panelId}
+        className={`grid transition-[grid-template-rows] duration-300 motion-reduce:transition-none ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+      >
+        <div className="overflow-hidden">
+          <div className="pb-6 sm:pl-[calc(9rem+1rem)]">
+            <p className="max-w-[65ch] text-[15px] leading-relaxed text-slate-600 dark:text-slate-300">
+              {item.description}
+            </p>
+            {item.slug && (
+              <Link
+                href={`/projects/${item.slug}`}
+                tabIndex={open ? 0 : -1}
+                className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-blue-600 underline-offset-4 hover:underline dark:text-blue-400"
+              >
+                자세히 보기
+                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            )}
           </div>
-        </motion.div>
+        </div>
+      </div>
+    </li>
+  );
+}
+
+export default function Work() {
+  const [tab, setTab] = useState(0);
+  const [openTitle, setOpenTitle] = useState<string | null>(null);
+  const items = TABS[tab].items;
+
+  return (
+    <section id="work" aria-labelledby="work-title" className="py-28 lg:py-36 section-padding">
+      <div className="container-max-width">
+        <h2 id="work-title" className="section-title">
+          Projects
+        </h2>
+        <p className="section-subtitle">실무에서 수행한 프로젝트와 기여 내용입니다.</p>
+
+        {/* 회사 정보 */}
+        <div className="flex max-w-4xl flex-col gap-5 sm:flex-row sm:items-start">
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-white p-2 ring-1 ring-slate-200 dark:ring-0">
+            <Image src={career.logo} alt={`${career.company} 로고`} width={138} height={22} className="h-auto w-full" />
+          </div>
+          <div>
+            <p className="text-xl font-semibold text-slate-900 dark:text-white">{career.company}</p>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+              {career.period}, {career.roles.join(", ")}
+            </p>
+            <p className="mt-2 max-w-[65ch] text-[15px] leading-relaxed text-slate-600 dark:text-slate-300">
+              {career.motto}
+            </p>
+          </div>
+        </div>
+
+        {/* 트랙 탭 */}
+        <div role="tablist" aria-label="작업 분류" className="mt-12 flex flex-wrap gap-2">
+          {TABS.map((t, i) => (
+            <button
+              key={t.label}
+              type="button"
+              role="tab"
+              aria-selected={tab === i}
+              onClick={() => {
+                setTab(i);
+                setOpenTitle(null);
+              }}
+              className={`rounded-md px-3.5 py-2 text-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500 ${
+                tab === i
+                  ? "bg-slate-900 font-semibold text-white dark:bg-white dark:text-slate-900"
+                  : "text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-white/[0.06]"
+              }`}
+            >
+              {t.label}
+              <span className={`ml-1.5 tabular-nums ${tab === i ? "opacity-70" : "text-slate-500 dark:text-slate-400"}`}>
+                {t.items.length}
+              </span>
+            </button>
+          ))}
+        </div>
+
+        {/* 접히는 목록: 마우스를 올린 줄만 또렷하게 */}
+        <ul role="tabpanel" className="group/list mt-6 max-w-4xl">
+          {items.map((item) => (
+            <Row
+              key={item.title}
+              item={item}
+              open={openTitle === item.title}
+              onToggle={() => setOpenTitle((cur) => (cur === item.title ? null : item.title))}
+            />
+          ))}
+        </ul>
       </div>
     </section>
   );
