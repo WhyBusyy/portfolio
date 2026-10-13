@@ -1,24 +1,21 @@
 import { Eyebrow, Figure, Txt, FILL_ACCENT, FILL_MUTED, STROKE_ACCENT, STROKE_BOX } from "./primitives";
 
 /** 에디터 교체: 의존성 크기와 배포 시간 대비 */
-export default function EditorFootprint() {
+/** x0: 막대 시작점, maxW: 막대 최대 폭, deployW: 교체 전 배포 시간 막대 폭 */
+function chart(x0: number, maxW: number, deployW: number) {
   // 2.5GB vs 3MB 는 선형 비교가 불가능(약 850배)해 로그 축으로 그린다.
-  const x0 = 150;
-  const maxW = 545;
+  const lx = x0 - 18;
   const lg = (mb: number) => Math.log10(mb);
   const scale = (mb: number) => ((lg(mb) - lg(1)) / (lg(2500) - lg(1))) * maxW;
 
   return (
-    <Figure
-      title="에디터 교체 전후: 의존성 크기와 배포 시간"
-      viewBox="0 0 796 268"
-    >
+    <g>
       <Eyebrow x={20} y={26}>
         에디터 관련 의존성 크기
       </Eyebrow>
 
       {/* before */}
-      <Txt x={132} y={62} anchor="end" bold>
+      <Txt x={lx} y={62} anchor="end" bold>
         CKEditor
       </Txt>
       <rect
@@ -35,7 +32,7 @@ export default function EditorFootprint() {
       </Txt>
 
       {/* after */}
-      <Txt x={132} y={104} anchor="end" bold>
+      <Txt x={lx} y={104} anchor="end" bold>
         Tiptap
       </Txt>
       <rect
@@ -83,37 +80,52 @@ export default function EditorFootprint() {
         운영 배포 시간
       </Eyebrow>
 
-      <Txt x={132} y={214} anchor="end" bold>
+      <Txt x={lx} y={214} anchor="end" bold>
         교체 전
       </Txt>
       <rect
         x={x0}
         y={198}
-        width={360}
+        width={deployW}
         height={20}
         rx={4}
         className={`${FILL_MUTED} ${STROKE_BOX}`}
         strokeWidth={1}
       />
-      <Txt x={x0 + 370} y={213} muted bold>
+      <Txt x={x0 + deployW + 10} y={213} muted bold>
         12분
       </Txt>
 
-      <Txt x={132} y={242} anchor="end" bold>
+      <Txt x={lx} y={242} anchor="end" bold>
         교체 후
       </Txt>
       <rect
         x={x0}
         y={226}
-        width={180}
+        width={deployW / 2}
         height={20}
         rx={4}
         className={`${FILL_ACCENT} ${STROKE_ACCENT}`}
         strokeWidth={1}
       />
-      <Txt x={x0 + 190} y={241} accent bold>
+      <Txt x={x0 + deployW / 2 + 10} y={241} accent bold>
         6분
       </Txt>
-    </Figure>
+    </g>
+  );
+}
+
+const title = "에디터 교체 전후: 의존성 크기와 배포 시간";
+
+export default function EditorFootprint() {
+  return (
+    <>
+      <Figure title={title} viewBox="0 0 796 268" className="hidden sm:block">
+        {chart(150, 545, 360)}
+      </Figure>
+      <Figure title={title} viewBox="0 0 340 268" fluid className="sm:hidden">
+        {chart(96, 180, 120)}
+      </Figure>
+    </>
   );
 }
