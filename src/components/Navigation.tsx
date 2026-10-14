@@ -72,6 +72,9 @@ export default function Navigation() {
     }, 100);
   };
 
+  // 맨 위(파란 히어로 위)에서는 글자·아이콘을 흰색으로
+  const onHero = !scrolled && !isOpen;
+
   return (
     <nav
       aria-label="주요 내비게이션"
@@ -96,7 +99,7 @@ export default function Navigation() {
               className="rounded-full dark:invert"
               aria-hidden="true"
             />
-            <span className="font-semibold text-sm tracking-tight text-slate-900 dark:text-white">
+            <span className={`font-semibold text-sm tracking-tight ${onHero ? "text-white" : "text-slate-900 dark:text-white"}`}>
               WhyBusyy
             </span>
           </button>
@@ -106,7 +109,11 @@ export default function Navigation() {
               <button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
-                className="text-xs text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
+                className={`text-xs transition-colors cursor-pointer ${
+                  onHero
+                    ? "text-white/80 hover:text-white"
+                    : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                }`}
               >
                 {item.name}
               </button>
@@ -118,9 +125,9 @@ export default function Navigation() {
               className="p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer"
             >
               {isDark ? (
-                <Sun className="w-4 h-4 text-slate-400 hover:text-white transition-colors" aria-hidden="true" />
+                <Sun className={`w-4 h-4 transition-colors ${onHero ? "text-white" : "text-slate-400 hover:text-white"}`} aria-hidden="true" />
               ) : (
-                <Moon className="w-4 h-4 text-slate-500 hover:text-slate-900 transition-colors" aria-hidden="true" />
+                <Moon className={`w-4 h-4 transition-colors ${onHero ? "text-white" : "text-slate-500 hover:text-slate-900"}`} aria-hidden="true" />
               )}
             </button>
           </div>
@@ -132,9 +139,9 @@ export default function Navigation() {
               className="p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer"
             >
               {isDark ? (
-                <Sun className="w-4 h-4 text-slate-400" aria-hidden="true" />
+                <Sun className={`w-4 h-4 ${onHero ? "text-white" : "text-slate-400"}`} aria-hidden="true" />
               ) : (
-                <Moon className="w-4 h-4 text-slate-500" aria-hidden="true" />
+                <Moon className={`w-4 h-4 ${onHero ? "text-white" : "text-slate-500"}`} aria-hidden="true" />
               )}
             </button>
 
@@ -148,7 +155,7 @@ export default function Navigation() {
               {isOpen ? (
                 <X className="w-4 h-4 text-slate-600 dark:text-slate-400" aria-hidden="true" />
               ) : (
-                <Menu className="w-4 h-4 text-slate-600 dark:text-slate-400" aria-hidden="true" />
+                <Menu className={`w-4 h-4 ${onHero ? "text-white" : "text-slate-600 dark:text-slate-400"}`} aria-hidden="true" />
               )}
             </button>
           </div>
