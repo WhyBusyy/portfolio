@@ -1,67 +1,125 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useReducedMotion } from "framer-motion";
 
 /**
- * 히어로 오른쪽 AI 영상.
- * 파일을 public/hero/ 에 넣고 경로를 채우면 자리 표시 박스 대신 실제 영상이 나온다.
- * - 첫 화면에는 정지 이미지(poster)만 그려 LCP 를 영상이 잡아먹지 않게 한다.
- * - 영상은 페이지 로드가 끝난 뒤에 불러오고, 재생이 시작되면 이미지 위로 서서히 겹친다.
- * - 동작 줄이기 설정이면 영상을 불러오지 않고 정지 이미지만 보여 준다.
+ * 히어로 오른쪽 캐릭터: 커서가 있는 방향을 바라본다.
+ * 포즈는 AI 영상에서 뽑은 프레임(배경 제거)이고, 영상에 없는 방향은 이미지 생성으로 채운다.
+ * 아직 없는 포즈는 FALLBACK 의 가까운 포즈로 대신한다.
  */
-const POSTER: string | null = null; // 예: "/hero/avatar-poster.webp"
-const VIDEO: { webm?: string; mp4?: string } | null = null; // 예: { webm: "/hero/avatar.webm", mp4: "/hero/avatar.mp4" }
+type Pose = "ul" | "u" | "ur" | "l" | "c" | "r" | "dl" | "d" | "dr";
 
-const ALT = "유병규 AI 아바타";
+const SRC: Partial<Record<Pose, string>> = {
+  ur: "/hero/pose-ur.webp",
+  l: "/hero/pose-l.webp",
+  c: "/hero/pose-c.webp",
+  r: "/hero/pose-r.webp",
+  dl: "/hero/pose-dl.webp",
+  d: "/hero/pose-d.webp",
+};
+
+const FALLBACK: Record<Pose, Pose[]> = {
+  ul: ["ul", "l", "c"],
+  u: ["u", "c"],
+  ur: ["ur", "r", "c"],
+  l: ["l", "c"],
+  c: ["c"],
+  r: ["r", "c"],
+  dl: ["dl", "l", "c"],
+  d: ["d", "c"],
+  dr: ["dr", "r", "c"],
+};
+
+const resolve = (p: Pose) => FALLBACK[p].find((q) => SRC[q]) ?? "c";
+
+/** 오른쪽부터 시계 방향으로 45°씩 (화면 좌표라 y 가 아래로 커진다) */
+const SECTORS: Pose[] = ["r", "dr", "d", "dl", "l", "ul", "u", "ur"];
+
+/** 터치 기기에서는 커서가 없으니 천천히 둘러본다 */
+const IDLE_TOUR: Pose[] = ["c", "l", "c", "r", "c", "ur"];
+const IDLE_MS = 1800;
 
 export default function HeroMedia() {
   const reduce = useReducedMotion();
-  const [load, setLoad] = useState(false);
-  const [playing, setPlaying] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const [pose, setPose] = useState<Pose>("c");
+  // 정면 이미지만 먼저 그리고, 나머지 포즈는 하이드레이션 뒤에 붙여 첫 화면을 가볍게 한다
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    if (!VIDEO || reduce) return;
-    const start = () => setLoad(true);
-    if (document.readyState === "complete") {
-      const id = setTimeout(start, 0);
-      return () => clearTimeout(id);
+    const id = requestAnimationFrame(() => setReady(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+
+  useEffect(() => {
+    if (reduce) return;
+    const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+    if (!fine) {
+      let i = 0;
+      const id = setInterval(() => {
+        i = (i + 1) % IDLE_TOUR.length;
+        setPose(IDLE_TOUR[i]);
+      }, IDLE_MS);
+      return () => clearInterval(id);
     }
-    window.addEventListener("load", start, { once: true });
-    return () => window.removeEventListener("load", start);
+
+    const onMove = (e: PointerEvent) => {
+      const el = ref.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      // 얼굴 중심: 가로 가운데, 세로 위에서 1/3 지점
+      const dx = e.clientX - (r.left + r.width / 2);
+      const dy = e.clientY - (r.top + r.height / 3);
+      if (Math.hypot(dx, dy) < r.width * 0.3) return setPose("c");
+      const sector = Math.round(Math.atan2(dy, dx) / (Math.PI / 4));
+      setPose(SECTORS[(sector + 8) % 8]);
+    };
+    const onLeave = () => setPose("c");
+
+    window.addEventListener("pointermove", onMove, { passive: true });
+    document.documentElement.addEventListener("pointerleave", onLeave);
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      document.documentElement.removeEventListener("pointerleave", onLeave);
+    };
   }, [reduce]);
 
-  return (
-    <div className="relative mx-auto aspect-[4/5] w-full max-w-[26rem] overflow-hidden rounded-xl bg-slate-100 dark:bg-white/[0.05] lg:mr-0">
-      {POSTER ? (
-        <Image src={POSTER} alt={ALT} fill priority sizes="(min-width: 1024px) 26rem, 100vw" className="object-cover" />
-      ) : (
-        // ponytail: 파일이 오기 전 자리 표시. 영상·이미지 경로를 채우면 이 분기는 지운다
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 border border-dashed border-slate-300 text-center dark:border-white/20 rounded-xl">
-          <p className="text-sm font-medium text-slate-600 dark:text-slate-300">AI 영상 자리</p>
-          <p className="text-xs text-slate-500 dark:text-slate-400">4:5 · public/hero/</p>
-        </div>
-      )}
+  const shown = resolve(pose);
+  // 새 포즈는 위에서 나타나고, 이전 포즈는 그동안 아래에 그대로 있다가 사라진다 (둘 다 반투명해지면 배경이 비친다)
+  const layer = (p: Pose) =>
+    `object-cover object-bottom transition-opacity motion-reduce:transition-none ${
+      shown === p ? "z-10 opacity-100 duration-150" : "opacity-0 duration-0 delay-150"
+    }`;
+  const extra = (Object.keys(SRC) as Pose[]).filter((p) => p !== "c");
 
-      {VIDEO && load && (
-        <video
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
-            playing ? "opacity-100" : "opacity-0"
-          }`}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          poster={POSTER ?? undefined}
-          aria-hidden="true"
-          onPlaying={() => setPlaying(true)}
-        >
-          {VIDEO.webm && <source src={VIDEO.webm} type="video/webm" />}
-          {VIDEO.mp4 && <source src={VIDEO.mp4} type="video/mp4" />}
-        </video>
-      )}
+  return (
+    <div
+      ref={ref}
+      className="relative mx-auto aspect-[4/5] w-full max-w-[26rem] overflow-hidden rounded-xl bg-slate-100 dark:bg-white/[0.05] lg:mr-0"
+    >
+      <Image
+        src={SRC.c!}
+        alt="유병규 캐릭터"
+        fill
+        priority
+        sizes="(min-width: 1024px) 26rem, 100vw"
+        className={layer("c")}
+      />
+      {ready &&
+        extra.map((p) => (
+          <Image
+            key={p}
+            src={SRC[p]!}
+            alt=""
+            aria-hidden="true"
+            fill
+            sizes="(min-width: 1024px) 26rem, 100vw"
+            className={layer(p)}
+          />
+        ))}
     </div>
   );
 }
