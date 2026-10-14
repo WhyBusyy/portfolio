@@ -1,125 +1,141 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import { useEffect, useRef } from "react";
 import { useReducedMotion } from "framer-motion";
 
 /**
- * 히어로 오른쪽 캐릭터: 커서가 있는 방향을 바라본다.
- * 포즈는 AI 영상에서 뽑은 프레임(배경 제거)이고, 영상에 없는 방향은 이미지 생성으로 채운다.
- * 아직 없는 포즈는 FALLBACK 의 가까운 포즈로 대신한다.
+ * 히어로 오른쪽 캐릭터: 눈동자가 커서를 따라간다.
+ * 원본 그림에서 눈동자만 지운 얼굴(face.webp) 위에 눈동자 조각(pupil-*.webp)을 올려 움직인다.
+ * 눈동자 조각은 눈꺼풀 윗선부터 잘라 두었고, 윗선 위로는 clipPath 로 가려 눈꺼풀 밖으로 삐져나오지 않는다.
+ * 좌표는 모두 face.webp(720×720) 기준이다.
  */
-type Pose = "ul" | "u" | "ur" | "l" | "c" | "r" | "dl" | "d" | "dr";
+const EYES = [
+  {
+    id: "l",
+    src: "/hero/pupil-l.webp",
+    x: 227,
+    y: 431,
+    w: 53,
+    h: 61,
+    clip: "197,447 205,442 213,439 221,436 229,434 237,432 245,432 253,432 261,433 269,436 277,439 283,443 287,447 287,520 197,520",
+  },
+  {
+    id: "r",
+    src: "/hero/pupil-r.webp",
+    x: 417,
+    y: 407,
+    w: 53,
+    h: 63,
+    clip: "389,429 397,423 405,419 413,415 421,413 429,410 437,409 445,408 453,408 461,408 469,409 477,410 485,411 493,413 501,417 501,500 389,500",
+  },
+] as const;
 
-const SRC: Partial<Record<Pose, string>> = {
-  ur: "/hero/pose-ur.webp",
-  l: "/hero/pose-l.webp",
-  c: "/hero/pose-c.webp",
-  r: "/hero/pose-r.webp",
-  dl: "/hero/pose-dl.webp",
-  d: "/hero/pose-d.webp",
-};
+/** 눈동자가 움직이는 최대 폭 (그림 좌표). 위로는 눈꺼풀에 가려지니 아래보다 적게 */
+const MAX_X = 9;
+const MAX_UP = 4;
+const MAX_DOWN = 6;
+/** 얼굴 전체도 같은 방향으로 살짝 따라와 입체감을 준다 */
+const HEAD = 0.35;
+/** 커서가 이 거리(px)만큼 떨어지면 끝까지 본다 */
+const REACH = 320;
+const EASE = 0.14;
 
-const FALLBACK: Record<Pose, Pose[]> = {
-  ul: ["ul", "l", "c"],
-  u: ["u", "c"],
-  ur: ["ur", "r", "c"],
-  l: ["l", "c"],
-  c: ["c"],
-  r: ["r", "c"],
-  dl: ["dl", "l", "c"],
-  d: ["d", "c"],
-  dr: ["dr", "r", "c"],
-};
-
-const resolve = (p: Pose) => FALLBACK[p].find((q) => SRC[q]) ?? "c";
-
-/** 오른쪽부터 시계 방향으로 45°씩 (화면 좌표라 y 가 아래로 커진다) */
-const SECTORS: Pose[] = ["r", "dr", "d", "dl", "l", "ul", "u", "ur"];
-
-/** 터치 기기에서는 커서가 없으니 천천히 둘러본다 */
-const IDLE_TOUR: Pose[] = ["c", "l", "c", "r", "c", "ur"];
-const IDLE_MS = 1800;
+/** 터치 기기에서는 커서가 없으니 가끔 다른 곳을 둘러본다 */
+const WANDER_MS = 2200;
 
 export default function HeroMedia() {
   const reduce = useReducedMotion();
-  const ref = useRef<HTMLDivElement>(null);
-  const [pose, setPose] = useState<Pose>("c");
-  // 정면 이미지만 먼저 그리고, 나머지 포즈는 하이드레이션 뒤에 붙여 첫 화면을 가볍게 한다
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    const id = requestAnimationFrame(() => setReady(true));
-    return () => cancelAnimationFrame(id);
-  }, []);
+  const svgRef = useRef<SVGSVGElement>(null);
+  const headRef = useRef<SVGGElement>(null);
+  const pupilRefs = useRef<(SVGImageElement | null)[]>([]);
 
   useEffect(() => {
     if (reduce) return;
-    const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const svg = svgRef.current;
+    if (!svg) return;
 
+    const target = { x: 0, y: 0 };
+    const cur = { x: 0, y: 0 };
+    let raf = 0;
+
+    // 목표 방향(-1~1)으로 매 프레임 조금씩 다가간다. 값이 연속이라 React 상태 대신 DOM 속성을 직접 바꾼다
+    const tick = () => {
+      cur.x += (target.x - cur.x) * EASE;
+      cur.y += (target.y - cur.y) * EASE;
+      const px = cur.x * MAX_X;
+      const py = cur.y * (cur.y < 0 ? MAX_UP : MAX_DOWN);
+      headRef.current?.setAttribute("transform", `translate(${px * HEAD} ${py * HEAD})`);
+      for (const el of pupilRefs.current) el?.setAttribute("transform", `translate(${px} ${py})`);
+      if (Math.abs(target.x - cur.x) + Math.abs(target.y - cur.y) > 0.001) raf = requestAnimationFrame(tick);
+      else raf = 0;
+    };
+    const aim = (x: number, y: number) => {
+      target.x = x;
+      target.y = y;
+      if (!raf) raf = requestAnimationFrame(tick);
+    };
+
+    const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     if (!fine) {
-      let i = 0;
-      const id = setInterval(() => {
-        i = (i + 1) % IDLE_TOUR.length;
-        setPose(IDLE_TOUR[i]);
-      }, IDLE_MS);
-      return () => clearInterval(id);
+      const id = setInterval(() => aim(Math.random() * 2 - 1, Math.random() * 1.6 - 0.6), WANDER_MS);
+      return () => {
+        clearInterval(id);
+        cancelAnimationFrame(raf);
+      };
     }
 
     const onMove = (e: PointerEvent) => {
-      const el = ref.current;
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      // 얼굴 중심: 가로 가운데, 세로 위에서 1/3 지점
-      const dx = e.clientX - (r.left + r.width / 2);
-      const dy = e.clientY - (r.top + r.height / 3);
-      if (Math.hypot(dx, dy) < r.width * 0.3) return setPose("c");
-      const sector = Math.round(Math.atan2(dy, dx) / (Math.PI / 4));
-      setPose(SECTORS[(sector + 8) % 8]);
+      const r = svg.getBoundingClientRect();
+      // 두 눈 사이(그림의 가로 48%, 세로 62% 지점)를 기준으로 방향을 잰다
+      const dx = e.clientX - (r.left + r.width * 0.48);
+      const dy = e.clientY - (r.top + r.height * 0.62);
+      const dist = Math.hypot(dx, dy) || 1;
+      const k = Math.min(1, dist / REACH) / dist;
+      aim(dx * k, dy * k);
     };
-    const onLeave = () => setPose("c");
+    const onLeave = () => aim(0, 0);
 
     window.addEventListener("pointermove", onMove, { passive: true });
     document.documentElement.addEventListener("pointerleave", onLeave);
     return () => {
       window.removeEventListener("pointermove", onMove);
       document.documentElement.removeEventListener("pointerleave", onLeave);
+      cancelAnimationFrame(raf);
     };
   }, [reduce]);
 
-  const shown = resolve(pose);
-  // 새 포즈는 위에서 나타나고, 이전 포즈는 그동안 아래에 그대로 있다가 사라진다 (둘 다 반투명해지면 배경이 비친다)
-  const layer = (p: Pose) =>
-    `object-cover object-bottom transition-opacity motion-reduce:transition-none ${
-      shown === p ? "z-10 opacity-100 duration-150" : "opacity-0 duration-0 delay-150"
-    }`;
-  const extra = (Object.keys(SRC) as Pose[]).filter((p) => p !== "c");
-
   return (
-    <div
-      ref={ref}
-      className="relative mx-auto aspect-[4/5] w-full max-w-[26rem] overflow-hidden rounded-xl bg-slate-100 dark:bg-white/[0.05] lg:mr-0"
+    <svg
+      ref={svgRef}
+      viewBox="0 0 720 720"
+      role="img"
+      aria-label="유병규 캐릭터 일러스트"
+      className="mx-auto w-full max-w-[26rem] dark:invert lg:mr-0"
     >
-      <Image
-        src={SRC.c!}
-        alt="유병규 캐릭터"
-        fill
-        priority
-        sizes="(min-width: 1024px) 26rem, 100vw"
-        className={layer("c")}
-      />
-      {ready &&
-        extra.map((p) => (
-          <Image
-            key={p}
-            src={SRC[p]!}
-            alt=""
-            aria-hidden="true"
-            fill
-            sizes="(min-width: 1024px) 26rem, 100vw"
-            className={layer(p)}
-          />
+      <defs>
+        {EYES.map((e) => (
+          <clipPath key={e.id} id={`eye-${e.id}`}>
+            <polygon points={e.clip} />
+          </clipPath>
         ))}
-    </div>
+      </defs>
+      <g ref={headRef}>
+        <image href="/hero/face.webp" width="720" height="720" />
+        {EYES.map((e, i) => (
+          <g key={e.id} clipPath={`url(#eye-${e.id})`}>
+            <image
+              ref={(el) => {
+                pupilRefs.current[i] = el;
+              }}
+              href={e.src}
+              x={e.x}
+              y={e.y}
+              width={e.w}
+              height={e.h}
+            />
+          </g>
+        ))}
+      </g>
+    </svg>
   );
 }

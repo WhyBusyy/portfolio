@@ -31,7 +31,7 @@ Next.js, TypeScript, React 기반의 프론트엔드 개발자 포트폴리오 �
 
 ```
 Navigation ── 상단 네비게이션 (섹션 앵커, 다크모드 토글)
-Hero ──────── 한 문장 소개 + 커서를 바라보는 캐릭터, 아래에 성과 3종 패널 (호버·포커스로 전환되는 전후 시각화)
+Hero ──────── 한 문장 소개 + 커서를 따라보는 캐릭터 일러스트, 아래에 성과 3종 패널 (호버·포커스로 전환되는 전후 시각화)
 FeaturedWork  Selected Work: 대표 작업 4개와 판단 한 줄 (스크롤 연동 예시 화면)
 HowIWork ──── 일할 때 지키는 기준 (각 항목에서 근거가 되는 프로젝트로 이동)
 Work ──────── Projects: 회사 프로젝트 (트랙 탭 + 펼치는 목록, 상세 페이지 연결)
@@ -63,7 +63,7 @@ portfolio/
 │   ├── components/
 │   │   ├── Navigation.tsx             # 네비게이션 바 (다크모드 토글)
 │   │   ├── Hero.tsx                   # 히어로 섹션 (성과 패널)
-│   │   ├── HeroMedia.tsx              # 커서를 바라보는 캐릭터
+│   │   ├── HeroMedia.tsx              # 커서를 따라보는 캐릭터 일러스트
 │   │   ├── FeaturedWork.tsx           # Selected Work (스크롤 연동)
 │   │   ├── featured/fragments.tsx     # Selected Work 예시 화면
 │   │   ├── Work.tsx                   # 회사 프로젝트 (트랙 탭)
@@ -117,7 +117,7 @@ npm start
 - **src/data/projects.ts**: 프로젝트 데이터 (개요, 도전과제, 성과 지표, 기술 스택)
 - **src/constants/site.ts**: 배포 URL (OG 이미지 · JSON-LD · sitemap · robots 에 전파)
 - **Hero.tsx**: 소개 문장, 성과 3종 패널, CTA 링크
-- **HeroMedia.tsx**: 커서 방향을 바라보는 캐릭터. 방향별 포즈 이미지(`public/hero/pose-*.webp`, 배경 제거)를 `SRC` 에 등록하고, 없는 방향은 `FALLBACK` 의 가까운 포즈로 대신함
+- **HeroMedia.tsx**: 눈동자가 커서를 따라가는 캐릭터 일러스트. 눈동자를 지운 얼굴(`public/hero/face.webp`) 위에 눈동자 조각(`pupil-*.webp`)을 SVG 로 올려 움직임. 좌표는 `EYES` 에 있음
 - **FeaturedWork.tsx**: 대표 작업 4개 (판단 한 줄, 지표, 예시 화면)
 - **Work.tsx**: 회사 프로젝트 목록 (트랙 구성) 및 상세 페이지 연결
 - **SideProjects.tsx**: 개인 프로젝트 목록 (GitHub/Demo/npm 링크)
