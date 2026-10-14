@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpRight, Check } from "lucide-react";
+import HeroMedia from "./HeroMedia";
 
 /** 증거 패널: 수치마다 전후를 보여 주는 작은 시각화. 수치는 프로젝트 상세에 공개된 값이다. */
 const PROOFS = [
@@ -129,9 +130,10 @@ export default function Hero() {
   const Visual = VISUALS[PROOFS[active].key];
 
   return (
-    <section id="hero" className="section-padding pt-28 pb-20 lg:flex lg:min-h-[100dvh] lg:items-center">
-      <div className="container-max-width grid w-full items-center gap-14 lg:grid-cols-[6fr_5fr] lg:gap-20">
-        {/* 왼쪽: 한 문장 + 버튼. LCP 요소라 투명도 애니메이션을 걸지 않는다 */}
+    <section id="hero" className="section-padding pt-28 pb-20 lg:pb-28">
+      {/* 첫 화면: 왼쪽 한 문장 + 버튼, 오른쪽 AI 영상 */}
+      <div className="container-max-width grid w-full items-center gap-12 lg:min-h-[calc(100dvh-7rem)] lg:grid-cols-[6fr_5fr] lg:gap-20">
+        {/* LCP 요소라 투명도 애니메이션을 걸지 않는다 */}
         <div>
           <p className="text-[15px] text-slate-500 dark:text-slate-400">유병규 · Frontend Engineer</p>
           <h1 className="mt-5 text-[2.6rem] font-bold leading-[1.15] tracking-[-0.035em] text-slate-900 dark:text-white sm:text-6xl">
@@ -158,62 +160,65 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* 오른쪽: 증거 패널 */}
-        <motion.div
-          initial={reduce ? false : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-          className="rounded-xl bg-slate-50 p-6 dark:bg-white/[0.035] sm:p-7"
-        >
-          <div role="tablist" aria-label="주요 성과" className="flex flex-col gap-1">
-            {PROOFS.map((p, i) => {
-              const on = i === active;
-              return (
-                <button
-                  key={p.key}
-                  type="button"
-                  role="tab"
-                  aria-selected={on}
-                  aria-controls="hero-proof-panel"
-                  onClick={() => pick(i)}
-                  onMouseEnter={() => pick(i)}
-                  onFocus={() => pick(i)}
-                  className={`flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5 rounded-md px-3 py-2 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500 ${
-                    on ? "bg-white dark:bg-white/[0.06]" : "hover:bg-white/60 dark:hover:bg-white/[0.03]"
+        <HeroMedia />
+      </div>
+
+      {/* 첫 화면 아래: 성과 패널. 왼쪽 수치 탭, 오른쪽 전후 시각화 */}
+      <motion.div
+        initial={reduce ? false : { opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="container-max-width mt-16 grid gap-6 rounded-xl bg-slate-50 p-6 dark:bg-white/[0.035] sm:p-7 lg:mt-8 lg:grid-cols-[5fr_6fr] lg:gap-10"
+      >
+        <div role="tablist" aria-label="주요 성과" className="flex flex-col gap-1">
+          {PROOFS.map((p, i) => {
+            const on = i === active;
+            return (
+              <button
+                key={p.key}
+                type="button"
+                role="tab"
+                aria-selected={on}
+                aria-controls="hero-proof-panel"
+                onClick={() => pick(i)}
+                onMouseEnter={() => pick(i)}
+                onFocus={() => pick(i)}
+                className={`flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5 rounded-md px-3 py-2 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500 ${
+                  on ? "bg-white dark:bg-white/[0.06]" : "hover:bg-white/60 dark:hover:bg-white/[0.03]"
+                }`}
+              >
+                <span
+                  className={`text-xl font-bold tracking-[-0.02em] sm:text-2xl ${
+                    on ? "text-slate-900 dark:text-white" : "text-slate-500 dark:text-slate-400"
                   }`}
                 >
-                  <span
-                    className={`text-xl font-bold tracking-[-0.02em] sm:text-2xl ${
-                      on ? "text-slate-900 dark:text-white" : "text-slate-500 dark:text-slate-400"
-                    }`}
-                  >
-                    {p.metric}
-                  </span>
-                  <span className="text-xs text-slate-500 dark:text-slate-400">{p.label}</span>
-                </button>
-              );
-            })}
-          </div>
+                  {p.metric}
+                </span>
+                <span className="text-xs text-slate-500 dark:text-slate-400">{p.label}</span>
+              </button>
+            );
+          })}
+        </div>
 
-          <div
-            id="hero-proof-panel"
-            role="tabpanel"
-            className="mt-6 border-t border-slate-200 pt-6 dark:border-white/[0.08]"
-          >
-            {/* 시각화 높이를 고정해 탭을 바꿔도 패널이 들썩이지 않게 한다 */}
-            <div className="min-h-[13.5rem]">
-              <Visual />
-            </div>
-            <Link
-              href={PROOFS[active].href}
-              className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-blue-600 underline-offset-4 hover:underline dark:text-blue-400"
-            >
-              어떻게 했는지 보기
-              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-            </Link>
+        <div
+          id="hero-proof-panel"
+          role="tabpanel"
+          className="border-t border-slate-200 pt-6 dark:border-white/[0.08] lg:border-l lg:border-t-0 lg:pl-10 lg:pt-2"
+        >
+          {/* 시각화 높이를 고정해 탭을 바꿔도 패널이 들썩이지 않게 한다 */}
+          <div className="min-h-[13.5rem] lg:min-h-[11rem]">
+            <Visual />
           </div>
-        </motion.div>
-      </div>
+          <Link
+            href={PROOFS[active].href}
+            className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-blue-600 underline-offset-4 hover:underline dark:text-blue-400"
+          >
+            어떻게 했는지 보기
+            <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+        </div>
+      </motion.div>
     </section>
   );
 }
