@@ -2,15 +2,12 @@
 
 import { useEffect, useRef } from "react";
 import { useReducedMotion } from "framer-motion";
-import { createHairMesh, type HairMesh } from "./hero/hairMesh";
 
 /**
  * 히어로 오른쪽 캐릭터: 눈동자가 커서를 따라간다.
  * 원본 그림에서 눈동자만 지운 얼굴(face.webp) 위에 눈동자 조각(pupil-*.webp)을 올려 움직인다.
  * 눈동자 조각은 눈꺼풀 윗선부터 잘라 두었고, 윗선 위로는 clipPath 로 가려 눈꺼풀 밖으로 삐져나오지 않는다.
- * 머리카락(hair.webp)은 따로 떼어 WebGL 격자로 그린다: 얼굴보다 더 많이 움직여 깊이감을 주고, 커서가 지나가면 밀린다.
- * WebGL 을 못 쓰거나 동작 줄이기 설정이면 SVG 로 그린 머리카락이 그대로 남는다.
- * 좌표는 모두 그림(720×720) 기준이다.
+ * 좌표는 모두 face.webp(720×720) 기준이다.
  */
 const EYES = [
   {
@@ -39,8 +36,6 @@ const MAX_UP = 5;
 const MAX_DOWN = 9;
 /** 얼굴 전체가 커서 쪽으로 돌아보는 정도: 위치 이동(그림 좌표)과 3D 기울기(도) */
 const HEAD = 0.6;
-/** 머리카락은 얼굴보다 앞에 있으니 더 많이 움직인다 */
-const HAIR = 1.5;
 const TILT_Y = 14;
 const TILT_X = 10;
 /** 커서가 이 거리(px)만큼 떨어지면 끝까지 본다 */
@@ -59,8 +54,6 @@ export default function HeroMedia() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const headRef = useRef<SVGGElement>(null);
   const pupilRefs = useRef<(SVGImageElement | null)[]>([]);
-  const hairSvgRef = useRef<SVGImageElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     if (reduce) return;
@@ -71,8 +64,6 @@ export default function HeroMedia() {
     const cur = { x: 0, y: 0 };
     let raf = 0;
     let blinkAt = 0;
-    let mesh: HairMesh | null = null;
-    let meshMoving = false;
 
     // 목표 방향(-1~1)으로 매 프레임 조금씩 다가간다. 값이 연속이라 React 상태 대신 DOM 속성을 직접 바꾼다
     const tick = (now: number) => {
@@ -91,10 +82,6 @@ export default function HeroMedia() {
         "transform",
         `translate(${px * HEAD} ${py * HEAD})`,
       );
-      if (mesh) {
-        mesh.setShift(px * HAIR, py * HAIR);
-        meshMoving = mesh.step();
-      }
       EYES.forEach((e, i) => {
         const top = e.y;
         pupilRefs.current[i]?.setAttribute(
@@ -104,7 +91,6 @@ export default function HeroMedia() {
       });
       if (
         blinkAt ||
-        meshMoving ||
         Math.abs(target.x - cur.x) + Math.abs(target.y - cur.y) > 0.001
       )
         raf = requestAnimationFrame(tick);
@@ -122,17 +108,6 @@ export default function HeroMedia() {
       }, blinkGap());
     };
     scheduleBlink();
-
-    // 머리카락 격자: 이미지를 받은 뒤 WebGL 이 되면 SVG 머리카락을 숨기고 바꿔 그린다
-    const hairImg = new Image();
-    hairImg.src = "/hero/hair.webp";
-    hairImg.onload = () => {
-      const canvas = canvasRef.current;
-      if (!canvas) return;
-      mesh = createHairMesh(canvas, hairImg);
-      if (mesh) hairSvgRef.current?.setAttribute("visibility", "hidden");
-    };
-
     const aim = (x: number, y: number) => {
       target.x = x;
       target.y = y;
@@ -151,19 +126,11 @@ export default function HeroMedia() {
         clearInterval(id);
         clearTimeout(blinkTimer);
         cancelAnimationFrame(raf);
-        mesh?.destroy();
       };
     }
 
-    let last: { x: number; y: number } | null = null;
     const onMove = (e: PointerEvent) => {
       const r = svg.getBoundingClientRect();
-      // 커서가 그림 위를 지나가면 그 속도만큼 머리카락을 민다
-      const ix = ((e.clientX - r.left) / r.width) * 720;
-      const iy = ((e.clientY - r.top) / r.height) * 720;
-      if (mesh && last && ix > -40 && ix < 760 && iy > -40 && iy < 640)
-        mesh.poke(ix, iy, ix - last.x, iy - last.y);
-      last = { x: ix, y: iy };
       // 두 눈 사이(그림의 가로 48%, 세로 62% 지점)를 기준으로 방향을 잰다
       const dx = e.clientX - (r.left + r.width * 0.48);
       const dy = e.clientY - (r.top + r.height * 0.62);
@@ -171,10 +138,7 @@ export default function HeroMedia() {
       const k = Math.min(1, dist / REACH) / dist;
       aim(dx * k, dy * k);
     };
-    const onLeave = () => {
-      last = null;
-      aim(0, 0);
-    };
+    const onLeave = () => aim(0, 0);
 
     window.addEventListener("pointermove", onMove, { passive: true });
     document.documentElement.addEventListener("pointerleave", onLeave);
@@ -183,21 +147,20 @@ export default function HeroMedia() {
       document.documentElement.removeEventListener("pointerleave", onLeave);
       clearTimeout(blinkTimer);
       cancelAnimationFrame(raf);
-      mesh?.destroy();
     };
   }, [reduce]);
 
   return (
     <div
       ref={wrapRef}
-      className="relative mx-auto w-full max-w-[26rem] will-change-transform dark:invert lg:mr-0"
+      className="mx-auto w-full max-w-[26rem] will-change-transform lg:mr-0"
     >
       <svg
         ref={svgRef}
         viewBox="0 0 720 720"
         role="img"
         aria-label="유병규 캐릭터 일러스트"
-        className="w-full"
+        className="w-full dark:invert"
       >
         <defs>
           {EYES.map((e) => (
@@ -222,19 +185,8 @@ export default function HeroMedia() {
               />
             </g>
           ))}
-          <image
-            ref={hairSvgRef}
-            href="/hero/hair.webp"
-            width="720"
-            height="720"
-          />
         </g>
       </svg>
-      <canvas
-        ref={canvasRef}
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 h-full w-full"
-      />
     </div>
   );
 }

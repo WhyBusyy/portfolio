@@ -117,7 +117,7 @@ npm start
 - **src/data/projects.ts**: 프로젝트 데이터 (개요, 도전과제, 성과 지표, 기술 스택)
 - **src/constants/site.ts**: 배포 URL (OG 이미지 · JSON-LD · sitemap · robots 에 전파)
 - **Hero.tsx**: 소개 문장, 성과 3종 패널, CTA 링크
-- **HeroMedia.tsx**: 눈동자가 커서를 따라가는 캐릭터 일러스트. 눈동자를 지운 얼굴(`public/hero/face.webp`) 위에 눈동자 조각(`pupil-*.webp`)을 SVG 로 올려 움직임. 좌표는 `EYES` 에 있음. 머리카락(`hair.webp`)은 `hero/hairMesh.ts` 의 WebGL 격자로 그려, 얼굴보다 더 움직여 깊이감을 주고 커서가 지나가면 밀림
+- **HeroMedia.tsx**: 눈동자가 커서를 따라가는 캐릭터 일러스트. 눈동자를 지운 얼굴(`public/hero/face.webp`) 위에 눈동자 조각(`pupil-*.webp`)을 SVG 로 올려 움직임. 좌표는 `EYES` 에 있음
 - **FeaturedWork.tsx**: 대표 작업 4개 (판단 한 줄, 지표, 예시 화면)
 - **Work.tsx**: 회사 프로젝트 목록 (트랙 구성) 및 상세 페이지 연결
 - **SideProjects.tsx**: 개인 프로젝트 목록 (GitHub/Demo/npm 링크)
