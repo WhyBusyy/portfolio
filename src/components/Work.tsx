@@ -18,10 +18,10 @@ const careerData = [
           label: "품질 · 자동화",
           items: [
             {
-              title: "QA 자동화 봇 (스모크·단위·E2E + AI 테스트 생성)",
+              title: "QA 자동화 봇 (Smoke·Unit·E2E + AI 테스트 생성)",
               period: "2026년 3월 - 현재",
               description:
-                "PR마다 90개 이상의 테스트를 자동 실행하고, 변경 diff를 분석해 Playwright 테스트를 AI로 생성·검증하는 QA 봇 설계·구축. 팀의 PR 게이트로 정착해 상시 실행 (Playwright · Claude API)",
+                "PR마다 90개 이상의 테스트를 자동 실행하고, 변경 diff를 분석해 Playwright 테스트를 AI로 생성·검증하는 QA 봇 설계·구축. 팀의 PR Gate로 정착해 상시 실행 (Playwright · Claude API)",
               slug: "qa-automation-bot" as string | null,
             },
             {
@@ -87,7 +87,7 @@ const careerData = [
               title: "웨비나 라이브 스트리밍 페이지",
               period: "2026년 2월",
               description:
-                "Naver Cloud Player 기반 라이브 스트리밍 시청 페이지와 사전예약·실시간 참여 현황 기능 구현. 라우트 코로케이션 첫 적용 사례 (Frontend)",
+                "Naver Cloud Player 기반 라이브 스트리밍 시청 페이지와 사전예약·실시간 참여 현황 기능 구현. Route Colocation 첫 적용 사례 (Frontend)",
               slug: "webinar-live" as string | null,
             },
             {

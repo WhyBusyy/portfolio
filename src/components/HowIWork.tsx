@@ -15,7 +15,7 @@ const workPrinciples = [
   {
     title: "AI에 안전장치를 붙입니다",
     description:
-      "검증이 자동으로 걸리면 AI 산출물을 더 과감하게 쓸 수 있습니다. 테스트 생성 파이프라인에 문법 검증과 데이터 쓰기 차단을 넣어 실제 데이터를 건드리지 않게 했습니다.",
+      "검증이 자동으로 걸리면 AI 산출물을 더 과감하게 쓸 수 있습니다. 테스트 생성 파이프라인에 문법 검증과 DB Read-only 강제를 넣어 실제 데이터를 건드리지 않게 했습니다.",
     href: "/projects/qa-automation-bot",
     hrefLabel: "QA 자동화 봇",
   },

@@ -69,11 +69,11 @@ export function QaFragment({ active }: { active: boolean }) {
       </div>
 
       <p className="mt-5 text-xs text-slate-600 dark:text-slate-400">
-        고정 스위트 · PR 체크에 반영
+        고정 테스트 · PR Check에 반영
       </p>
       <div className="divide-y divide-slate-100 dark:divide-white/[0.06]">
-        <Reveal show={active} index={0}><PassRow label="스모크" /></Reveal>
-        <Reveal show={active} index={1}><PassRow label="단위" /></Reveal>
+        <Reveal show={active} index={0}><PassRow label="Smoke" /></Reveal>
+        <Reveal show={active} index={1}><PassRow label="Unit" /></Reveal>
         <Reveal show={active} index={2}><PassRow label="E2E" note="합계 90+ 케이스" /></Reveal>
       </div>
 
@@ -81,11 +81,11 @@ export function QaFragment({ active }: { active: boolean }) {
         <div className="mt-4 border-l-2 border-slate-900 dark:border-white pl-4 py-1">
           <p className="flex items-center gap-1.5 text-[11px] font-semibold text-slate-900 dark:text-white">
             <ShieldCheck className="h-3.5 w-3.5" aria-hidden="true" />
-            AI 생성 스펙 · 참고용 (PR 체크 미반영)
+            AI 생성 스펙 · 참고용 (PR Check 미반영)
           </p>
           <div className="mt-1">
-            <PassRow label="문법 검증" note="실패 시 1회 재시도" />
-            <PassRow label="쓰기 차단 상태로 실행" note="데이터 변조 불가" />
+            <PassRow label="Syntax Check" note="실패 시 1회 재시도" />
+            <PassRow label="Read-only로 실행" note="데이터 변조 불가" />
           </div>
         </div>
       </Reveal>
@@ -213,7 +213,7 @@ export function EditorFragment({ active }: { active: boolean }) {
         에디터 패키지 (node_modules 기준)
       </p>
       <Bar label="CKEditor" value="2.5GB" percent={100} show={active} index={0} />
-      <Bar label="Tiptap + 직접 만든 툴바" value="3MB" percent={0.12} accent show={active} index={1} />
+      <Bar label="Tiptap + Custom Toolbar" value="3MB" percent={0.12} accent show={active} index={1} />
 
       <p className="mt-5 text-xs text-slate-600 dark:text-slate-400">
         운영 배포 시간

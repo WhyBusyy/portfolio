@@ -15,7 +15,7 @@ const PROOFS = [
   },
   {
     key: "qa",
-    metric: "수동 QA → PR 게이트",
+    metric: "수동 QA → PR Gate",
     label: "PR마다 테스트 90개 이상",
     href: "/projects/qa-automation-bot",
   },
@@ -34,7 +34,7 @@ function EditorVisual() {
     <div className="space-y-5">
       {[
         { name: "CKEditor", value: "2.5GB", w: "100%", accent: false },
-        { name: "Tiptap + 직접 만든 툴바", value: "3MB", w: "3px", accent: true },
+        { name: "Tiptap + Custom Toolbar", value: "3MB", w: "3px", accent: true },
       ].map((b) => (
         <div key={b.name}>
           <div className="flex items-baseline justify-between text-sm">
@@ -59,7 +59,7 @@ function QaVisual() {
     <div>
       <p className="text-sm text-slate-600 dark:text-slate-300">PR이 열리면 자동으로 실행</p>
       <ul className="mt-3 space-y-2.5">
-        {["스모크", "단위", "E2E", "AI 생성 테스트 (참고용, 쓰기 차단)"].map((t) => (
+        {["Smoke", "Unit", "E2E", "AI 생성 테스트 (참고용, Read-only)"].map((t) => (
           <li key={t} className="flex items-center gap-2.5 text-[15px] text-slate-800 dark:text-slate-100">
             <Check className="h-4 w-4 shrink-0 text-blue-600 dark:text-blue-400" aria-hidden="true" />
             {t}

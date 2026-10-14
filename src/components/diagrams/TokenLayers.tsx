@@ -32,9 +32,9 @@ function before(L: number, oy: number) {
         strokeWidth={1}
       />
       {layer(L, oy + 48, "화면", "버튼 · 카드 · 폼")}
-      {layer(L, oy + 214, "팔레트", "원시 색 값 목록")}
+      {layer(L, oy + 214, "팔레트", "Primitive 색상 값")}
       {/* 의미 토큰 칸은 좁게: 우회 경로가 지나갈 자리를 남긴다 */}
-      <Node x={L} y={oy + 131} w={colW - 64} h={50} label="의미 토큰" sub="정의되지 않음" dashed muted />
+      <Node x={L} y={oy + 131} w={colW - 64} h={50} label="Semantic Token" sub="정의되지 않음" dashed muted />
       {/* 화면 → 팔레트 직접 참조 (의미 토큰 우회) */}
       <path
         d={`M ${L + colW - 40} ${oy + 98} C ${L + colW - 18} ${oy + 120}, ${L + colW - 18} ${oy + 158}, ${
@@ -60,8 +60,8 @@ function after(R: number, oy: number) {
         후
       </Eyebrow>
       {layer(R, oy + 48, "화면", "공용 컴포넌트 사용")}
-      {layer(R, oy + 131, "의미 토큰", "텍스트 · 배경 · 테두리 · 아이콘", true)}
-      {layer(R, oy + 214, "팔레트", "원시 색 값 목록")}
+      {layer(R, oy + 131, "Semantic Token", "텍스트 · 배경 · 테두리 · 아이콘", true)}
+      {layer(R, oy + 214, "팔레트", "Primitive 색상 값")}
       <Arrow x1={R + colW / 2} y1={oy + 98} x2={R + colW / 2} y2={oy + 129} accent />
       <Arrow x1={R + colW / 2} y1={oy + 181} x2={R + colW / 2} y2={oy + 212} accent />
       <Txt x={R + 8} y={oy + 306} accent size={10.5}>
@@ -71,9 +71,9 @@ function after(R: number, oy: number) {
   );
 }
 
-const title = "디자인 시스템 토큰 계층: 팔레트 직접 참조에서 의미 토큰 경유로";
+const title = "디자인 시스템 토큰 계층: 팔레트 직접 참조에서 Semantic Token 경유로";
 const caption =
-  "팔레트는 원시 색 값, 의미 토큰은 역할 이름이다. 화면이 팔레트를 직접 참조하면 색을 바꿀 때 고칠 지점을 특정할 수 없다.";
+  "팔레트는 Primitive 색상 값, Semantic Token은 역할 이름이다. 화면이 팔레트를 직접 참조하면 색을 바꿀 때 고칠 지점을 특정할 수 없다.";
 
 export default function TokenLayers() {
   return (

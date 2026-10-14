@@ -57,7 +57,7 @@ const sideProjects: SideProject[] = [
   {
     title: "tiptap-editor-kit",
     description:
-      "Tiptap 기반 WYSIWYG 에디터 npm 패키지. React와 Vanilla JS 두 가지 entry point를 제공하며, 풀 툴바와 이미지 업로드를 지원합니다.",
+      "Tiptap 기반 WYSIWYG 에디터 npm 패키지. React와 Vanilla JS 두 가지 entry point를 제공하며, Full Toolbar와 이미지 업로드를 지원합니다.",
     techStack: ["Tiptap", "ProseMirror", "TypeScript", "React", "tsup"],
     github: "https://github.com/WhyBusyy/tiptap-editor-kit",
     demo: "/demo/tiptap-editor-kit",

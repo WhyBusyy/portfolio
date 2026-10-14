@@ -172,7 +172,7 @@ export default function VsaStructure() {
         {after(424, 38, 342)}
         {survey(30, 236, 120, 520)}
         <Txt x={120} y={404} accent size={10.5}>
-          옮길 수 있는 비율(파랑)이 낮아 완전한 코로케이션은 채택하지 않음
+          옮길 수 있는 비율(파랑)이 낮아 완전한 Colocation은 채택하지 않음
         </Txt>
       </Figure>
 
@@ -185,7 +185,7 @@ export default function VsaStructure() {
           옮길 수 있는 비율(파랑)이 낮아
         </Txt>
         <Txt x={7} y={588} accent size={10.5}>
-          완전한 코로케이션은 채택하지 않음
+          완전한 Colocation은 채택하지 않음
         </Txt>
       </Figure>
 

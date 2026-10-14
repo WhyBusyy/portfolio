@@ -34,14 +34,14 @@ const STEPS = [
     detail: "고성능 모델이 앞에서 정한 변경 범위 안에서만 Playwright 테스트를 생성합니다.",
   },
   {
-    label: "문법 검증",
+    label: "Syntax Check",
     sub: "실패 시 1회 재시도",
     detail:
       "생성된 코드의 TypeScript 문법을 검증합니다. 실패하면 에러 내용을 넣어 한 번 더 생성합니다.",
     gate: true,
   },
   {
-    label: "쓰기 차단 실행",
+    label: "Read-only 실행",
     sub: "데이터 변조 불가",
     detail: "쓰기 요청을 막은 상태로 실행해, AI가 만든 테스트가 데이터를 바꾸지 못하게 합니다.",
     gate: true,
@@ -75,7 +75,7 @@ export default function QaPipeline() {
 
   const footer = (
     <DetailPanel
-      items={STEPS.map((st) => ({ label: st.label, detail: st.detail, badge: st.gate ? "검증 게이트" : undefined }))}
+      items={STEPS.map((st) => ({ label: st.label, detail: st.detail, badge: st.gate ? "Validation Gate" : undefined }))}
       active={active}
       onChange={setActive}
       hint="단계에 마우스를 올리거나 누르면, 각 단계에서 무엇을 하는지 볼 수 있습니다."
@@ -112,7 +112,7 @@ export default function QaPipeline() {
   return (
     <div className="my-8">
       <Figure
-        title="QA 봇 파이프라인: 변경 감지에서 리포트까지, 그리고 생성물 검증 게이트"
+        title="QA 봇 파이프라인: 변경 감지에서 리포트까지, 그리고 생성물 Validation Gate"
         viewBox="0 0 796 300"
         interactive
         className="!my-0 hidden sm:block"
@@ -159,17 +159,17 @@ export default function QaPipeline() {
           />
         ))}
 
-        <Bracket x={x(1) - 12} y={R2 - 14} w={W * 2 + GAP + 24} h={H + 28} label="검증 게이트" />
+        <Bracket x={x(1) - 12} y={R2 - 14} w={W * 2 + GAP + 24} h={H + 28} label="Validation Gate" />
 
         {nodes(pos, W, H)}
 
         <Txt x={20} y={274} muted size={10.5}>
-          고정 스위트(스모크 · 단위 · E2E)는 PR 체크에 반영 · AI 생성 스펙은 참고용으로 분리
+          고정 테스트(Smoke · Unit · E2E)는 PR Check에 반영 · AI 생성 스펙은 참고용으로 분리
         </Txt>
       </Figure>
 
       <Figure
-        title="QA 봇 파이프라인: 변경 감지에서 리포트까지, 그리고 생성물 검증 게이트"
+        title="QA 봇 파이프라인: 변경 감지에서 리포트까지, 그리고 생성물 Validation Gate"
         viewBox="0 0 340 350"
         interactive
         fluid
@@ -220,13 +220,13 @@ export default function QaPipeline() {
           y={NROW[1] - 8}
           w={NW + 12}
           h={NROW[2] + NH - NROW[1] + 16}
-          label="검증 게이트"
+          label="Validation Gate"
         />
 
         {nodes(npos, NW, NH)}
 
         <Txt x={NCOL[0]} y={322} muted size={10.5}>
-          고정 스위트(스모크 · 단위 · E2E)는 PR 체크에 반영
+          고정 테스트(Smoke · Unit · E2E)는 PR Check에 반영
         </Txt>
         <Txt x={NCOL[0]} y={338} muted size={10.5}>
           AI 생성 스펙은 참고용으로 분리

@@ -100,16 +100,18 @@ const tiles = (() => {
       else map.set(sk.name, { name: sk.name, level: sk.level, cats: [c.title] });
     }
   }
-  return [...map.values()];
+  // 숙련도(타일 색)별로 묶어 보여 준다
+  const order: SkillLevel[] = ["core", "proficient", "familiar"];
+  return [...map.values()].sort((a, b) => order.indexOf(a.level) - order.indexOf(b.level));
 })();
 
 const LEVEL_LABEL: Record<SkillLevel, string> = {
-  core: "주력",
-  proficient: "능숙",
-  familiar: "사용해 봄",
+  core: "Core",
+  proficient: "Proficient",
+  familiar: "Familiar",
 };
 
-/** 숙련도는 타일 자체로 구분한다: 주력은 진한 면, 능숙은 옅은 면, 사용해 봄은 테두리만 */
+/** 숙련도는 타일 자체로 구분한다: Core는 진한 면, Proficient는 옅은 면, Familiar는 테두리만 */
 const tileCls: Record<SkillLevel, string> = {
   core: "bg-slate-900 text-white dark:bg-white dark:text-slate-900",
   proficient: "bg-slate-100 text-slate-900 dark:bg-white/[0.08] dark:text-white",
@@ -121,7 +123,7 @@ export default function Skills() {
   const [preview, setPreview] = useState<string | null>(null);
   const focus = preview ?? selected;
 
-  const filters = ["전체", ...skillCategories.map((c) => c.title)];
+  const filters = ["All", ...skillCategories.map((c) => c.title)];
 
   return (
     <section id="skills" aria-labelledby="skills-title" className="py-28 lg:py-36 section-padding">
@@ -135,7 +137,7 @@ export default function Skills() {
           {/* 분야 필터: 누르면 고정, 마우스를 올리면 미리 보기 */}
           <div role="group" aria-label="분야 필터" className="flex flex-wrap gap-2" onMouseLeave={() => setPreview(null)}>
             {filters.map((f) => {
-              const value = f === "전체" ? null : f;
+              const value = f === "All" ? null : f;
               const on = selected === value;
               return (
                 <button
