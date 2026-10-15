@@ -107,12 +107,6 @@ export default function FeaturedWork() {
     </>
   );
 
-  const note = (
-    <p className="mt-3 text-[11px] text-slate-500 dark:text-slate-400">
-      실제 사내 화면이 아니라 구조를 설명하려고 다시 그린 예시입니다.
-    </p>
-  );
-
   return (
     <section
       id="featured"
@@ -230,7 +224,6 @@ export default function FeaturedWork() {
                     </div>
                   ))}
                 </div>
-                {note}
               </div>
             </div>
           </div>
@@ -287,7 +280,6 @@ export default function FeaturedWork() {
             ),
           )}
         </ol>
-        {note}
       </div>
     </section>
   );
