@@ -1,11 +1,13 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import HeroMedia from "./HeroMedia";
 
 /**
  * 히어로 첫 화면: 파란 바탕에 왼쪽 문구, 가운데 사원증 카드(3D 캐릭터), 오른쪽 섹션 폴더.
- * 등장 연출: 카드가 오른쪽 위 모서리에서 기울어진 채 날아와 착지하고, 폴더가 카드 쪽에서 미끄러져 나온다.
+ * 등장 연출: 목걸이 줄에 매달린 카드가 위에서 툭 떨어져 좌우로 흔들리다 멈추고(사원증 발급),
+ * 컴퓨터가 켜지듯 커서가 깜빡인 뒤 문구가 타이핑되고, 끝나면 폴더가 바탕화면 아이콘처럼 하나씩 생긴다.
  * 동작 줄이기 설정이면 연출 없이 바로 최종 화면을 보여 준다.
  */
 const FOLDERS = [
@@ -17,10 +19,98 @@ const FOLDERS = [
   { label: "Contact", href: "#contact" },
 ];
 
-const SPRING = { type: "spring", stiffness: 70, damping: 15, mass: 1 } as const;
-const CARD_DELAY = 0.15;
-const FOLDER_DELAY = 0.75;
-const TEXT_DELAY = 0.95;
+/** 카드 낙하: 살짝 튀었다 자리 잡는 스프링 */
+const DROP = { type: "spring", stiffness: 110, damping: 11, mass: 1 } as const;
+/** 착지 뒤 줄 끝을 축으로 좌우로 흔들리다 멈춘다 (각도, 도) */
+const SWING = [0, 0, 2.4, -1.6, 0.8, -0.3, 0];
+const SWING_TIMES = [0, 0.22, 0.42, 0.6, 0.76, 0.9, 1];
+const SWING_S = 1.8;
+const CARD_DELAY = 0.1;
+/** 커서가 깜빡이기 시작하는 시점, 타이핑 시작 시점(ms)과 글자당 간격(ms) */
+const CURSOR_AT = 500;
+const TYPE_AT = 900;
+const TYPE_MS = 28;
+/** 타이핑이 끝난 뒤 커서를 남겨 두는 시간(ms) */
+const CURSOR_LINGER = 1400;
+const FOLDER_STAGGER = 0.07;
+const POP = { type: "spring", stiffness: 260, damping: 16 } as const;
+
+const LINES = [
+  { text: "문제를 먼저 찾아,", dim: true },
+  { text: "실제로 쓰이는 해결책을 만듭니다.", dim: false },
+];
+const TOTAL_CHARS = LINES.reduce((n, l) => n + l.text.length, 0);
+const TYPE_END = TYPE_AT + TOTAL_CHARS * TYPE_MS;
+/** 폴더는 타이핑이 끝날 즈음 나타난다 (초) */
+const FOLDER_DELAY = TYPE_END / 1000 - 0.1;
+
+/**
+ * 타이핑 제목. 전체 문장을 투명하게 깔아 자리를 미리 잡아 두고(레이아웃 흔들림 없음),
+ * 그 위에 지금까지 친 글자만 겹쳐 그린다. 스크린 리더는 처음부터 전체 문장을 읽는다.
+ */
+function TypedHeading({ animate }: { animate: boolean }) {
+  const [count, setCount] = useState(animate ? 0 : TOTAL_CHARS);
+  const [cursor, setCursor] = useState(false);
+
+  useEffect(() => {
+    const timers: number[] = [];
+    // 동작 줄이기 설정이면 바로 전체 문장을 보여 준다 (서버 렌더 시점엔 설정을 몰라 0자로 시작한다)
+    if (!animate) {
+      timers.push(window.setTimeout(() => setCount(TOTAL_CHARS), 0));
+      return () => timers.forEach(clearTimeout);
+    }
+    timers.push(window.setTimeout(() => setCursor(true), CURSOR_AT));
+    for (let i = 1; i <= TOTAL_CHARS; i++) {
+      timers.push(window.setTimeout(() => setCount(i), TYPE_AT + i * TYPE_MS));
+    }
+    timers.push(
+      window.setTimeout(() => setCursor(false), TYPE_END + CURSOR_LINGER),
+    );
+    return () => timers.forEach(clearTimeout);
+  }, [animate]);
+
+  let left = count;
+  return (
+    <h1 className="break-keep text-[2rem] font-semibold leading-[1.3] tracking-[-0.02em] lg:text-[2.75rem]">
+      <span className="sr-only">{LINES.map((l) => l.text).join(" ")}</span>
+      <span aria-hidden="true" className="grid">
+        {/* 자리 잡기용 전체 문장 */}
+        <span className="invisible col-start-1 row-start-1">
+          {LINES.map((l) => (
+            <span key={l.text} className="block">
+              {l.text}
+            </span>
+          ))}
+        </span>
+        {/* 실제로 보이는 타이핑 문장 */}
+        <span className="col-start-1 row-start-1">
+          {LINES.map((l, i) => {
+            const shown = l.text.slice(
+              0,
+              Math.max(0, Math.min(l.text.length, left)),
+            );
+            const typingHere =
+              left >= 0 &&
+              left <= l.text.length &&
+              (left < l.text.length || i === LINES.length - 1);
+            left -= l.text.length;
+            return (
+              <span
+                key={l.text}
+                className={`block ${l.dim ? "text-blue-100" : ""}`}
+              >
+                {shown}
+                {cursor && typingHere && (
+                  <span className="ml-0.5 inline-block h-[0.9em] w-[0.08em] translate-y-[0.12em] animate-[blink_1s_steps(1)_infinite] bg-white align-baseline" />
+                )}
+              </span>
+            );
+          })}
+        </span>
+      </span>
+    </h1>
+  );
+}
 
 function scrollTo(href: string) {
   const el = document.querySelector(href);
@@ -97,55 +187,71 @@ function Badge() {
   );
 }
 
+/** 목걸이 줄 + 금속 고리. 줄은 화면 위 끝까지 이어지고, 히어로의 overflow-hidden 에 잘린다 */
+function Lanyard() {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2"
+    >
+      <div className="mx-auto h-[100vh] w-4 bg-blue-900/45 dark:bg-blue-950/60" />
+      <div className="mx-auto -mt-1 h-5 w-9 rounded-md bg-slate-200 shadow-sm ring-1 ring-inset ring-slate-300" />
+    </div>
+  );
+}
+
 export default function HeroStage() {
   const reduce = useReducedMotion();
-  const enter = (delay: number) =>
-    reduce ? {} : { transition: { ...SPRING, delay } };
 
   return (
     <div className="relative overflow-hidden bg-blue-600 text-white dark:bg-blue-700">
       <div className="container-max-width section-padding grid min-h-[100dvh] items-center gap-10 pb-16 pt-24 lg:grid-cols-[1fr_auto_1fr] lg:gap-14">
-        {/* 왼쪽(모바일은 카드 아래): 한 줄 소개 + 주 행동 버튼 */}
-        <motion.div
-          className="order-2 text-center lg:order-1 lg:text-left"
-          initial={reduce ? false : { x: -24, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={
-            reduce
-              ? undefined
-              : { duration: 0.6, delay: TEXT_DELAY, ease: [0.16, 1, 0.3, 1] }
-          }
-        >
+        {/* 왼쪽(모바일은 카드 아래): 한 줄 소개. 커서가 깜빡인 뒤 타이핑된다 */}
+        <div className="order-2 text-center lg:order-1 lg:text-left">
           {/* 한국어 제목: 단어 중간에서 끊지 않고(keep-all), 굵기·자간을 한 단계 풀어 답답하지 않게 */}
-          <h1 className="break-keep text-[2rem] font-semibold leading-[1.3] tracking-[-0.02em] lg:text-[2.75rem]">
-            <span className="text-blue-100">문제를 먼저 찾아,</span>
-            <br />
-            실제로 쓰이는 해결책을 만듭니다.
-          </h1>
-        </motion.div>
+          <TypedHeading animate={!reduce} />
+        </div>
 
-        {/* 가운데: 사원증 카드 */}
+        {/* 가운데: 목걸이 줄에 매달린 사원증 카드 */}
         <div className="order-1 flex justify-center lg:order-2">
           <motion.div
-            initial={
-              reduce ? false : { x: "60vw", y: "-70vh", rotate: 30, opacity: 0 }
+            className="relative"
+            // 흔들림 축은 줄의 맨 위(카드 위쪽 화면 끝)
+            style={{ transformOrigin: "50% -100vh" }}
+            initial={reduce ? false : { y: "-110vh", rotate: 0 }}
+            animate={{ y: 0, rotate: SWING }}
+            transition={
+              reduce
+                ? undefined
+                : {
+                    y: { ...DROP, delay: CARD_DELAY },
+                    rotate: {
+                      duration: SWING_S,
+                      times: SWING_TIMES,
+                      ease: "easeOut",
+                      delay: CARD_DELAY,
+                    },
+                  }
             }
-            animate={{ x: 0, y: 0, rotate: 0, opacity: 1 }}
-            {...enter(CARD_DELAY)}
           >
+            <Lanyard />
             <Badge />
           </motion.div>
         </div>
 
-        {/* 오른쪽(모바일은 맨 아래): 섹션으로 가는 폴더 */}
+        {/* 오른쪽(모바일은 맨 아래): 섹션으로 가는 폴더. 바탕화면 아이콘처럼 하나씩 생긴다 */}
         <nav aria-label="섹션 바로가기" className="order-3 lg:justify-self-end">
           <ul className="grid grid-cols-3 gap-x-2 gap-y-4 lg:grid-cols-2 lg:gap-x-3 lg:gap-y-2">
             {FOLDERS.map((f, i) => (
               <motion.li
                 key={f.href}
-                initial={reduce ? false : { x: -40, scale: 0.6, opacity: 0 }}
-                animate={{ x: 0, scale: 1, opacity: 1 }}
-                {...enter(FOLDER_DELAY + i * 0.06)}
+                initial={reduce ? false : { scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={
+                  reduce
+                    ? undefined
+                    : { ...POP, delay: FOLDER_DELAY + i * FOLDER_STAGGER }
+                }
               >
                 <Folder label={f.label} href={f.href} />
               </motion.li>

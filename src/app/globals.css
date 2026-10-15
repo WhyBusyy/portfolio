@@ -88,3 +88,10 @@
     text-wrap: balance;
   }
 }
+
+/* 히어로 타이핑 커서 깜빡임 */
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
