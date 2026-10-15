@@ -42,7 +42,7 @@ const sideProjects: SideProject[] = [
     github: null,
     demo: "https://makemood.site",
     demoLabel: "makemood.site",
-    screenshot: "/makemood.webp",
+    screenshot: "/makemood-v2.webp",
     category: "Web Service",
     icon: Globe,
   },
