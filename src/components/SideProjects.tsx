@@ -29,7 +29,7 @@ const sideProjects: SideProject[] = [
     title: "Make Mood - 1분 성향 테스트 모음",
     description:
       "가볍게 즐기는 1분 성향 테스트 사이트를 직접 기획하고 만들어 운영하고 있습니다. 테스트 5종과 정보성 글을 올렸고, 결과를 서버에 저장하지 않고도 링크 하나로 친구와 케미를 비교할 수 있게 만들었습니다.",
-    techStack: ["Static Site", "SEO", "Google AdSense", "Cloudflare"],
+    techStack: ["Static Site", "SEO", "Cloudflare"],
     github: null,
     demo: "https://makemood.site",
     demoLabel: "makemood.site",
