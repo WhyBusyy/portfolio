@@ -211,7 +211,7 @@ function Badge({ onTilt }: { onTilt: (x: number, y: number) => void }) {
 /**
  * 목걸이 줄: 화면 위(목)에 고정된 두 가닥 천 줄이 카드 쪽으로 내려와 금속 고리에서 모인다.
  * 카드가 커서 쪽으로 끌려가면 줄 아래 끝도 카드를 따라가고, 움직인 반대쪽으로 줄 가운데가 늦게 따라오며 휜다.
- * 줄 SVG 는 목 위치에 고정(카드와 함께 움직이지 않음)하고, 매 프레임 아래 끝 좌표만 다시 그린다.
+ * 줄 끝은 금속 집게에 바로 이어진다. 줄 SVG 는 목 위치에 고정(카드와 함께 움직이지 않음)하고, 매 프레임 아래 끝 좌표만 다시 그린다.
  */
 const STRAP_W = 240; // SVG 가로(px). 세로는 화면 높이를 1000 단위로 늘려 쓴다
 const NECK = [STRAP_W / 2 - 30, STRAP_W / 2 + 30]; // 목에 걸린 두 줄의 위 끝 x
@@ -284,7 +284,7 @@ function Straps({
       aria-hidden="true"
       viewBox={`0 0 ${STRAP_W} 1000`}
       preserveAspectRatio="none"
-      className="pointer-events-none absolute bottom-[calc(100%+0.75rem)] left-1/2 z-0 h-[100vh] -translate-x-1/2 overflow-visible"
+      className="pointer-events-none absolute bottom-[calc(100%+0.15rem)] left-1/2 z-0 h-[100vh] -translate-x-1/2 overflow-visible"
       style={{ width: STRAP_W }}
     >
       {parts.map((pt, i) => (
@@ -315,7 +315,7 @@ function Straps({
   );
 }
 
-/** 금속 고리 + 집게: 카드와 함께 끌려가고, 카드가 돌면 같은 방향으로 돈다 */
+/** 집게: 줄 끝이 바로 물려 있고, 카드와 함께 끌려가며, 카드가 돌면 같은 방향으로 돈다 */
 function Clip({ clipRef }: { clipRef: React.Ref<HTMLDivElement> }) {
   return (
     <div
@@ -326,8 +326,7 @@ function Clip({ clipRef }: { clipRef: React.Ref<HTMLDivElement> }) {
         ref={clipRef}
         className="flex flex-col items-center will-change-transform"
       >
-        <div className="h-5 w-5 rounded-full border-[3px] border-slate-300 bg-transparent shadow-sm" />
-        <div className="-mt-1 h-6 w-3.5 rounded-[5px] bg-gradient-to-b from-slate-100 to-slate-400 shadow" />
+        <div className="h-6 w-3.5 rounded-[5px] bg-gradient-to-b from-slate-100 to-slate-400 shadow" />
       </div>
     </div>
   );
