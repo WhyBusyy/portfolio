@@ -119,7 +119,7 @@ const sideProjects: SideProject[] = [
   {
     title: "포트폴리오 사이트",
     description:
-      "커서를 따라 끌려오는 3D 사원증과 스프링처럼 휘는 목걸이 줄, 스크롤에 맞춰 바뀌는 대표 작업 화면을 Framer Motion과 SVG로 직접 만들었습니다. 폰트는 동적 서브셋으로 바꿔 전송량을 3.5MB에서 653KB로 줄였습니다.",
+      "커서를 따라 끌려오는 3D 사원증과 카드를 따라 휘어지는 목걸이 줄, 스크롤에 맞춰 바뀌는 대표 작업 화면을 Framer Motion과 SVG로 직접 만들었습니다. 폰트는 동적 서브셋으로 바꿔 전송량을 3.5MB에서 653KB로 줄였습니다.",
     techStack: [
       "Next.js",
       "TypeScript",
