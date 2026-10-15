@@ -33,7 +33,7 @@ function scrollTo(href: string) {
 
 /** 폴더: 기본은 파란 면 + 흰 테두리, 마우스를 올리면 흰 면 + 파란 테두리. 앞판이 살짝 열리며 떠오른다 */
 function Folder({ label, href }: { label: string; href: string }) {
-  const w = "w-[5.5rem] lg:w-[6.5rem]";
+  const w = "w-[5.5rem] lg:w-[4.75rem]";
   return (
     <a
       href={href}
@@ -117,7 +117,7 @@ export default function HeroStage() {
           }
         >
           {/* 한국어 제목: 단어 중간에서 끊지 않고(keep-all), 굵기·자간을 한 단계 풀어 답답하지 않게 */}
-          <h1 className="break-keep text-[2rem] font-semibold leading-[1.3] tracking-[-0.02em] lg:text-[2.5rem]">
+          <h1 className="break-keep text-[2rem] font-semibold leading-[1.3] tracking-[-0.02em] lg:text-[2.75rem]">
             <span className="text-blue-100">문제를 먼저 찾아,</span>
             <br />
             실제로 쓰이는 해결책을 만듭니다.
@@ -139,7 +139,7 @@ export default function HeroStage() {
 
         {/* 오른쪽(모바일은 맨 아래): 섹션으로 가는 폴더 */}
         <nav aria-label="섹션 바로가기" className="order-3 lg:justify-self-end">
-          <ul className="grid grid-cols-3 gap-x-2 gap-y-4 lg:grid-cols-2 lg:gap-x-6 lg:gap-y-5">
+          <ul className="grid grid-cols-3 gap-x-2 gap-y-4 lg:grid-cols-2 lg:gap-x-3 lg:gap-y-2">
             {FOLDERS.map((f, i) => (
               <motion.li
                 key={f.href}
