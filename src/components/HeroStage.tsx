@@ -26,11 +26,16 @@ const SWING = [0, 1.1, -0.7, 0.35, 0];
 const SWING_S = 2.4;
 const SWING_AT = 0.75;
 const CARD_DELAY = 0.1;
-/** 커서 쪽으로 줄째 기우는 각도(도)와, 집게가 카드를 따라 도는 비율 */
-const LEAN = 1.4;
+/** 목에 걸린 카드가 커서 쪽으로 끌려가는 최대 거리(px). 아래로는 줄이 버텨서 조금만 */
+const PULL_X = 56;
+const PULL_UP = 26;
+const PULL_DOWN = 10;
+/** 목(줄 위 끝)에서 카드까지의 길이(px). 카드가 옆으로 끌리면 이 길이를 기준으로 줄 방향만큼 기운다 */
+const NECK_LEN = 620;
+/** 집게가 카드의 좌우 회전을 따라 도는 정도(도) */
 const CLIP_TURN = 16;
 /** 줄 휨 스프링: 미는 세기, 되돌아오는 힘, 감쇠, 최대 휨(px) */
-const BEND_PUSH = 180;
+const BEND_PUSH = 14;
 const BEND_SPRING = 0.07;
 const BEND_DAMP = 0.16;
 const BEND_MAX = 26;
@@ -204,103 +209,122 @@ function Badge({ onTilt }: { onTilt: (x: number, y: number) => void }) {
 }
 
 /**
- * 목걸이 줄: 위에서 내려온 두 가닥 천 줄이 V 자로 모여 금속 고리와 집게로 카드 구멍에 걸린다.
- * 줄은 화면 위 끝까지 이어지고, 히어로의 overflow-hidden 에 잘린다.
+ * 목걸이 줄: 화면 위(목)에 고정된 두 가닥 천 줄이 카드 쪽으로 내려와 금속 고리에서 모인다.
+ * 카드가 커서 쪽으로 끌려가면 줄 아래 끝도 카드를 따라가고, 움직인 반대쪽으로 줄 가운데가 늦게 따라오며 휜다.
+ * 줄 SVG 는 목 위치에 고정(카드와 함께 움직이지 않음)하고, 매 프레임 아래 끝 좌표만 다시 그린다.
  */
-/** 두 가닥 줄의 중심선: 위(x, 0) → 아래(x, 1000). 아래로 갈수록 가운데로 모인다(V 자) */
-const STRAPS = [
-  { top: 13, bottom: 33 },
-  { top: 59, bottom: 39 },
-];
+const STRAP_W = 240; // SVG 가로(px). 세로는 화면 높이를 1000 단위로 늘려 쓴다
+const NECK = [STRAP_W / 2 - 30, STRAP_W / 2 + 30]; // 목에 걸린 두 줄의 위 끝 x
+const MEET = [STRAP_W / 2 - 4, STRAP_W / 2 + 4]; // 고리 쪽에서 모이는 아래 끝 x
 /** 박음질선은 줄 중심에서 좌우로 이만큼 떨어진다 (px) */
 const STITCH = 4;
 
-/** bow: 줄 가운데가 옆으로 휘는 정도(px). 0이면 곧은 줄 */
-function strapPath(top: number, bottom: number, bow: number) {
+/** 위(top,0) → 아래(bottom, by) 곡선. bow 만큼 가운데가 옆으로 휜다 */
+function strapPath(top: number, bottom: number, by: number, bow: number) {
   const cx = (top + bottom) / 2 + bow;
-  return `M${top} 0 Q${cx} 560 ${bottom} 1000`;
+  return `M${top} 0 Q${cx} ${by * 0.56} ${bottom} ${by}`;
 }
 
-type Bend = { bow: number; vel: number; lastX: number; raf: number };
+type Bend = { bow: number; vel: number; dx: number; dy: number; raf: number };
 
-function drawBow(paths: (SVGPathElement | null)[], bow: number) {
+function drawStraps(
+  svg: SVGSVGElement | null,
+  paths: (SVGPathElement | null)[],
+  b: Bend,
+) {
+  if (!svg) return;
+  const h = svg.clientHeight || 1;
+  const by = 1000 + (b.dy * 1000) / h; // 카드가 위아래로 끌린 만큼 아래 끝이 움직인다
   for (const el of paths) {
     if (!el) continue;
-    el.setAttribute(
-      "d",
-      strapPath(Number(el.dataset.top), Number(el.dataset.bottom), bow),
-    );
+    const off = Number(el.dataset.off);
+    const top = Number(el.dataset.top) + off;
+    const bottom = Number(el.dataset.bottom) + off + b.dx;
+    el.setAttribute("d", strapPath(top, bottom, by, b.bow));
   }
 }
 
 /** 휨이 0으로 돌아올 때까지 매 프레임 스프링을 진행한다 */
-function runBend(b: Bend, paths: (SVGPathElement | null)[]) {
+function runBend(
+  b: Bend,
+  svg: SVGSVGElement | null,
+  paths: (SVGPathElement | null)[],
+) {
   const tick = () => {
     b.vel += -b.bow * BEND_SPRING - b.vel * BEND_DAMP;
     b.bow = Math.max(-BEND_MAX, Math.min(BEND_MAX, b.bow + b.vel));
-    drawBow(paths, b.bow);
     if (Math.abs(b.bow) + Math.abs(b.vel) > 0.02) {
+      drawStraps(svg, paths, b);
       b.raf = requestAnimationFrame(tick);
     } else {
       b.bow = b.vel = 0;
       b.raf = 0;
-      drawBow(paths, 0);
+      drawStraps(svg, paths, b);
     }
   };
   b.raf = requestAnimationFrame(tick);
 }
 
-function Lanyard({
-  clipRef,
+function Straps({
+  svgRef,
   pathRefs,
 }: {
-  clipRef: React.Ref<HTMLDivElement>;
+  svgRef: React.Ref<SVGSVGElement>;
   pathRefs: React.RefObject<(SVGPathElement | null)[]>;
 }) {
   // 줄 1개당 [천, 박음질 왼쪽, 박음질 오른쪽] 3개의 path 를 쓴다
-  const parts = STRAPS.flatMap((st) => [
-    { ...st, dx: 0, kind: "strap" as const },
-    { ...st, dx: -STITCH, kind: "stitch" as const },
-    { ...st, dx: STITCH, kind: "stitch" as const },
+  const parts = [0, 1].flatMap((i) => [
+    { top: NECK[i], bottom: MEET[i], off: 0, kind: "strap" as const },
+    { top: NECK[i], bottom: MEET[i], off: -STITCH, kind: "stitch" as const },
+    { top: NECK[i], bottom: MEET[i], off: STITCH, kind: "stitch" as const },
   ]);
+  return (
+    <svg
+      ref={svgRef}
+      aria-hidden="true"
+      viewBox={`0 0 ${STRAP_W} 1000`}
+      preserveAspectRatio="none"
+      className="pointer-events-none absolute bottom-[calc(100%+0.75rem)] left-1/2 z-0 h-[100vh] -translate-x-1/2 overflow-visible"
+      style={{ width: STRAP_W }}
+    >
+      {parts.map((pt, i) => (
+        <path
+          key={i}
+          ref={(el) => {
+            pathRefs.current[i] = el;
+          }}
+          data-top={pt.top}
+          data-bottom={pt.bottom}
+          data-off={pt.off}
+          d={strapPath(pt.top + pt.off, pt.bottom + pt.off, 1000, 0)}
+          fill="none"
+          vectorEffect="non-scaling-stroke"
+          {...(pt.kind === "strap"
+            ? {
+                strokeWidth: 13,
+                className: "stroke-[#22378a] dark:stroke-[#182c6e]",
+              }
+            : {
+                strokeWidth: 1,
+                stroke: "rgba(255,255,255,0.28)",
+                strokeDasharray: "3 3",
+              })}
+        />
+      ))}
+    </svg>
+  );
+}
+
+/** 금속 고리 + 집게: 카드와 함께 끌려가고, 카드가 돌면 같은 방향으로 돈다 */
+function Clip({ clipRef }: { clipRef: React.Ref<HTMLDivElement> }) {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute bottom-[calc(100%-1.1rem)] left-1/2 z-10 flex -translate-x-1/2 flex-col items-center"
+      className="pointer-events-none absolute bottom-[calc(100%-1.1rem)] left-1/2 z-20 -translate-x-1/2"
     >
-      <svg
-        viewBox="0 0 72 1000"
-        preserveAspectRatio="none"
-        className="h-[100vh] w-[4.5rem] overflow-visible"
-      >
-        {parts.map((pt, i) => (
-          <path
-            key={i}
-            ref={(el) => {
-              pathRefs.current[i] = el;
-            }}
-            data-top={pt.top + pt.dx}
-            data-bottom={pt.bottom + pt.dx}
-            d={strapPath(pt.top + pt.dx, pt.bottom + pt.dx, 0)}
-            fill="none"
-            vectorEffect="non-scaling-stroke"
-            {...(pt.kind === "strap"
-              ? {
-                  strokeWidth: 13,
-                  className: "stroke-[#22378a] dark:stroke-[#182c6e]",
-                }
-              : {
-                  strokeWidth: 1,
-                  stroke: "rgba(255,255,255,0.28)",
-                  strokeDasharray: "3 3",
-                })}
-          />
-        ))}
-      </svg>
-      {/* 금속 고리 + 집게: 카드가 돌면 같은 방향으로 돈다 */}
       <div
         ref={clipRef}
-        className="-mt-2 flex flex-col items-center will-change-transform"
+        className="flex flex-col items-center will-change-transform"
       >
         <div className="h-5 w-5 rounded-full border-[3px] border-slate-300 bg-transparent shadow-sm" />
         <div className="-mt-1 h-6 w-3.5 rounded-[5px] bg-gradient-to-b from-slate-100 to-slate-400 shadow" />
@@ -313,22 +337,28 @@ export default function HeroStage() {
   const reduce = useReducedMotion();
   const hangRef = useRef<HTMLDivElement>(null);
   const clipRef = useRef<HTMLDivElement>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
   const pathRefs = useRef<(SVGPathElement | null)[]>([]);
   // 줄 휨: 카드가 움직인 반대쪽으로 줄 가운데가 늦게 따라오며 휘었다가, 스프링처럼 곧게 돌아온다
-  const bend = useRef<Bend>({ bow: 0, vel: 0, lastX: 0, raf: 0 });
+  const bend = useRef<Bend>({ bow: 0, vel: 0, dx: 0, dy: 0, raf: 0 });
 
   useEffect(() => () => cancelAnimationFrame(bend.current.raf), []);
 
-  // 카드가 커서 쪽으로 돌면, 줄째 그쪽으로 살짝 기울고 집게도 카드를 따라 돈다
-  const onTilt = useCallback((x: number) => {
+  // 목에 걸린 카드가 커서 쪽으로 끌려간다: 카드는 옮겨지고 줄 방향만큼 기울며, 줄 아래 끝과 집게가 따라간다
+  const onTilt = useCallback((x: number, y: number) => {
+    const b = bend.current;
+    const dx = x * PULL_X;
+    const dy = y < 0 ? y * PULL_UP : y * PULL_DOWN;
+    const angle = (Math.atan2(dx, NECK_LEN) * 180) / Math.PI;
     if (hangRef.current)
-      hangRef.current.style.transform = `rotate(${-x * LEAN}deg)`;
+      hangRef.current.style.transform = `translate(${dx}px, ${dy}px) rotate(${-angle}deg)`;
     if (clipRef.current)
       clipRef.current.style.transform = `perspective(400px) rotateY(${x * CLIP_TURN}deg)`;
-    const b = bend.current;
-    b.vel += (x - b.lastX) * BEND_PUSH;
-    b.lastX = x;
-    if (!b.raf) runBend(b, pathRefs.current);
+    b.vel -= ((dx - b.dx) / PULL_X) * BEND_PUSH; // 움직인 반대쪽으로 늦게 따라온다
+    b.dx = dx;
+    b.dy = dy;
+    drawStraps(svgRef.current, pathRefs.current, b);
+    if (!b.raf) runBend(b, svgRef.current, pathRefs.current);
   }, []);
 
   return (
@@ -361,13 +391,15 @@ export default function HeroStage() {
                   }
             }
           >
-            {/* 커서 기울기용 층: 등장 흔들림(바깥 motion.div)과 따로 움직인다. 축은 줄의 맨 위 */}
+            {/* 줄은 목(화면 위)에 고정, 카드와 집게만 커서 쪽으로 끌려간다 */}
+            <Straps svgRef={svgRef} pathRefs={pathRefs} />
+            {/* 커서에 끌리는 층: 등장 흔들림(바깥 motion.div)과 따로 움직인다. 기울기 축은 카드 위쪽 고리 */}
             <div
               ref={hangRef}
-              className="relative will-change-transform"
-              style={{ transformOrigin: "50% -100vh" }}
+              className="relative z-10 will-change-transform"
+              style={{ transformOrigin: "50% 0" }}
             >
-              <Lanyard clipRef={clipRef} pathRefs={pathRefs} />
+              <Clip clipRef={clipRef} />
               <Badge onTilt={onTilt} />
             </div>
           </motion.div>
