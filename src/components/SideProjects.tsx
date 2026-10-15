@@ -28,8 +28,17 @@ const sideProjects: SideProject[] = [
   {
     title: "Make Mood - 1분 성향 테스트 모음",
     description:
-      "가볍게 즐기는 1분 성향 테스트 사이트를 직접 기획하고 만들어 운영하고 있습니다. 테스트 5종과 정보성 글을 올렸고, 결과를 서버에 저장하지 않고도 링크 하나로 친구와 케미를 비교할 수 있게 만들었습니다.",
-    techStack: ["Static Site", "SEO", "Cloudflare"],
+      "1분 성향 테스트 사이트를 직접 기획하고 만들어 운영하고 있습니다. 프레임워크 없이 HTML·CSS·ES Modules로 만들고, 공통 CSS 인라인과 유형 페이지 자동 생성, 공유 이미지 렌더링은 Node.js 빌드 스크립트로 처리했습니다. Claude Code로 기획·카피·디자인·개발 등 역할별 에이전트 10명을 git worktree로 나눠 운영하고, 같은 테스트를 토스 미니앱(앱인토스)으로도 출시했습니다.",
+    techStack: [
+      "HTML",
+      "CSS",
+      "Vanilla JS (ES Modules)",
+      "Node.js",
+      "Cloudflare Workers",
+      "Playwright",
+      "React (앱인토스)",
+      "Claude Code",
+    ],
     github: null,
     demo: "https://makemood.site",
     demoLabel: "makemood.site",
