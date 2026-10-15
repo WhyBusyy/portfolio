@@ -126,7 +126,7 @@ const careerData = [
           title: "QA 인프라 유지보수 및 AI QA 봇 고도화",
           period: "2026년 상반기 - 현재",
           description:
-            "PR Gate로 운영 중인 QA 인프라를 맡아, 화면이 바뀔 때마다 깨지는 테스트를 정리하고 실행 시간을 관리하며, AI 테스트 생성 봇의 생성 범위와 검증 단계를 넓혀 가는 중 (Playwright · Claude API)",
+            "PR Gate로 운영 중인 QA 인프라와 스테이징 QA 환경을 맡아, 화면이 바뀔 때마다 깨지는 테스트를 정리하고 실행 시간을 관리하며, AI 테스트 생성 봇의 생성 범위와 검증 단계를 넓혀 가는 중 (Playwright · Claude API)",
           slug: null as string | null,
         },
         {
