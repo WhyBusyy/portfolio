@@ -23,7 +23,7 @@ const PROOFS = [
   {
     key: "qa",
     metric: "수동 QA → PR Gate",
-    label: "PR마다 테스트 90개 이상",
+    label: "PR마다 테스트 자동 실행",
     href: "/projects/qa-automation-bot",
   },
   {

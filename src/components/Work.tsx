@@ -21,7 +21,7 @@ const careerData = [
               title: "QA 자동화 봇 (Smoke·Unit·E2E + AI 테스트 생성)",
               period: "2026년 3월 - 현재",
               description:
-                "PR마다 90개 이상의 테스트를 자동 실행하고, 변경 diff를 분석해 Playwright 테스트를 AI로 생성·검증하는 QA 봇 설계·구축. 팀의 PR Gate로 정착해 상시 실행 (Playwright · Claude API)",
+                "PR마다 테스트를 자동 실행하고, 변경 diff를 분석해 Playwright 테스트를 AI로 생성·검증하는 QA 봇 설계·구축. 팀의 PR Gate로 정착해 상시 실행 (Playwright · Claude API)",
               slug: "qa-automation-bot" as string | null,
             },
             {

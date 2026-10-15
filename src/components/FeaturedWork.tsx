@@ -41,7 +41,7 @@ const CASES = [
     title: "QA 자동화 봇",
     decision:
       "AI가 만든 테스트는 참고용으로 분리하고 고정 테스트만 PR Gate로 썼습니다.",
-    metric: "PR마다 90+ 테스트 자동 실행",
+    metric: "PR마다 전체 테스트 자동 실행",
     scale: "Smoke·Unit·E2E 3계층, AI 생성 테스트는 검증 후 참고용",
     proposed: true,
     Fragment: QaFragment,

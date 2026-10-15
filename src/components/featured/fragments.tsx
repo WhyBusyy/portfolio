@@ -74,7 +74,7 @@ export function QaFragment({ active }: { active: boolean }) {
       <div className="divide-y divide-slate-100 dark:divide-white/[0.06]">
         <Reveal show={active} index={0}><PassRow label="Smoke" /></Reveal>
         <Reveal show={active} index={1}><PassRow label="Unit" /></Reveal>
-        <Reveal show={active} index={2}><PassRow label="E2E" note="합계 90+ 케이스" /></Reveal>
+        <Reveal show={active} index={2}><PassRow label="E2E" /></Reveal>
       </div>
 
       <Reveal show={active} index={3}>
