@@ -1,6 +1,6 @@
 # WhyBusyy Portfolio
 
-Next.js, TypeScript, React 기반의 프론트엔드 개발자 포트폴리오 웹사이트입니다.
+Next.js, TypeScript, React 기반의 프로덕트 엔지니어(프론트엔드) 포트폴리오 웹사이트입니다.
 단순한 이력 나열이 아닌, 프로젝트 케이스 스터디와 스토리텔링 중심의 포트폴리오를 지향합니다.
 
 🌐 https://whybusyy.vercel.app
@@ -16,6 +16,11 @@ Next.js, TypeScript, React 기반의 프론트엔드 개발자 포트폴리오 �
 
 ## 주요 기능
 
+- **히어로 인터랙션**
+  - 목걸이 줄에 매달린 사원증이 위에서 내려와 흔들리다 멈추고, 커서가 깜빡인 뒤 문구가 타이핑되며, 폴더가 바탕화면 아이콘처럼 생기는 첫 등장 연출
+  - 목에 걸린 사원증이 커서 쪽으로 끌려오고, 줄 방향만큼 기울며, 목걸이 줄은 카드를 따라 휘었다가 곧게 돌아옴
+  - 3D 캐릭터는 커서 쪽으로 기울고 눈동자가 따라가며 가끔 깜빡임 (눈동자를 지운 얼굴 위에 눈동자·눈꺼풀 조각을 SVG 로 겹침)
+  - 동작 줄이기 설정이면 연출과 움직임 없이 최종 화면만 보여 줌
 - **반응형 디자인**: 모바일, 태블릿, 데스크톱 모든 기기에서 최적화
 - **다크 모드**: 기본값은 시스템 설정을 따르고, 직접 바꾼 테마는 로컬 스토리지에 저장 (첫 렌더 전에 적용해 깜빡임 없음)
 - **프로젝트 케이스 스터디**: `/projects/[slug]` 동적 라우트를 통한 프로젝트 상세 페이지 (도전과제, 해결방안, 성과 지표 포함)
@@ -23,7 +28,7 @@ Next.js, TypeScript, React 기반의 프론트엔드 개발자 포트폴리오 �
 - **의사결정 기록**: 후보를 비교해 방향을 정한 프로젝트에 채택·기각 사유와 판단 기준을 함께 표기
 - **스킬 숙련도 시각화**: core / proficient / familiar 3단계 타일 + 분야 필터
 - **스크롤 인터랙션**: Framer Motion `useScroll` 기반. Selected Work 는 스크롤에 맞춰 오른쪽 예시 화면이 바뀌는 고정(sticky) 구성
-- **접근성**: skip navigation, 섹션별 aria-labelledby, `prefers-reduced-motion` 대응 (Lighthouse 접근성 100)
+- **접근성**: skip navigation, 섹션별 aria-labelledby, `prefers-reduced-motion` 대응, 타이핑 제목은 스크린 리더가 처음부터 전체 문장을 읽음
 - **성능**: 폰트 동적 서브셋으로 전송량 감축, 이미지 `next/image` 최적화
 - **SEO**: Open Graph, Twitter Card, JSON-LD, sitemap/robots, 정적 생성(SSG)
 
@@ -84,6 +89,8 @@ portfolio/
 │   └── types/
 │       └── project.ts                 # 프로젝트 타입 정의
 ├── public/                            # 이미지 · 로고 · OG 이미지
+│   └── hero/                          # 3D 캐릭터 얼굴 · 눈동자 · 눈꺼풀 조각
+├── .agents/product-marketing.md       # 마케팅 스킬이 참고하는 포지셔닝 기준 문서
 ├── tailwind.config.ts
 └── package.json
 ```
@@ -117,11 +124,11 @@ npm start
 
 - **src/data/projects.ts**: 프로젝트 데이터 (개요, 도전과제, 성과 지표, 기술 스택)
 - **src/constants/site.ts**: 배포 URL (OG 이미지 · JSON-LD · sitemap · robots 에 전파)
-- **HeroStage.tsx**: 히어로 첫 화면. 파란 바탕에 왼쪽 한 줄 소개, 가운데 사원증 카드, 오른쪽 섹션 폴더 6개, 첫 등장 연출
+- **HeroStage.tsx**: 히어로 첫 화면. 파란 바탕에 왼쪽 한 줄 소개(타이핑), 가운데 목걸이 줄에 걸린 사원증, 오른쪽 섹션 폴더 6개. 등장 시점·끌림 거리·줄 휨 정도는 파일 위쪽 상수로 조절
 - **HeroMedia.tsx**: 사원증 카드 속 3D 캐릭터. 커서 쪽으로 기울고, 눈동자를 지운 얼굴(`character.webp`) 위에서 눈동자(`pupil-*.webp`)가 움직이며 눈꺼풀(`lid-*.webp`)이 위를 덮음
 - **FeaturedWork.tsx**: 대표 작업 4개 (판단 한 줄, 지표, 예시 화면)
 - **Work.tsx**: 회사 프로젝트 목록 (트랙 구성) 및 상세 페이지 연결
-- **SideProjects.tsx**: 개인 프로젝트 목록 (GitHub/Demo/npm 링크)
+- **SideProjects.tsx**: 개인 프로젝트 목록 (서비스/GitHub/npm 링크). 화면 이미지를 바꿀 때는 파일 이름도 바꿔야 이미지 캐시에 옛 화면이 남지 않음
 - **Skills.tsx**: 기술 스택 카테고리 및 숙련도 (core/proficient/familiar)
 - **HowIWork.tsx**: 일하는 방식과 근거가 되는 프로젝트 링크
 - **Profile.tsx**: 연락처, 학력·자격증·어학, 비개발 경험
@@ -129,6 +136,7 @@ npm start
 ### 디자인 토큰
 
 - **포인트 색상**: `blue-600` / `dark:blue-400`
+- **히어로 배경**: `blue-600` / `dark:blue-700` (사이트에서 큰 색 면은 여기 한 곳)
 - **배경 색상**: `bg-white` / `dark:bg-dark-bg` (#0a0a0a)
 - **라운드**: 두 단계로 고정 (`md`/`lg` 6px, `xl`/`2xl` 12px, `tailwind.config.ts`)
 - **섹션 구분**: 카드 대신 섹션 사이 옅은 경계선 (`globals.css` 의 `main > section + section`)
@@ -155,7 +163,7 @@ OG 이미지·JSON-LD·sitemap·robots 가 모두 이 값을 기준으로 생성
 
 ## 디자인 특징
 
-- **미니멀리즘**: 절제된 색상과 여백, 깔끔한 타이포그래피
+- **미니멀리즘**: 절제된 색상과 여백, 깔끔한 타이포그래피. 대담한 요소는 파란 히어로 한 곳에만
 - **타이포그래피**: Pretendard 웹폰트로 한글 가독성 향상
 - **카드 최소화**: 위계가 있는 곳에만 면을 쓰고, 나머지는 여백과 경계선으로 구분
 - **스킬 숙련도**: 색상 농도로 core/proficient/familiar 시각적 위계 표현
