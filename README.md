@@ -31,7 +31,7 @@ Next.js, TypeScript, React 기반의 프론트엔드 개발자 포트폴리오 �
 
 ```
 Navigation ── 상단 네비게이션 (섹션 앵커, 다크모드 토글)
-Hero ──────── 파란 첫 화면(사원증 카드 + 폴더 내비게이션 + 한 줄 소개), 아래에 성과 3종 패널
+Hero ──────── 파란 첫 화면: 왼쪽 한 줄 소개, 가운데 사원증 카드, 오른쪽 섹션 폴더
 FeaturedWork  Selected Work: 대표 작업 4개와 판단 한 줄 (스크롤 연동 예시 화면)
 HowIWork ──── 일할 때 지키는 기준 (각 항목에서 근거가 되는 프로젝트로 이동)
 Work ──────── Projects: 회사 프로젝트 (트랙 탭 + 펼치는 목록, 상세 페이지 연결)
@@ -62,7 +62,7 @@ portfolio/
 │   │           └── ProjectDetailClient.tsx
 │   ├── components/
 │   │   ├── Navigation.tsx             # 네비게이션 바 (다크모드 토글)
-│   │   ├── Hero.tsx                   # 히어로 섹션 (성과 패널)
+│   │   ├── Hero.tsx                   # 히어로 섹션 (HeroStage 감싸기)
 │   │   ├── HeroStage.tsx              # 히어로 첫 화면 (카드 + 폴더)
 │   │   ├── HeroMedia.tsx              # 커서를 따라보는 3D 캐릭터
 │   │   ├── FeaturedWork.tsx           # Selected Work (스크롤 연동)
@@ -117,8 +117,7 @@ npm start
 
 - **src/data/projects.ts**: 프로젝트 데이터 (개요, 도전과제, 성과 지표, 기술 스택)
 - **src/constants/site.ts**: 배포 URL (OG 이미지 · JSON-LD · sitemap · robots 에 전파)
-- **Hero.tsx**: 소개 문장, 성과 3종 패널, CTA 링크
-- **HeroStage.tsx**: 히어로 첫 화면. 파란 바탕 가운데 사원증 카드, 둘레에 섹션으로 가는 폴더 6개(원형 배치), 첫 등장 연출
+- **HeroStage.tsx**: 히어로 첫 화면. 파란 바탕에 왼쪽 한 줄 소개, 가운데 사원증 카드, 오른쪽 섹션 폴더 6개, 첫 등장 연출
 - **HeroMedia.tsx**: 사원증 카드 속 3D 캐릭터. 커서 쪽으로 기울고, 눈동자를 지운 얼굴(`character.webp`) 위에서 눈동자(`pupil-*.webp`)가 움직이며 눈꺼풀(`lid-*.webp`)이 위를 덮음
 - **FeaturedWork.tsx**: 대표 작업 4개 (판단 한 줄, 지표, 예시 화면)
 - **Work.tsx**: 회사 프로젝트 목록 (트랙 구성) 및 상세 페이지 연결
