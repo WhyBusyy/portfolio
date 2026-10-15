@@ -30,8 +30,8 @@ const EYES = [
 const MAX_X = 6;
 const MAX_Y = 4;
 /** 캐릭터 전체가 커서 쪽으로 돌아보는 3D 기울기 (도) */
-const TILT_Y = 16;
-const TILT_X = 10;
+const TILT_Y = 26;
+const TILT_X = 18;
 /** 커서가 이 거리(px)만큼 떨어지면 끝까지 본다 */
 const REACH = 280;
 const EASE = 0.12;
@@ -71,7 +71,7 @@ export default function HeroMedia({
       const sy = t >= 1 ? 1 : 1 - 0.9 * Math.sin(Math.PI * t);
       if (t >= 1) blinkAt = 0;
 
-      wrap.style.transform = `perspective(1000px) rotateY(${cur.x * TILT_Y}deg) rotateX(${-cur.y * TILT_X}deg)`;
+      wrap.style.transform = `perspective(800px) rotateY(${cur.x * TILT_Y}deg) rotateX(${-cur.y * TILT_X}deg)`;
       EYES.forEach((e, i) => {
         const top = e.pupil[1];
         pupilRefs.current[i]?.setAttribute(
