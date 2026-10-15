@@ -102,7 +102,20 @@ export default function Profile() {
         </div>
       </div>
 
-      <p className="container-max-width mt-24 text-xs text-slate-500 dark:text-slate-400">
+      {/* 마지막 행동 유도: 페이지 끝에서 연락으로 이어지게 한다 */}
+      <div className="container-max-width mt-24 flex flex-col items-start gap-5 border-t border-slate-200 pt-10 dark:border-white/[0.08] sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-xl font-semibold tracking-[-0.02em] text-slate-900 dark:text-white sm:text-2xl">
+          함께 풀 문제가 있다면 편하게 연락 주세요.
+        </p>
+        <a
+          href="mailto:ybg6152@naver.com"
+          className="rounded-md bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition-transform hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 active:scale-[0.98] dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200"
+        >
+          메일 보내기
+        </a>
+      </div>
+
+      <p className="container-max-width mt-10 text-xs text-slate-500 dark:text-slate-400">
         &copy; {new Date().getFullYear()} WhyBusyy
       </p>
     </section>

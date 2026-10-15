@@ -9,10 +9,16 @@ import HeroStage from "./HeroStage";
 /** 증거 패널: 수치마다 전후를 보여 주는 작은 시각화. 수치는 프로젝트 상세에 공개된 값이다. */
 const PROOFS = [
   {
-    key: "editor",
-    metric: "2.5GB → 3MB",
-    label: "에디터 의존성",
-    href: "/projects/editor-migration",
+    key: "matching",
+    metric: "자동 배정 90% 이상",
+    label: "영업 담당자 배정",
+    href: "/projects/vendor-matching",
+  },
+  {
+    key: "cms",
+    metric: "3일 1회 → 2주 1회",
+    label: "콘텐츠 관련 개발 요청",
+    href: "/projects/cms-development",
   },
   {
     key: "qa",
@@ -21,10 +27,10 @@ const PROOFS = [
     href: "/projects/qa-automation-bot",
   },
   {
-    key: "cms",
-    metric: "3일 1회 → 2주 1회",
-    label: "콘텐츠 관련 개발 요청",
-    href: "/projects/cms-development",
+    key: "editor",
+    metric: "2.5GB → 3MB",
+    label: "에디터 의존성",
+    href: "/projects/editor-migration",
   },
 ] as const;
 
@@ -128,7 +134,34 @@ function CmsVisual() {
   );
 }
 
-const VISUALS = { editor: EditorVisual, qa: QaVisual, cms: CmsVisual };
+/** 담당자 배정: 사람이 일일이 하던 일이 주소 기반 자동 배정으로. 예외만 사람이 본다 */
+function MatchingVisual() {
+  return (
+    <div className="space-y-5">
+      <div>
+        <div className="flex items-baseline justify-between text-sm">
+          <span className="text-slate-600 dark:text-slate-300">이전: 관리자가 담당자를 일일이 배정</span>
+        </div>
+        <div className="mt-2 h-3 rounded-sm bg-slate-400 dark:bg-white/30" />
+      </div>
+      <div>
+        <div className="flex items-baseline justify-between text-sm">
+          <span className="text-slate-600 dark:text-slate-300">이후: 주소로 자동 배정</span>
+          <span className="font-semibold tabular-nums text-slate-900 dark:text-white">90% 이상</span>
+        </div>
+        <div className="mt-2 flex h-3 gap-0.5" aria-hidden="true">
+          <span className="w-[90%] rounded-l-sm bg-blue-600 dark:bg-blue-400" />
+          <span className="flex-1 rounded-r-sm bg-slate-300 dark:bg-white/20" />
+        </div>
+      </div>
+      <p className="text-xs text-slate-500 dark:text-slate-400">
+        담당자 배정이 늦어 신규 계약이 밀리던 문제를 풀었습니다. 주소 체계가 바뀌었거나 예외인 건만 사람이 확인합니다.
+      </p>
+    </div>
+  );
+}
+
+const VISUALS = { matching: MatchingVisual, editor: EditorVisual, qa: QaVisual, cms: CmsVisual };
 
 export default function Hero() {
   const reduce = useReducedMotion();

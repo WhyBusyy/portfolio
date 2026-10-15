@@ -6,7 +6,14 @@ import Link from "next/link";
 
 const workPrinciples = [
   {
-    title: "정답을 의심합니다",
+    title: "필요한 일은 먼저 제안합니다",
+    description:
+      "팀이 반복해서 쓰는 시간은 누군가 줄여야 한다고 봅니다. QA 봇, 자체 CMS, 배포 알림은 요청받기 전에 직접 제안해 만들었습니다.",
+    href: "/projects/dx-automation",
+    hrefLabel: "배포 알림·기록 자동화",
+  },
+  {
+    title: "근거를 보고 구조를 정합니다",
     description:
       "좋은 구조인지는 방법론이 아니라 우리 코드가 결정한다고 봅니다. 후보 네 가지를 비교하고 의존성을 전수조사해, 정답으로 통하던 안 대신 하이브리드 구조를 택했습니다.",
     href: "/projects/vsa-migration",
@@ -20,14 +27,7 @@ const workPrinciples = [
     hrefLabel: "QA 자동화 봇",
   },
   {
-    title: "맡은 일만 하지 않습니다",
-    description:
-      "팀이 반복해서 소모하는 시간은 누군가 줄여야 한다고 믿습니다. 배포 확인과 QA를 도구로 만들었습니다.",
-    href: "/projects/dx-automation",
-    hrefLabel: "배포 알림·기록 자동화",
-  },
-  {
-    title: "규칙을 코드에 남깁니다",
+    title: "규칙은 검사 도구와 문서로 남깁니다",
     description:
       "규칙을 사람 기억에 맡기면 시간이 지나면서 무너집니다. 아키텍처 규칙은 검증 도구로, 디자인 시스템 규칙은 문서로 남겼습니다.",
     href: "/projects/design-system",
