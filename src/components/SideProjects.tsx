@@ -5,6 +5,7 @@ import {
   Smartphone,
   Package,
   Gamepad2,
+  GitMerge,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import Image from "next/image";
@@ -135,6 +136,32 @@ const sideProjects: SideProject[] = [
   },
 ];
 
+interface OssContribution {
+  repo: string;
+  stars: string;
+  pr: number;
+  url: string;
+  summary: string;
+}
+
+/** 머지된 오픈소스 기여 */
+const ossContributions: OssContribution[] = [
+  {
+    repo: "facebook/lexical",
+    stars: "23.9k",
+    pr: 8214,
+    url: "https://github.com/facebook/lexical/pull/8214",
+    summary: "Playground LayoutContainerNode import 방식 수정",
+  },
+  {
+    repo: "Tencent/BrowserSkill",
+    stars: "8.0k",
+    pr: 360,
+    url: "https://github.com/Tencent/BrowserSkill/pull/360",
+    summary: "확장 팝업 비활성 버튼 안내 문구 추가 (10개 로케일)",
+  },
+];
+
 /** 링크 한 줄: 아이콘 + 이름. 내부 데모는 Link, 나머지는 새 탭 */
 function ProjectLink({
   href,
@@ -247,6 +274,37 @@ export default function SideProjects() {
               </li>
             );
           })}
+        </ul>
+
+        {/* 머지된 오픈소스 기여: 카드 대신 한 줄 목록 */}
+        <h3 className="mt-24 text-lg font-semibold tracking-[-0.01em] text-slate-900 dark:text-white">
+          Open Source Contributions
+        </h3>
+        <ul className="mt-4 divide-y divide-slate-200/80 border-y border-slate-200/80 dark:divide-white/[0.08] dark:border-white/[0.08]">
+          {ossContributions.map((oss) => (
+            <li key={oss.url}>
+              <a
+                href={oss.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col gap-1 py-4 sm:flex-row sm:items-center sm:gap-4"
+              >
+                <span className="flex items-center gap-2 text-[15px] font-semibold text-slate-900 transition-colors group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
+                  <GitMerge
+                    className="h-4 w-4 text-blue-600 dark:text-blue-400"
+                    aria-hidden="true"
+                  />
+                  {oss.repo} #{oss.pr}
+                </span>
+                <span className="text-xs text-slate-500 dark:text-slate-400">
+                  ★ {oss.stars}, merged
+                </span>
+                <span className="text-sm text-slate-600 dark:text-slate-300 sm:ml-auto">
+                  {oss.summary}
+                </span>
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
     </section>
