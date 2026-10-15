@@ -116,31 +116,12 @@ export default function HeroStage() {
               : { duration: 0.6, delay: TEXT_DELAY, ease: [0.16, 1, 0.3, 1] }
           }
         >
-          <h1 className="text-balance text-[2rem] font-bold leading-[1.25] tracking-[-0.035em] lg:text-[2.5rem]">
-            문제를 먼저 찾아, 실제로 쓰이는 해결책을 만듭니다.
+          {/* 한국어 제목: 단어 중간에서 끊지 않고(keep-all), 굵기·자간을 한 단계 풀어 답답하지 않게 */}
+          <h1 className="break-keep text-[2rem] font-semibold leading-[1.3] tracking-[-0.02em] lg:text-[2.5rem]">
+            <span className="text-blue-100">문제를 먼저 찾아,</span>
+            <br />
+            실제로 쓰이는 해결책을 만듭니다.
           </h1>
-          <div className="mt-7 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
-            <a
-              href="#featured"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollTo("#featured");
-              }}
-              className="rounded-md bg-white px-5 py-3 text-sm font-semibold text-blue-700 transition-transform hover:bg-blue-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white active:scale-[0.98]"
-            >
-              작업 사례 보기
-            </a>
-            <a
-              href="#contact"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollTo("#contact");
-              }}
-              className="rounded-md px-5 py-3 text-sm font-semibold text-white ring-1 ring-inset ring-white/70 transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white active:scale-[0.98]"
-            >
-              연락하기
-            </a>
-          </div>
         </motion.div>
 
         {/* 가운데: 사원증 카드 */}
