@@ -91,7 +91,7 @@ function Badge() {
         <p className="text-lg font-bold tracking-[-0.02em] text-slate-900">
           유병규
         </p>
-        <p className="text-sm text-slate-500">Product Engineer</p>
+        <p className="text-sm text-slate-500">프로덕트 엔지니어(프론트엔드)</p>
       </div>
     </HeroMedia>
   );
