@@ -5,11 +5,11 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "WhyBusyy | 프론트엔드 개발자",
+    default: "유병규 | 프로덕트 엔지니어(프론트엔드)",
     template: "%s | WhyBusyy",
   },
   description:
-    "Next.js, TypeScript, React 기반으로 웹 서비스를 개발해 온 프론트엔드 개발자입니다.",
+    "문제를 먼저 찾아 실제로 쓰이는 해결책을 만드는 프로덕트 엔지니어(프론트엔드)입니다. Next.js·TypeScript로 화면부터 서버, CI/CD까지 다룹니다.",
 };
 
 /**

@@ -10,9 +10,9 @@ import Profile from "@/components/Profile";
 import { SITE_URL } from "@/constants/site";
 
 export const metadata: Metadata = {
-  title: "WhyBusyy | 프론트엔드 개발자 포트폴리오",
+  title: "유병규 | 프로덕트 엔지니어(프론트엔드) 포트폴리오",
   description:
-    "Next.js, TypeScript, React 기반으로 웹 서비스를 개발해 온 프론트엔드 개발자입니다.",
+    "문제를 먼저 찾아 실제로 쓰이는 해결책을 만드는 프로덕트 엔지니어(프론트엔드)입니다. Next.js·TypeScript로 화면부터 서버, CI/CD까지 다룹니다.",
   keywords: [
     "프론트엔드",
     "개발자",
@@ -23,9 +23,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "WhyBusyy" }],
   openGraph: {
-    title: "WhyBusyy | 프론트엔드 개발자 포트폴리오",
+    title: "유병규 | 프로덕트 엔지니어(프론트엔드) 포트폴리오",
     description:
-      "Next.js, TypeScript, React 기반으로 웹 서비스를 개발해 온 프론트엔드 개발자입니다.",
+      "문제를 먼저 찾아 실제로 쓰이는 해결책을 만드는 프로덕트 엔지니어(프론트엔드)입니다. Next.js·TypeScript로 화면부터 서버, CI/CD까지 다룹니다.",
     type: "website",
     locale: "ko_KR",
     images: [
@@ -39,9 +39,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "WhyBusyy | 프론트엔드 개발자 포트폴리오",
+    title: "유병규 | 프로덕트 엔지니어(프론트엔드) 포트폴리오",
     description:
-      "Next.js, TypeScript, React 기반으로 웹 서비스를 개발해 온 프론트엔드 개발자입니다.",
+      "문제를 먼저 찾아 실제로 쓰이는 해결책을 만드는 프로덕트 엔지니어(프론트엔드)입니다. Next.js·TypeScript로 화면부터 서버, CI/CD까지 다룹니다.",
     images: ["/og-image.png"],
   },
 };
@@ -53,9 +53,9 @@ const profileJsonLd = {
     "@type": "Person",
     name: "유병규",
     alternateName: "WhyBusyy",
-    jobTitle: "프론트엔드 개발자",
+    jobTitle: "프로덕트 엔지니어 (프론트엔드)",
     description:
-      "Next.js, TypeScript, React 기반으로 웹 서비스를 개발해 온 프론트엔드 개발자.",
+      "문제를 먼저 찾아 실제로 쓰이는 해결책을 만드는 프로덕트 엔지니어(프론트엔드). Next.js·TypeScript로 화면부터 서버, CI/CD까지 다룬다.",
     url: SITE_URL,
     email: "ybg6152@naver.com",
     sameAs: ["https://github.com/WhyBusyy"],
@@ -84,6 +84,9 @@ const profileJsonLd = {
       "Zustand",
       "TanStack Query",
       "Frontend Performance Optimization",
+      "CI/CD",
+      "GitHub Actions",
+      "Playwright",
     ],
   },
 };
