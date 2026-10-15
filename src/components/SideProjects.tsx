@@ -1,18 +1,10 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
 import {
   Github,
   ExternalLink,
   Globe,
   Smartphone,
-  Terminal,
   Package,
   Gamepad2,
-  ChevronLeft,
-  ChevronRight,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import Image from "next/image";
@@ -33,6 +25,18 @@ interface SideProject {
 }
 
 const sideProjects: SideProject[] = [
+  {
+    title: "Make Mood - 1분 성향 테스트 모음",
+    description:
+      "가볍게 즐기는 1분 성향 테스트 사이트를 직접 기획하고 만들어 운영하고 있습니다. 테스트 5종과 정보성 글을 올렸고, 결과를 서버에 저장하지 않고도 링크 하나로 친구와 케미를 비교할 수 있게 만들었습니다. 유튜브 채널과 함께 운영하며 애드센스를 붙였습니다.",
+    techStack: ["Static Site", "SEO", "Google AdSense", "Cloudflare"],
+    github: null,
+    demo: "https://makemood.site",
+    demoLabel: "makemood.site",
+    screenshot: "/makemood.webp",
+    category: "Web Service",
+    icon: Globe,
+  },
   {
     title: "루틴 체크 - 매일 습관 트래커",
     description:
@@ -83,34 +87,7 @@ const sideProjects: SideProject[] = [
     category: "Terminal",
     icon: Gamepad2,
   },
-  {
-    title: "포트폴리오 사이트",
-    description:
-      "미니멀리즘 스타일의 개인 포트폴리오. 폰트를 동적 서브셋으로 전환해 전송량 3.5MB → 653KB로 줄이고, Lighthouse 성능 98 · 접근성 100을 달성했습니다 (데스크톱 실측). skip navigation, aria 라벨, prefers-reduced-motion을 적용했습니다.",
-    techStack: [
-      "Next.js",
-      "TypeScript",
-      "Tailwind CSS",
-      "Framer Motion",
-      "a11y",
-    ],
-    github: "https://github.com/WhyBusyy/portfolio",
-    demo: null,
-    screenshot: "/portfolio.png",
-    category: "Frontend",
-    icon: Globe,
-  },
-  {
-    title: "서버 헬스체크 모니터링",
-    description:
-      "API 엔드포인트를 주기적으로 모니터링하고 장애 시 TTS 음성 알림을 제공하는 크로스 플랫폼 CLI 도구",
-    techStack: ["Python", "CLI", "Cross-Platform", "DevOps"],
-    github: "https://github.com/WhyBusyy/health-check",
-    demo: null,
-    screenshot: "/health-check.png",
-    category: "DevOps",
-    icon: Terminal,
-  },
+
   {
     title: "Re:Gym - 중고 헬스 기구 거래 앱",
     description:
@@ -130,255 +107,138 @@ const sideProjects: SideProject[] = [
     category: "Mobile",
     icon: Smartphone,
   },
+  {
+    title: "포트폴리오 사이트",
+    description:
+      "지금 보고 계신 이 사이트를 기획부터 인터랙션까지 직접 만들었습니다. 커서를 따라 기울고 눈을 맞추는 3D 사원증, 목걸이 줄의 스프링 움직임, 스크롤에 맞춰 바뀌는 대표 작업 화면을 Framer Motion과 SVG로 구현했습니다. 폰트는 동적 서브셋으로 바꿔 전송량을 3.5MB에서 653KB로 줄였습니다.",
+    techStack: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Framer Motion",
+      "SVG",
+    ],
+    github: "https://github.com/WhyBusyy/portfolio",
+    demo: null,
+    screenshot: "/portfolio.webp",
+    category: "Frontend",
+    icon: Globe,
+  },
 ];
 
+/** 링크 한 줄: 아이콘 + 이름. 내부 데모는 Link, 나머지는 새 탭 */
+function ProjectLink({
+  href,
+  label,
+  icon: Icon,
+}: {
+  href: string;
+  label: string;
+  icon: LucideIcon;
+}) {
+  const cls =
+    "inline-flex items-center gap-1.5 text-sm font-medium text-slate-700 underline-offset-4 hover:text-blue-600 hover:underline dark:text-slate-300 dark:hover:text-blue-400";
+  if (href.startsWith("/"))
+    return (
+      <Link href={`${href}?from=portfolio`} className={cls}>
+        <Icon className="h-4 w-4" aria-hidden="true" />
+        {label}
+      </Link>
+    );
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" className={cls}>
+      <Icon className="h-4 w-4" aria-hidden="true" />
+      {label}
+    </a>
+  );
+}
+
 export default function SideProjects() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(false);
-
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const update = () => {
-      setCanScrollLeft(el.scrollLeft > 4);
-      setCanScrollRight(
-        el.scrollLeft < el.scrollWidth - el.clientWidth - 4,
-      );
-    };
-    update();
-    el.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    return () => {
-      el.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
-    };
-  }, []);
-
-  const scrollByCard = (direction: 1 | -1) => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const card = el.querySelector<HTMLElement>("[data-side-card]");
-    const step = card
-      ? card.getBoundingClientRect().width + 24
-      : el.clientWidth * 0.8;
-    el.scrollBy({ left: step * direction, behavior: "smooth" });
-  };
-
-  const isDraggingRef = useRef(false);
-  const dragStartXRef = useRef(0);
-  const dragStartScrollRef = useRef(0);
-  const dragDistanceRef = useRef(0);
-  const [isDragging, setIsDragging] = useState(false);
-
-  const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.button !== 0) return;
-    const el = scrollRef.current;
-    if (!el) return;
-    isDraggingRef.current = true;
-    dragStartXRef.current = e.pageX;
-    dragStartScrollRef.current = el.scrollLeft;
-    dragDistanceRef.current = 0;
-    setIsDragging(true);
-  };
-
-  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!isDraggingRef.current) return;
-    const el = scrollRef.current;
-    if (!el) return;
-    e.preventDefault();
-    const dx = e.pageX - dragStartXRef.current;
-    dragDistanceRef.current = Math.abs(dx);
-    el.scrollLeft = dragStartScrollRef.current - dx;
-  };
-
-  const endDrag = () => {
-    if (!isDraggingRef.current) return;
-    isDraggingRef.current = false;
-    setIsDragging(false);
-  };
-
-  const onClickCapture = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (dragDistanceRef.current > 5) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    dragDistanceRef.current = 0;
-  };
-
   return (
     <section
-      ref={ref}
       id="side-projects"
       aria-labelledby="side-projects-title"
-      className="py-32 lg:py-40 section-padding bg-slate-50/50 dark:bg-white/[0.02]"
+      className="section-padding py-28 lg:py-36"
     >
       <div className="container-max-width">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8 }}
-        >
-          <h2 id="side-projects-title" className="section-title">Side Projects</h2>
-          <p className="section-subtitle">
-            개인적으로 만들어본 프로젝트들입니다.
-          </p>
+        <h2 id="side-projects-title" className="section-title">
+          Side Projects
+        </h2>
+        <p className="section-subtitle">
+          업무 밖에서 직접 만든 프로젝트입니다.
+        </p>
 
-          <div className="relative max-w-5xl">
-            {/* Left Arrow */}
-            <button
-              type="button"
-              aria-label="이전 프로젝트"
-              onClick={() => scrollByCard(-1)}
-              disabled={!canScrollLeft}
-              className="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10
-                         w-10 h-10 items-center justify-center rounded-full
-                         bg-slate-900 text-white dark:bg-white dark:text-slate-900
-                         hover:opacity-80 active:scale-95
-                         transition-all
-                         disabled:opacity-0 disabled:pointer-events-none"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-
-            {/* Right Arrow */}
-            <button
-              type="button"
-              aria-label="다음 프로젝트"
-              onClick={() => scrollByCard(1)}
-              disabled={!canScrollRight}
-              className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10
-                         w-10 h-10 items-center justify-center rounded-full
-                         bg-slate-900 text-white dark:bg-white dark:text-slate-900
-                         hover:opacity-80 active:scale-95
-                         transition-all
-                         disabled:opacity-0 disabled:pointer-events-none"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-
-            {/* Scroll container */}
-            <div
-              ref={scrollRef}
-              onMouseDown={onMouseDown}
-              onMouseMove={onMouseMove}
-              onMouseUp={endDrag}
-              onMouseLeave={endDrag}
-              onClickCapture={onClickCapture}
-              className={`flex gap-6 overflow-x-auto snap-x snap-mandatory pb-4
-                         [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
-                         scroll-smooth select-none
-                         ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
-            >
-              {sideProjects.map((project) => {
-                const IconComponent = project.icon;
-
-                return (
-                  <div
-                    key={project.title}
-                    data-side-card
-                    className="group flex-shrink-0 w-[280px] sm:w-[340px] snap-start"
-                  >
-                    {/* Screenshot / Placeholder */}
-                    <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-slate-100 dark:bg-white/[0.04]">
-                      {project.screenshot ? (
-                        <Image
-                          src={project.screenshot}
-                          alt={project.title}
-                          fill
-                          sizes="(max-width: 640px) 280px, 340px"
-                          draggable={false}
-                          className={`transition-transform duration-500 pointer-events-none ${
-                            project.imageFit === "contain"
-                              ? "object-contain"
-                              : "object-cover"
-                          }`}
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center">
-                          <IconComponent className="w-10 h-10 text-slate-400 dark:text-slate-500" />
-                        </div>
-                      )}
-
+        {/* 2열 격자: 화면을 크게 보여 주고, 글은 그 아래에 짧게 */}
+        <ul className="grid gap-x-10 gap-y-16 md:grid-cols-2">
+          {sideProjects.map((project) => {
+            const IconComponent = project.icon;
+            return (
+              <li key={project.title} className="group">
+                <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-slate-100 ring-1 ring-inset ring-slate-200/70 dark:bg-white/[0.04] dark:ring-white/[0.06]">
+                  {project.screenshot ? (
+                    <Image
+                      src={project.screenshot}
+                      alt={`${project.title} 화면`}
+                      fill
+                      sizes="(min-width: 768px) 50vw, 100vw"
+                      className={`transition-transform duration-500 ease-out group-hover:scale-[1.02] motion-reduce:transition-none ${
+                        project.imageFit === "contain"
+                          ? "object-contain"
+                          : "object-cover object-top"
+                      }`}
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center">
+                      <IconComponent
+                        className="h-10 w-10 text-slate-400 dark:text-slate-500"
+                        aria-hidden="true"
+                      />
                     </div>
+                  )}
+                </div>
 
-                    {/* Card body */}
-                    <div className="pt-4">
-                      <p className="mb-1 text-xs text-slate-500 dark:text-slate-400">{project.category}</p>
-                      <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-2">
-                        {project.title}
-                      </h3>
-                      <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
-                        {project.description}
-                      </p>
+                <p className="mt-5 text-xs text-slate-500 dark:text-slate-400">
+                  {project.category}
+                </p>
+                <h3 className="mt-1 text-lg font-semibold tracking-[-0.01em] text-slate-900 dark:text-white">
+                  {project.title}
+                </h3>
+                <p className="mt-2 text-[15px] leading-relaxed text-slate-600 dark:text-slate-300">
+                  {project.description}
+                </p>
+                <p className="mt-3 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
+                  {project.techStack.join(", ")}
+                </p>
 
-                      {project.techStack.length > 0 && (
-                        <p className="text-xs leading-relaxed text-slate-500 dark:text-slate-400">
-                          {project.techStack.join(", ")}
-                        </p>
-                      )}
-
-                      {/* Links */}
-                      {(project.github || project.demo || project.npm) && (
-                        <div className="flex gap-4 mt-4">
-                          {project.github && (
-                            <a
-                              href={project.github}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400
-                                         hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                            >
-                              <Github className="w-3.5 h-3.5" />
-                              GitHub
-                            </a>
-                          )}
-                          {project.npm && (
-                            <a
-                              href={project.npm}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400
-                                         hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                            >
-                              <Package className="w-3.5 h-3.5" />
-                              npm
-                            </a>
-                          )}
-                          {project.demo &&
-                            (project.demo.startsWith("/") ? (
-                              <Link
-                                href={`${project.demo}?from=portfolio`}
-                                className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400
-                                           hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                              >
-                                <ExternalLink className="w-3.5 h-3.5" />
-                                {project.demoLabel ?? "Demo"}
-                              </Link>
-                            ) : (
-                              <a
-                                href={project.demo}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400
-                                           hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                              >
-                                <ExternalLink className="w-3.5 h-3.5" />
-                                {project.demoLabel ?? "Demo"}
-                              </a>
-                            ))}
-                        </div>
-                      )}
-                    </div>
+                {(project.github || project.demo || project.npm) && (
+                  <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2">
+                    {project.demo && (
+                      <ProjectLink
+                        href={project.demo}
+                        label={project.demoLabel ?? "Demo"}
+                        icon={ExternalLink}
+                      />
+                    )}
+                    {project.github && (
+                      <ProjectLink
+                        href={project.github}
+                        label="GitHub"
+                        icon={Github}
+                      />
+                    )}
+                    {project.npm && (
+                      <ProjectLink
+                        href={project.npm}
+                        label="npm"
+                        icon={Package}
+                      />
+                    )}
                   </div>
-                );
-              })}
-            </div>
-          </div>
-        </motion.div>
+                )}
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </section>
   );

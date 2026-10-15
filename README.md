@@ -35,7 +35,7 @@ Hero ──────── 파란 첫 화면: 왼쪽 한 줄 소개, 가운�
 FeaturedWork  Selected Work: 대표 작업 4개와 판단 한 줄 (스크롤 연동 예시 화면)
 HowIWork ──── 일할 때 지키는 기준 (각 항목에서 근거가 되는 프로젝트로 이동)
 Work ──────── Projects: 회사 프로젝트 (트랙 탭 + 펼치는 목록, 상세 페이지 연결)
-SideProjects  개인 프로젝트 (가로 스크롤 캐러셀, GitHub/Demo/npm 링크)
+SideProjects  개인 프로젝트 (2열 격자, 서비스·GitHub·npm 링크)
 Skills ────── 기술 스택 (분야 필터 + 숙련도 범례)
 Profile ───── About: 연락처, 학력·자격증·어학, Beyond Code
 ```
@@ -68,7 +68,7 @@ portfolio/
 │   │   ├── FeaturedWork.tsx           # Selected Work (스크롤 연동)
 │   │   ├── featured/fragments.tsx     # Selected Work 예시 화면
 │   │   ├── Work.tsx                   # 회사 프로젝트 (트랙 탭)
-│   │   ├── SideProjects.tsx           # 개인 프로젝트 캐러셀
+│   │   ├── SideProjects.tsx           # 개인 프로젝트 (2열 격자)
 │   │   ├── Skills.tsx                 # 기술 스택 (숙련도 구분)
 │   │   ├── HowIWork.tsx               # 일하는 방식
 │   │   ├── Profile.tsx                # About · 연락처 · Beyond Code
