@@ -41,16 +41,26 @@ const blinkGap = () => 2600 + Math.random() * 3200;
 /** 터치 기기에서는 커서가 없으니 가끔 다른 곳을 둘러본다 */
 const WANDER_MS = 2200;
 
-/** children 은 캐릭터와 함께 기울어지는 영역(사원증 카드의 이름 등)에 들어간다 */
+/**
+ * children 은 캐릭터와 함께 기울어지는 영역(사원증 카드의 이름 등)에 들어간다.
+ * onTilt 는 매 프레임 현재 기울기 방향(-1~1)을 알려 준다. 카드에 걸린 목걸이 줄을 함께 움직일 때 쓴다.
+ */
 export default function HeroMedia({
   className = "",
   children,
+  onTilt,
 }: {
   className?: string;
   children?: ReactNode;
+  onTilt?: (x: number, y: number) => void;
 }) {
   const reduce = useReducedMotion();
   const wrapRef = useRef<HTMLDivElement>(null);
+  // 효과를 다시 걸지 않도록 최신 콜백은 ref 로 들고 있는다
+  const onTiltRef = useRef(onTilt);
+  useEffect(() => {
+    onTiltRef.current = onTilt;
+  }, [onTilt]);
   const pupilRefs = useRef<(SVGImageElement | null)[]>([]);
 
   useEffect(() => {
@@ -72,6 +82,7 @@ export default function HeroMedia({
       if (t >= 1) blinkAt = 0;
 
       wrap.style.transform = `perspective(1000px) rotateY(${cur.x * TILT_Y}deg) rotateX(${-cur.y * TILT_X}deg)`;
+      onTiltRef.current?.(cur.x, cur.y);
       EYES.forEach((e, i) => {
         const top = e.pupil[1];
         pupilRefs.current[i]?.setAttribute(

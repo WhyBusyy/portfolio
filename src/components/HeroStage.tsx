@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import HeroMedia from "./HeroMedia";
 
@@ -26,11 +26,12 @@ const SWING = [0, 1.1, -0.7, 0.35, 0];
 const SWING_S = 2.4;
 const SWING_AT = 0.75;
 const CARD_DELAY = 0.1;
-/** 사원증이 내려오고 흔들림까지 멈추는 시점(ms). 문구는 이때부터 시작한다 */
-const CARD_END = Math.max(CARD_DELAY + DROP.duration, CARD_DELAY + SWING_AT + SWING_S) * 1000;
+/** 커서 쪽으로 줄째 기우는 각도(도)와, 집게가 카드를 따라 도는 비율 */
+const LEAN = 1.4;
+const CLIP_TURN = 16;
 /** 커서가 깜빡이기 시작하는 시점, 타이핑 시작 시점(ms)과 글자당 간격(ms) */
-const CURSOR_AT = CARD_END;
-const TYPE_AT = CARD_END + 400;
+const TYPE_AT = 2300;
+const CURSOR_AT = TYPE_AT - 400;
 const TYPE_MS = 28;
 /** 타이핑이 끝난 뒤 커서를 남겨 두는 시간(ms) */
 const CURSOR_LINGER = 1400;
@@ -176,9 +177,12 @@ function Folder({ label, href }: { label: string; href: string }) {
   );
 }
 
-function Badge() {
+function Badge({ onTilt }: { onTilt: (x: number, y: number) => void }) {
   return (
-    <HeroMedia className="relative w-[15rem] rounded-2xl bg-white p-3 pt-8 shadow-[0_30px_60px_-24px_rgba(10,30,110,0.65)] lg:w-[17.5rem]">
+    <HeroMedia
+      onTilt={onTilt}
+      className="relative w-[15rem] rounded-2xl bg-white p-3 pt-8 shadow-[0_30px_60px_-24px_rgba(10,30,110,0.65)] lg:w-[17.5rem]"
+    >
       {/* 줄을 거는 구멍: 뒤 배경(파랑)이 비쳐 보이게 */}
       <span
         aria-hidden="true"
@@ -198,7 +202,7 @@ function Badge() {
  * 목걸이 줄: 위에서 내려온 두 가닥 천 줄이 V 자로 모여 금속 고리와 집게로 카드 구멍에 걸린다.
  * 줄은 화면 위 끝까지 이어지고, 히어로의 overflow-hidden 에 잘린다.
  */
-function Lanyard() {
+function Lanyard({ clipRef }: { clipRef: React.Ref<HTMLDivElement> }) {
   return (
     <div
       aria-hidden="true"
@@ -238,15 +242,29 @@ function Lanyard() {
           },
         )}
       </svg>
-      {/* 금속 고리 + 집게 */}
-      <div className="-mt-2 h-5 w-5 rounded-full border-[3px] border-slate-300 bg-transparent shadow-sm" />
-      <div className="-mt-1 h-6 w-3.5 rounded-[5px] bg-gradient-to-b from-slate-100 to-slate-400 shadow" />
+      {/* 금속 고리 + 집게: 카드가 돌면 같은 방향으로 돈다 */}
+      <div
+        ref={clipRef}
+        className="-mt-2 flex flex-col items-center will-change-transform"
+      >
+        <div className="h-5 w-5 rounded-full border-[3px] border-slate-300 bg-transparent shadow-sm" />
+        <div className="-mt-1 h-6 w-3.5 rounded-[5px] bg-gradient-to-b from-slate-100 to-slate-400 shadow" />
+      </div>
     </div>
   );
 }
 
 export default function HeroStage() {
   const reduce = useReducedMotion();
+  const hangRef = useRef<HTMLDivElement>(null);
+  const clipRef = useRef<HTMLDivElement>(null);
+  // 카드가 커서 쪽으로 돌면, 줄째 그쪽으로 살짝 기울고 집게도 카드를 따라 돈다
+  const onTilt = useCallback((x: number) => {
+    if (hangRef.current)
+      hangRef.current.style.transform = `rotate(${-x * LEAN}deg)`;
+    if (clipRef.current)
+      clipRef.current.style.transform = `perspective(400px) rotateY(${x * CLIP_TURN}deg)`;
+  }, []);
 
   return (
     <div className="relative overflow-hidden bg-blue-600 text-white dark:bg-blue-700">
@@ -278,8 +296,15 @@ export default function HeroStage() {
                   }
             }
           >
-            <Lanyard />
-            <Badge />
+            {/* 커서 기울기용 층: 등장 흔들림(바깥 motion.div)과 따로 움직인다. 축은 줄의 맨 위 */}
+            <div
+              ref={hangRef}
+              className="relative will-change-transform"
+              style={{ transformOrigin: "50% -100vh" }}
+            >
+              <Lanyard clipRef={clipRef} />
+              <Badge onTilt={onTilt} />
+            </div>
           </motion.div>
         </div>
 
