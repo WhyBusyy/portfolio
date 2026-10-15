@@ -108,7 +108,7 @@ const careerData = [
               title: "영업 담당자 자동매칭 시스템 구축 및 DB 마이그레이션",
               period: "2025년 8월 ~ 2026년 3월",
               description:
-                "비정형 벤더 데이터 표준화 → 주소 기반 자동매칭 구축(성공률 90%+) → JSON 158,000줄 DB 마이그레이션 + 서버 이관까지 완성 (Fullstack)",
+                "비정형 벤더 담당 지역 데이터 표준화 → 주소 기반 자동매칭 구축(성공률 90%+) → JSON 158,000줄 DB 마이그레이션 + 서버 이관까지 완성 (Fullstack)",
               slug: "vendor-matching" as string | null,
             },
             {
@@ -122,6 +122,13 @@ const careerData = [
         },
       ],
       ongoing: [
+        {
+          title: "QA 인프라 유지보수 및 AI QA 봇 고도화",
+          period: "2026년 상반기 - 현재",
+          description:
+            "PR Gate로 운영 중인 QA 인프라를 맡아, 화면이 바뀔 때마다 깨지는 테스트를 정리하고 실행 시간을 관리하며, AI 테스트 생성 봇의 생성 범위와 검증 단계를 넓혀 가는 중 (Playwright · Claude API)",
+          slug: null as string | null,
+        },
         {
           title: "백엔드 API 개발 및 수정",
           period: "2025년 상반기 - 현재",

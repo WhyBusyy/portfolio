@@ -1,10 +1,10 @@
 import { Arrow, Eyebrow, Figure, Node, Txt } from "./primitives";
 
-/** 자동매칭: 비정형 지역 데이터를 정규화해 기준 데이터를 만들고, 주소 기반으로 담당자를 배정 */
+/** 자동매칭: 비정형 담당 지역 데이터를 표준화해 기준 데이터를 만들고, 주소 기반으로 담당자를 배정 */
 const title =
-  "담당자 자동매칭: 지역 데이터 정규화로 기준을 만들고, 주소 기반으로 담당자를 배정";
+  "담당자 자동매칭: 담당 지역 데이터를 표준화해 기준을 만들고, 주소 기반으로 담당자를 배정";
 const caption =
-  "벤더마다 지역 구분 체계가 달라 그대로는 매칭할 수 없었다. 정확 매칭으로 걸러지지 않는 값만 유사도 매칭으로 넘겨 단계적으로 정규화했다.";
+  "벤더마다 영업사원 담당 지역 구분 체계가 달라 그대로는 매칭할 수 없었다. 정확 매칭으로 걸러지지 않는 값만 유사도 매칭으로 넘겨 단계적으로 정규화했다.";
 
 /** 좁은 화면: 두 단계를 위아래 한 줄로 쌓는다 */
 function Narrow() {
@@ -15,7 +15,7 @@ function Narrow() {
   const my = ny(4) + 16;
   const sy = (i: number) => my + H + 84 + i * 60;
   const stage1 = [
-    ["비정형 입력", "벤더별 상이한 표기"],
+    ["비정형 입력", "벤더별 담당 지역 분류"],
     ["주소 파싱", "표기를 단위로 분해"],
     ["정확 매칭", "기준과 1:1 대조"],
     ["유사도 매칭", "남은 값만 처리"],
@@ -35,7 +35,7 @@ function Narrow() {
       className="sm:hidden"
     >
       <Eyebrow x={X} y={20}>
-        1단계: 지역 데이터 정규화
+        1단계: 담당 지역 데이터 표준화
       </Eyebrow>
       {stage1.map(([l, sub], i) => (
         <g key={l}>
@@ -145,7 +145,7 @@ export default function MatchingPipeline() {
       >
         {/* 1단계 — 정규화 */}
         <Eyebrow x={16} y={34}>
-          1단계: 지역 데이터 정규화
+          1단계: 담당 지역 데이터 표준화
         </Eyebrow>
 
         <Node
@@ -154,7 +154,7 @@ export default function MatchingPipeline() {
           w={W}
           h={H}
           label="비정형 입력"
-          sub="벤더별 상이한 표기"
+          sub="벤더별 담당 지역 분류"
           muted
         />
         <Node
