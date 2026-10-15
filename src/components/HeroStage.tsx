@@ -20,15 +20,17 @@ const FOLDERS = [
 ];
 
 /** 카드 낙하: 살짝 튀었다 자리 잡는 스프링 */
-const DROP = { type: "spring", stiffness: 110, damping: 11, mass: 1 } as const;
-/** 착지 뒤 줄 끝을 축으로 좌우로 흔들리다 멈춘다 (각도, 도) */
-const SWING = [0, 0, 2.4, -1.6, 0.8, -0.3, 0];
-const SWING_TIMES = [0, 0.22, 0.42, 0.6, 0.76, 0.9, 1];
-const SWING_S = 1.8;
+const DROP = { duration: 1.3, ease: [0.22, 1, 0.36, 1] } as const;
+/** 내려오는 끝무렵부터 줄 끝을 축으로 아주 작게 흔들리다 멈춘다 (각도, 도) */
+const SWING = [0, 1.1, -0.7, 0.35, 0];
+const SWING_S = 2.4;
+const SWING_AT = 0.75;
 const CARD_DELAY = 0.1;
+/** 사원증이 내려오고 흔들림까지 멈추는 시점(ms). 문구는 이때부터 시작한다 */
+const CARD_END = Math.max(CARD_DELAY + DROP.duration, CARD_DELAY + SWING_AT + SWING_S) * 1000;
 /** 커서가 깜빡이기 시작하는 시점, 타이핑 시작 시점(ms)과 글자당 간격(ms) */
-const CURSOR_AT = 500;
-const TYPE_AT = 900;
+const CURSOR_AT = CARD_END;
+const TYPE_AT = CARD_END + 400;
 const TYPE_MS = 28;
 /** 타이핑이 끝난 뒤 커서를 남겨 두는 시간(ms) */
 const CURSOR_LINGER = 1400;
@@ -176,7 +178,12 @@ function Folder({ label, href }: { label: string; href: string }) {
 
 function Badge() {
   return (
-    <HeroMedia className="w-[15rem] rounded-2xl bg-white p-3 shadow-[0_30px_60px_-24px_rgba(10,30,110,0.65)] lg:w-[17.5rem]">
+    <HeroMedia className="relative w-[15rem] rounded-2xl bg-white p-3 pt-8 shadow-[0_30px_60px_-24px_rgba(10,30,110,0.65)] lg:w-[17.5rem]">
+      {/* 줄을 거는 구멍: 뒤 배경(파랑)이 비쳐 보이게 */}
+      <span
+        aria-hidden="true"
+        className="absolute left-1/2 top-3 h-2.5 w-12 -translate-x-1/2 rounded-full bg-blue-600 shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] dark:bg-blue-700"
+      />
       <div className="px-2 pb-2 pt-1 text-left">
         <p className="text-lg font-bold tracking-[-0.02em] text-slate-900">
           유병규
@@ -187,15 +194,53 @@ function Badge() {
   );
 }
 
-/** 목걸이 줄 + 금속 고리. 줄은 화면 위 끝까지 이어지고, 히어로의 overflow-hidden 에 잘린다 */
+/**
+ * 목걸이 줄: 위에서 내려온 두 가닥 천 줄이 V 자로 모여 금속 고리와 집게로 카드 구멍에 걸린다.
+ * 줄은 화면 위 끝까지 이어지고, 히어로의 overflow-hidden 에 잘린다.
+ */
 function Lanyard() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2"
+      className="pointer-events-none absolute bottom-[calc(100%-1.1rem)] left-1/2 z-10 flex -translate-x-1/2 flex-col items-center"
     >
-      <div className="mx-auto h-[100vh] w-4 bg-blue-900/45 dark:bg-blue-950/60" />
-      <div className="mx-auto -mt-1 h-5 w-9 rounded-md bg-slate-200 shadow-sm ring-1 ring-inset ring-slate-300" />
+      <svg
+        viewBox="0 0 72 1000"
+        preserveAspectRatio="none"
+        className="h-[100vh] w-[4.5rem]"
+      >
+        {["6,0 20,0 39,1000 27,1000", "52,0 66,0 45,1000 33,1000"].map(
+          (pts) => (
+            <polygon
+              key={pts}
+              points={pts}
+              className="fill-[#14245c] dark:fill-[#0d1a45]"
+            />
+          ),
+        )}
+        {/* 천 줄 가장자리 박음질 */}
+        {["9,0 29,1000", "17,0 37,1000", "55,0 35,1000", "63,0 43,1000"].map(
+          (d) => {
+            const [a, b] = d.split(" ").map((p) => p.split(",").map(Number));
+            return (
+              <line
+                key={d}
+                x1={a[0]}
+                y1={a[1]}
+                x2={b[0]}
+                y2={b[1]}
+                stroke="rgba(255,255,255,0.28)"
+                strokeWidth={1}
+                strokeDasharray="3 3"
+                vectorEffect="non-scaling-stroke"
+              />
+            );
+          },
+        )}
+      </svg>
+      {/* 금속 고리 + 집게 */}
+      <div className="-mt-2 h-5 w-5 rounded-full border-[3px] border-slate-300 bg-transparent shadow-sm" />
+      <div className="-mt-1 h-6 w-3.5 rounded-[5px] bg-gradient-to-b from-slate-100 to-slate-400 shadow" />
     </div>
   );
 }
@@ -227,9 +272,8 @@ export default function HeroStage() {
                     y: { ...DROP, delay: CARD_DELAY },
                     rotate: {
                       duration: SWING_S,
-                      times: SWING_TIMES,
-                      ease: "easeOut",
-                      delay: CARD_DELAY,
+                      ease: "easeInOut",
+                      delay: CARD_DELAY + SWING_AT,
                     },
                   }
             }
