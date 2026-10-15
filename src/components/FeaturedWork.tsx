@@ -4,33 +4,18 @@ import { useRef, useState } from "react";
 import { useMotionValueEvent, useScroll } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { CmsFragment, EditorFragment, QaFragment, VsaFragment } from "./featured/fragments";
+import { CmsFragment, EditorFragment, MatchingFragment, QaFragment } from "./featured/fragments";
 
 /** 문구는 프로젝트 상세와 Decisions 에 이미 공개된 내용만 줄여 쓴다. */
 const CASES = [
   {
-    slug: "qa-automation-bot",
-    track: "품질 · 자동화",
-    title: "QA 자동화 봇",
-    decision: "AI가 만든 테스트는 참고용으로 분리하고 고정 테스트만 PR Gate로 썼습니다.",
-    metric: "PR마다 90+ 테스트 자동 실행",
-    Fragment: QaFragment,
-  },
-  {
-    slug: "vsa-migration",
-    track: "아키텍처",
-    title: "프론트엔드 아키텍처 마이그레이션",
-    decision: "후보 4안을 비교하고 의존성을 전수조사해 완전한 Vertical Slice 대신 하이브리드를 택했습니다.",
-    metric: "7개 규칙을 모든 PR에서 자동 검사",
-    Fragment: VsaFragment,
-  },
-  {
-    slug: "editor-migration",
-    track: "성능",
-    title: "WYSIWYG 에디터 마이그레이션",
-    decision: "완제품 에디터 대신 Headless 에디터를 골라 툴바를 직접 만들었습니다.",
-    metric: "에디터 의존성 2.5GB → 3MB",
-    Fragment: EditorFragment,
+    slug: "vendor-matching",
+    track: "제품 개발",
+    title: "영업 담당자 자동매칭",
+    decision: "벤더마다 다른 지역 표기를 먼저 표준화하고, 정확히 맞지 않는 값만 유사도 매칭으로 넘겼습니다.",
+    metric: "담당자 배정이 늦어 밀리던 신규 계약, 이제 90% 이상 자동 배정",
+    proposed: false,
+    Fragment: MatchingFragment,
   },
   {
     slug: "cms-development",
@@ -38,9 +23,31 @@ const CASES = [
     title: "자체 CMS 구축",
     decision: "외부 Headless CMS를 붙이지 않고 기존 서버 위에 필요한 범위만 가볍게 만들었습니다.",
     metric: "콘텐츠 개발 요청 3일 1회 → 2주 1회",
+    proposed: true,
     Fragment: CmsFragment,
   },
+  {
+    slug: "qa-automation-bot",
+    track: "품질 · 자동화",
+    title: "QA 자동화 봇",
+    decision: "AI가 만든 테스트는 참고용으로 분리하고 고정 테스트만 PR Gate로 썼습니다.",
+    metric: "PR마다 90+ 테스트 자동 실행",
+    proposed: true,
+    Fragment: QaFragment,
+  },
+  {
+    slug: "editor-migration",
+    track: "성능",
+    title: "WYSIWYG 에디터 마이그레이션",
+    decision: "완제품 에디터 대신 Headless 에디터를 골라 툴바를 직접 만들었습니다.",
+    metric: "에디터 의존성 2.5GB → 3MB",
+    proposed: false,
+    Fragment: EditorFragment,
+  },
 ];
+
+/** 직접 제안해서 시작한 작업 표시 */
+const PROPOSED = <span className="ml-2 text-xs font-semibold text-blue-600 dark:text-blue-400">직접 제안</span>;
 
 /** 한 사례가 차지하는 스크롤 길이 (화면 높이 대비) */
 const STEP_VH = 70;
@@ -126,6 +133,7 @@ export default function FeaturedWork() {
                             <span>
                               <span className="block text-xs text-slate-500 dark:text-slate-400">
                                 {c.track}
+                                {c.proposed && PROPOSED}
                               </span>
                               <span
                                 className={`block text-lg font-semibold ${
@@ -196,12 +204,13 @@ export default function FeaturedWork() {
         {heading}
         {/* 항목마다 옅은 경계선과 넉넉한 위아래 여백으로 구분한다 */}
         <ol className="divide-y divide-slate-200/80 dark:divide-white/[0.08]">
-          {CASES.map(({ slug, track, title, decision, metric, Fragment }, i) => (
+          {CASES.map(({ slug, track, title, decision, metric, proposed, Fragment }, i) => (
             <li key={slug} className="py-14 first:pt-0 last:pb-10">
               <Fragment active />
               <div className="mt-5">
                 <p className="text-xs text-slate-500 dark:text-slate-400">
                   {String(i + 1).padStart(2, "0")} · {track}
+                  {proposed && PROPOSED}
                 </p>
                 <h3 className="mt-1 text-lg font-semibold text-slate-900 dark:text-white">{title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-300">{decision}</p>

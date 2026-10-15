@@ -3,7 +3,7 @@
  * 사내 화면을 실을 수 없어서, 구조를 설명하는 예시 UI를 더미 데이터로 직접 그린다.
  * 수치는 프로젝트 상세(projects.ts)에 공개된 값만 쓴다.
  */
-import { Check, Bot, Folder, FileCode2, ShieldCheck } from "lucide-react";
+import { Check, Bot, ShieldCheck } from "lucide-react";
 
 /**
  * 조각 틀. 창 모양(점 + 제목 줄)과 큰 그림자는 쓰지 않는다 — 전형적인 AI 목업처럼 보인다.
@@ -87,74 +87,6 @@ export function QaFragment({ active }: { active: boolean }) {
             <PassRow label="Syntax Check" note="실패 시 1회 재시도" />
             <PassRow label="Read-only로 실행" note="데이터 변조 불가" />
           </div>
-        </div>
-      </Reveal>
-    </Window>
-  );
-}
-
-/* ─── 2. VSA: 폴더 구조 ─── */
-function TreeRow({
-  depth,
-  name,
-  file = false,
-  tag,
-  tone = "default",
-}: {
-  depth: number;
-  name: string;
-  file?: boolean;
-  tag?: string;
-  tone?: "default" | "accent" | "muted";
-}) {
-  const Icon = file ? FileCode2 : Folder;
-  const color =
-    tone === "accent"
-      ? "text-blue-700 dark:text-blue-300"
-      : tone === "muted"
-        ? "text-slate-600 dark:text-slate-400"
-        : "text-slate-700 dark:text-slate-200";
-  return (
-    <div className="flex items-center justify-between py-1.5" style={{ paddingLeft: depth * 18 }}>
-      <span className={`flex items-center gap-2 font-mono text-[13px] ${color}`}>
-        <Icon className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-        {name}
-      </span>
-      {tag && (
-        <span
-          className={`rounded px-1.5 py-0.5 text-[10px] font-semibold ${
-            tone === "accent"
-              ? "bg-blue-50 text-blue-700 dark:bg-blue-400/10 dark:text-blue-300"
-              : "bg-slate-200/70 text-slate-700 dark:bg-white/[0.08] dark:text-slate-300"
-          }`}
-        >
-          {tag}
-        </span>
-      )}
-    </div>
-  );
-}
-
-export function VsaFragment({ active }: { active: boolean }) {
-  return (
-    <Window title="프론트엔드 구조 · 하이브리드">
-      <Reveal show={active} index={0}><TreeRow depth={0} name="app/" /></Reveal>
-      <Reveal show={active} index={1}><TreeRow depth={1} name="[route]/" /></Reveal>
-      <Reveal show={active} index={2}>
-        <TreeRow depth={2} name="_components/" tag="라우트로 이동" tone="accent" />
-      </Reveal>
-      <Reveal show={active} index={3}><TreeRow depth={2} name="page.tsx" file /></Reveal>
-      <Reveal show={active} index={4}><TreeRow depth={0} name="hooks/" tag="공통 유지" tone="muted" /></Reveal>
-      <Reveal show={active} index={5}>
-        <TreeRow depth={0} name="types/" tag="전역 선언 · 이동 불가" tone="muted" />
-      </Reveal>
-      <Reveal show={active} index={6}><TreeRow depth={0} name="api/" tag="공통 유지" tone="muted" /></Reveal>
-
-      <Reveal show={active} index={7}>
-        <div className="mt-4 rounded-lg bg-slate-900 dark:bg-black px-3.5 py-2.5 font-mono text-[12px] text-slate-300">
-          <span className="text-slate-400">$</span> 아키텍처 규칙 검사{" "}
-          <span className="text-slate-500">· 모든 PR</span>
-          <div className="mt-1 text-emerald-400">✓ 7 rules · 0 errors</div>
         </div>
       </Reveal>
     </Window>
@@ -272,6 +204,45 @@ export function CmsFragment({ active }: { active: boolean }) {
             3일 1회 <span className="text-slate-400">→</span>{" "}
             <span className="text-blue-700 dark:text-blue-300">2주 1회</span>
           </span>
+        </div>
+      </Reveal>
+    </Window>
+  );
+}
+
+/* ─── 5. 영업 담당자 자동매칭: 거래 신청이 들어오면 담당자가 바로 배정된다 ─── */
+export function MatchingFragment({ active }: { active: boolean }) {
+  const rows = [
+    { name: "약국 A", region: "서울 마포구", owner: "담당자 배정 완료", auto: true },
+    { name: "약국 B", region: "경기 성남시", owner: "담당자 배정 완료", auto: true },
+    { name: "약국 C", region: "부산 해운대구", owner: "담당자 배정 완료", auto: true },
+    { name: "약국 D", region: "주소 확인 필요", owner: "수동 확인", auto: false },
+  ];
+  return (
+    <Window title="거래 신청 · 영업 담당자 배정">
+      <ul className="divide-y divide-slate-200/80 dark:divide-white/[0.06]">
+        {rows.map((r, i) => (
+          <Reveal key={r.name} show={active} index={i}>
+            <li className="flex items-center justify-between py-2.5 text-sm">
+              <span className="text-slate-700 dark:text-slate-200">
+                {r.name}
+                <span className="ml-2 text-xs text-slate-600 dark:text-slate-400">{r.region}</span>
+              </span>
+              <span
+                className={`text-xs font-semibold ${
+                  r.auto ? "text-blue-700 dark:text-blue-300" : "text-slate-600 dark:text-slate-400"
+                }`}
+              >
+                {r.owner}
+              </span>
+            </li>
+          </Reveal>
+        ))}
+      </ul>
+      <Reveal show={active} index={4}>
+        <div className="mt-4 flex items-baseline justify-between border-t border-slate-100 pt-4 dark:border-white/[0.06]">
+          <span className="text-sm text-slate-600 dark:text-slate-300">주소로 자동 배정되는 비율</span>
+          <span className="text-sm font-semibold tabular-nums text-blue-700 dark:text-blue-300">90% 이상</span>
         </div>
       </Reveal>
     </Window>
