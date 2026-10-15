@@ -89,7 +89,9 @@ function Folder({
           />
         </g>
       </svg>
-      <span className="text-center text-sm font-semibold leading-tight text-white">{label}</span>
+      <span className="text-center text-sm font-semibold leading-tight text-white">
+        {label}
+      </span>
     </a>
   );
 }
@@ -105,7 +107,7 @@ function Badge({ small = false }: { small?: boolean }) {
         <p className="text-lg font-bold tracking-[-0.02em] text-slate-900">
           유병규
         </p>
-        <p className="text-sm text-slate-500">Frontend Engineer</p>
+        <p className="text-sm text-slate-500">Product Engineer</p>
       </div>
     </HeroMedia>
   );
@@ -124,7 +126,7 @@ export default function HeroStage() {
           className="relative hidden lg:block"
           style={{
             width: STAGE_W,
-            height: `min(${STAGE_H}px, calc(100dvh - 14rem))`,
+            height: `min(${STAGE_H}px, calc(100dvh - 19rem))`,
             maxWidth: "100%",
           }}
         >
@@ -190,12 +192,35 @@ export default function HeroStage() {
               : { duration: 0.6, delay: TEXT_DELAY, ease: [0.16, 1, 0.3, 1] }
           }
         >
-          <h1 className="text-balance text-[2rem] font-bold leading-[1.2] tracking-[-0.035em] sm:text-5xl">
-            반복을 없애고, 기준을 코드에 남깁니다.
+          <h1 className="text-balance text-[2rem] font-bold leading-[1.2] tracking-[-0.035em] sm:text-[2.6rem]">
+            문제를 먼저 찾아, 실제로 쓰이는 해결책을 만듭니다.
           </h1>
-          <p className="mt-4 text-base text-blue-100 sm:text-lg">
-            Next.js·TypeScript로 웹 서비스를 만드는 프론트엔드 개발자입니다.
+          <p className="mt-3 text-balance text-base text-blue-100 sm:text-lg">
+            직접 제안해 만든 QA 봇과 자체 CMS는 지금도 팀이 쓰고 있습니다.
           </p>
+          {/* 히어로의 주 행동: 폴더(섹션 이동)보다 먼저 눈에 들어오게 버튼 두 개만 둔다 */}
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            <a
+              href="#featured"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollTo("#featured");
+              }}
+              className="rounded-md bg-white px-5 py-3 text-sm font-semibold text-blue-700 transition-transform hover:bg-blue-50 active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >
+              작업 사례 보기
+            </a>
+            <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollTo("#contact");
+              }}
+              className="rounded-md px-5 py-3 text-sm font-semibold text-white ring-1 ring-inset ring-white/70 transition-colors hover:bg-white/10 active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >
+              연락하기
+            </a>
+          </div>
         </motion.div>
 
         <ul className="mt-10 grid grid-cols-3 gap-x-2 gap-y-4 sm:grid-cols-6 lg:hidden">
