@@ -22,6 +22,7 @@ export const metadata: Metadata = {
     "포트폴리오",
   ],
   authors: [{ name: "WhyBusyy" }],
+  alternates: { canonical: "/" },
   openGraph: {
     title: "유병규 | 프로덕트 엔지니어(프론트엔드) 포트폴리오",
     description:

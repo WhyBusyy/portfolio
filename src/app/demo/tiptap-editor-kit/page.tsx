@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "tiptap-editor-kit Demo",
   description:
     "Ready-to-use Tiptap WYSIWYG editor with full toolbar, image upload, and table support.",
+  alternates: { canonical: "/demo/tiptap-editor-kit" },
 };
 
 export default async function DemoPage({
