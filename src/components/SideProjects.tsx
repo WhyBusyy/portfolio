@@ -6,6 +6,8 @@ import {
   Package,
   Gamepad2,
   GitMerge,
+  Keyboard,
+  Route,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import Image from "next/image";
@@ -46,6 +48,46 @@ const sideProjects: SideProject[] = [
     screenshot: "/makemood-v2.webp",
     category: "Web Service",
     icon: Globe,
+  },
+  {
+    title: "개발자의 타자 연습",
+    description:
+      "개발 용어를 치면 그 개념이 그림으로 움직이는 타자 연습 사이트입니다. 자료구조·알고리즘·OS·네트워크·DB·SW 공학·보안 용어 140개를 한글·영어로 칠 수 있고, 용어마다 막대·셀·그래프·타임라인·메시지 5가지 템플릿으로 동작을 보여 줍니다. 한글은 자모 단위로 입력을 판정하고, 검색 유입을 위해 용어별 정적 페이지를 빌드 때 생성합니다.",
+    techStack: [
+      "Svelte 5",
+      "Vite",
+      "Cloudflare Workers",
+      "Workers KV",
+      "Vitest",
+      "Playwright",
+    ],
+    github: null,
+    demo: "https://type.whybusyy.com",
+    demoLabel: "type.whybusyy.com",
+    screenshot: "/whybusyy-type.webp",
+    category: "Web Service",
+    icon: Keyboard,
+  },
+  {
+    title: "http-journey - 요청 하나의 186ms",
+    description:
+      "주니어 개발자를 위한 한국어 인터랙티브 페이지입니다. 주문 버튼을 누른 순간부터 화면이 바뀌기까지 HTTP 요청 하나가 거치는 9단계를 스크롤에 맞춰 따라가며, 단계마다 오가는 메시지(논리)와 지나는 장비(물리)를 두 레인 다이어그램으로 보여 줍니다. 본문은 Astro로 JS 없는 HTML을 만들고 다이어그램만 React island로 hydrate했으며, 단계별 ms 값의 근거를 문서로 남겼습니다.",
+    techStack: [
+      "Astro",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "motion",
+      "nanostores",
+      "Vitest",
+      "Playwright",
+    ],
+    github: "https://github.com/WhyBusyy/http-journey",
+    demo: "https://http-journey.whybusyy.com",
+    demoLabel: "http-journey.whybusyy.com",
+    screenshot: "/http-journey.webp",
+    category: "Frontend",
+    icon: Route,
   },
   {
     title: "루틴 체크 - 매일 습관 트래커",
