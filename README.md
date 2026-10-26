@@ -3,7 +3,7 @@
 Next.js, TypeScript, React 기반의 프로덕트 엔지니어(프론트엔드) 포트폴리오 웹사이트입니다.
 단순한 이력 나열이 아닌, 프로젝트 케이스 스터디와 스토리텔링 중심의 포트폴리오를 지향합니다.
 
-🌐 https://whybusyy.vercel.app
+🌐 https://portfolio.whybusyy.com
 
 ## 기술 스택
 
