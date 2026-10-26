@@ -29,27 +29,6 @@ interface SideProject {
 
 const sideProjects: SideProject[] = [
   {
-    title: "Make Mood - 1분 성향 테스트 모음",
-    description:
-      "1분 성향 테스트 사이트를 직접 기획하고 만들어 운영하고 있습니다. 프레임워크 없이 HTML·CSS·ES Modules로 만들고, 공통 CSS 인라인과 유형 페이지 자동 생성, 공유 이미지 렌더링은 Node.js 빌드 스크립트로 처리했습니다. Claude Code로 기획·카피·디자인·개발 등 역할별 에이전트 10명을 git worktree로 나눠 운영하고, 같은 테스트를 토스 미니앱(앱인토스)으로도 출시했습니다.",
-    techStack: [
-      "HTML",
-      "CSS",
-      "Vanilla JS (ES Modules)",
-      "Node.js",
-      "Cloudflare Workers",
-      "Playwright",
-      "React (앱인토스)",
-      "Claude Code",
-    ],
-    github: null,
-    demo: "https://makemood.site",
-    demoLabel: "makemood.site",
-    screenshot: "/makemood-v2.webp",
-    category: "Web Service",
-    icon: Globe,
-  },
-  {
     title: "개발자의 타자 연습",
     description:
       "개발 용어를 치면 그 개념이 그림으로 움직이는 타자 연습 사이트입니다. 자료구조·알고리즘·OS·네트워크·DB·SW 공학·보안 용어 140개를 한글·영어로 칠 수 있고, 용어마다 막대·셀·그래프·타임라인·메시지 5가지 템플릿으로 동작을 보여 줍니다. 한글은 자모 단위로 입력을 판정하고, 검색 유입을 위해 용어별 정적 페이지를 빌드 때 생성합니다.",
